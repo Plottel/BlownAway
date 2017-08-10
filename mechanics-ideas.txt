@@ -21,3 +21,7 @@ Player Abilities
 Player Resources
 	- You lose resource when you use abilities
 	- Resource is gained in _some_ way 
+
+Powerups
+	- Enemy Carrier brings extra stuff
+		- Trebuchet, powerup, scrap
