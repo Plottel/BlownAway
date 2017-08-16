@@ -29,6 +29,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
 
+		public GameObject AttackSphere;
+		public int AreaAttackRadius = 100;
+
 
 		void Start()
 		{
@@ -73,6 +76,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			// send input and other state parameters to the animator
 			UpdateAnimator(move);
+		}
+
+		public void AttackArea()
+		{
+			GameObject.Instantiate (AttackSphere, this.gameObject.transform.position, Quaternion.identity);
+			m_Rigidbody.AddExplosionForce (AreaAttackRadius, this.gameObject.transform.position, AreaAttackRadius);
 		}
 
 

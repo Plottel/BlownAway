@@ -17,6 +17,7 @@ public class Spawner : MonoBehaviour {
 		wave = 1;
 		units = new List<EnemyAI> ();
 		ship = FindObjectOfType<ShipMovement> ();
+
 	}
 	
 	// Update is called once per frame
