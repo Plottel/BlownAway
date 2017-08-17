@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Scenes/Aaron_TestleWorld.unity
-  isLoaded: 1
-  isActive: 1
