@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AreaAttack : MonoBehaviour {
 
-	public int ExplosionForce = 10000;
+	public int ExplosionForce = 400;
 	public int ExplosionRadius = 100;
 
 	private Vector3 GrowthFactor;
@@ -40,8 +40,9 @@ public class AreaAttack : MonoBehaviour {
 		Debug.Log ("Sphere Hit!");
 		if (col.gameObject.name.Contains ("Enemy"))
 		{
-			Rigidbody RB = col.gameObject.GetComponent<Rigidbody>();
-			RB.AddExplosionForce (ExplosionForce, this.gameObject.transform.position, ExplosionRadius);
+			Debug.Log ("KnockKnock");
+			Rigidbody EnemyBody = col.gameObject.GetComponent<Rigidbody>();
+			Hit (EnemyBody);
 		}
 	}
 }

@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour {
 	public bool CheckForWaveUnload()
 	{
 		bool allOut = true;
-		allOut = units.Find (u => u.Mode == "Disembark") != null;
+		allOut = units.Find (u => u.Mode != "Disembark") != null;
 		return allOut;
 	}
 

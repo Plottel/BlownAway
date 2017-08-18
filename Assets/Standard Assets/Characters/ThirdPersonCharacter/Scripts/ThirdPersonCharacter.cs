@@ -81,7 +81,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public void AttackArea()
 		{
 			GameObject.Instantiate (AttackSphere, this.gameObject.transform.position, Quaternion.identity);
-			m_Rigidbody.AddExplosionForce (AreaAttackRadius, this.gameObject.transform.position, AreaAttackRadius);
 		}
 
 

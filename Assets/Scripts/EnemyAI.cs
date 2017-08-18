@@ -68,12 +68,6 @@ public class EnemyAI : MonoBehaviour {
 		{
 			Mode = "Attack";
 		}
-		if (col.gameObject.name.Contains ("Sphere")) 
-		{
-			Debug.Log ("Sphere col");
-			var blast = col.GetComponent<AreaAttack> ();
-			blast.Hit (m_Rigidbody);
-		}
 		
 	}
 }
