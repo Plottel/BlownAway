@@ -1,25 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Grid : MonoBehaviour
 {
-    // X = X
-    // Z = Y
-    // Y = up and down -> bad
-
     public Cell cell;
 
-    private int cellSize = 5;
-    private int cols;
-    private int rows;
+    public int cellSize = 1;
 
-    private List<List<Cell>> cells = new List<List<Cell>>();
+    [HideInInspector]
+    public int cols = 0;
+    [HideInInspector]
+    public int rows = 0;
+
+    private List<List<Cell>> cells = new List<List<Cell>>(); 
 
     private Cell CreateCellAt(Vector3 pos)
     {
         Cell newCell = Instantiate(cell, pos, Quaternion.identity);
-        newCell.transform.SetParent(this.transform);
+        newCell.transform.SetParent(this.gameObject.transform);
 
         return newCell;
     }
@@ -40,7 +40,7 @@ public class Grid : MonoBehaviour
 
         cells.Add(newCol);
         ++cols;
-    }
+    }    
 
     public void AddRow()
     {
@@ -55,6 +55,40 @@ public class Grid : MonoBehaviour
         }
 
         ++rows;
+    }
+
+    public void RemoveColumn()
+    {
+        for (int row = 0; row < rows; ++row)
+        {
+            DestroyImmediate(cells.Last()[row].gameObject);
+            cells.Last()[row] = null;
+        }
+
+        cells.Remove(cells.Last());
+
+        --cols;
+    }
+
+    public void RemoveRow()
+    {
+        for (int col = 0; col < cols; ++col)
+        {
+            DestroyImmediate(cells[col].Last().gameObject);
+            cells[col][rows - 1] = null;
+            cells[col].RemoveAt(rows - 1);
+        }
+
+        --rows;
+    }
+
+    public void PopulateIslands()
+    {
+        for (int col = 0; col < cols; ++col)
+        {
+            for (int row = 0; row < rows; ++row)
+                cells[col][row].AddIslandPiece();
+        }
     }
 
     void OnDrawGizmos()
