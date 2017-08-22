@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class IslandPiece : MonoBehaviour 
 {
     public IslandTerrain terrainPrefab;
     public IslandTerrain terrain;
+
+    public bool FollowPath = false;
+
+    private List<Cell> _path;
 
     public void AddTerrain()
     {
@@ -24,16 +29,99 @@ public class IslandPiece : MonoBehaviour
         terrain = null;
     }
 
+    public void MoveToCell(Cell target)
+    {
+        // Should only be true if valid path fetched.
+        FollowPath = true;
+
+        var src = this.transform.parent.GetComponent<Cell>();
+        var open = new List<Cell>();
+        var closed = new List<Cell>();
+        var parents = new Dictionary<Cell, Cell>();
+        var scores = new Dictionary<Cell, float>();
+        var gScores = new Dictionary<Cell, float>();
+
+        var current = src;
+
+        if (target == src)
+            return;
+
+        open.Add(current);
+        parents.Add(current, null);
+        scores.Add(current, 0);
+        gScores.Add(current, 1);
+
+        while (open.Count > 0)
+        {
+            if (current == target)
+                break;
+
+            foreach (Cell cell in current.neighbours)
+            {
+                if (!cell.IslandIsConnected && 
+                    !closed.Contains(cell) && 
+                    !open.Contains(cell))
+                {
+                    open.Add(cell);
+                    parents.Add(cell, current);
+
+                    // Calc g-score
+                    float gScore = 1;
+                    Cell c = current;
+
+                    while (parents[c] != null)
+                    {
+                        gScore += gScores[parents[c]];
+                        c = parents[c];
+                    }
+
+                    float hScore = Vector2.Distance(current.Pos2D, cell.Pos2D);
+
+                    // Add scores
+                    scores.Add(cell, hScore + gScore);
+                    gScores.Add(cell, gScore);
+
+                }
+            }
+
+            open.Remove(current);
+            closed.Add(current);
+
+            open = open.OrderBy(openCell => scores[openCell]).ToList();
+            current = open[0];
+        }
+
+        // Search complete - fetch patch.
+        _path = new List<Cell>();
+
+        // Add target
+        _path.Add(target);
+        _path.Add(current);
+
+        // Retrace parents back to start
+        while (parents[current] != null)
+        {
+            _path.Add(parents[current]);
+            current = parents[current];
+        }
+
+        _path.Add(src);
+
+        _path.Reverse();    
+    }
 
     // Use this for initialization
     void Start () 
 	{
-		
+        _path = new List<Cell>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		if (FollowPath)
+        {
+            // Path following stuff here.
+        }
 	}
 }

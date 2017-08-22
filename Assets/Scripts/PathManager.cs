@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathManager : MonoBehaviour 
+public static class PathManager
 {
+    public static Grid grid;
 
-	// Use this for initialization
-	void Start () 
-	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
+    public static List<Cell> GetPath(Vector2 from, Vector2 to)
+    {
+        var result = new List<Cell>();
+    }
 }

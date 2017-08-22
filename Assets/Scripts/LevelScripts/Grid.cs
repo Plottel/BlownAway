@@ -12,7 +12,12 @@ public class Grid : MonoBehaviour
     public int cols = 0;
     public int rows = 0;
 
-    private List<List<Cell>> cells = new List<List<Cell>>(); 
+    private List<List<Cell>> _cells = new List<List<Cell>>(); 
+
+    public Cell this[int col, int row]
+    {
+        get { return _cells[col][row]; }
+    }
 
     private Cell CreateCellAt(Vector3 pos)
     {
@@ -36,7 +41,7 @@ public class Grid : MonoBehaviour
             newCol.Add(CreateCellAt(new Vector3(x, y, z)));
         }
 
-        cells.Add(newCol);
+        _cells.Add(newCol);
         ++cols;
     }    
 
@@ -49,7 +54,7 @@ public class Grid : MonoBehaviour
             float y = transform.position.y;
             float z = transform.position.z + rows * cellSize;
 
-            cells[col].Add(CreateCellAt(new Vector3(x, y, z)));
+            _cells[col].Add(CreateCellAt(new Vector3(x, y, z)));
         }
 
         ++rows;
@@ -59,11 +64,11 @@ public class Grid : MonoBehaviour
     {
         for (int row = 0; row < rows; ++row)
         {
-            DestroyImmediate(cells.Last()[row].gameObject);
-            cells.Last()[row] = null;
+            DestroyImmediate(_cells.Last()[row].gameObject);
+            _cells.Last()[row] = null;
         }
 
-        cells.Remove(cells.Last());
+        _cells.Remove(_cells.Last());
 
         --cols;
     }
@@ -72,9 +77,9 @@ public class Grid : MonoBehaviour
     {
         for (int col = 0; col < cols; ++col)
         {
-            DestroyImmediate(cells[col].Last().gameObject);
-            cells[col][rows - 1] = null;
-            cells[col].RemoveAt(rows - 1);
+            DestroyImmediate(_cells[col].Last().gameObject);
+            _cells[col][rows - 1] = null;
+            _cells[col].RemoveAt(rows - 1);
         }
 
         --rows;
@@ -85,7 +90,7 @@ public class Grid : MonoBehaviour
         for (int col = 0; col < cols; ++col)
         {
             for (int row = 0; row < rows; ++row)
-                cells[col][row].AddIslandPiece();
+                _cells[col][row].AddIslandPiece();
         }
     }
 
@@ -97,20 +102,38 @@ public class Grid : MonoBehaviour
         {
             for (int row = 0; row < rows; ++row)
             {
-                Cell c = cells[col][row];
+                Cell c = _cells[col][row];
                 Gizmos.DrawWireCube(c.transform.position, c.transform.localScale);
             }
         }
     }
 
-    void Awake()
-    {
-    }
-
     // Use this for initialization
     void Start ()
     {
+        // Setup cell neighbours.
+        for (int col = 0; col < cols; ++col)
+        {
+            for (int row = 0; row < rows; ++row)
+            {
+                var neighbours = new List<Cell>();
+
+
+                AddCell(this[col - 1, row], neighbours); // West
+                AddCell(this[col, row + 1], neighbours); // South
+                AddCell(this[col + 1, row], neighbours); // East
+                AddCell(this[col, row - 1], neighbours); // North
+
+                this[col, row].neighbours = neighbours;
+            }
+        }
 	}
+
+    private void AddCell(Cell cell, ICollection<Cell> list)
+    {
+        if (cell != null)
+            list.Add(cell);
+    }
 	
 	// Update is called once per frame
 	void Update ()
