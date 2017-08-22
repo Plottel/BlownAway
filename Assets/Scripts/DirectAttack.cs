@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AreaAttack : MonoBehaviour {
+public class DirectAttack : MonoBehaviour {
 
 	public int ExplosionForce = 400;
 	public int ExplosionRadius = 100;
@@ -19,7 +19,7 @@ public class AreaAttack : MonoBehaviour {
 		this.transform.localScale = growthFactor;
 		Template = GameObject.Instantiate<TemplateAttackGraphics> (Template);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		Grow ();
