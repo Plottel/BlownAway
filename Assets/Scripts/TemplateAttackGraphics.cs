@@ -21,7 +21,7 @@ public class TemplateAttackGraphics : MonoBehaviour {
 		}
 	}
 
-	void RenderAreaAttack (float Magnitude) {
+	public void RenderAreaAttack (float Magnitude) {
 		float size = (MaxScale * Magnitude) + MinScale;
 		if (size > MaxScale) {
 			transform.localScale = new Vector3(MaxScale, MaxScale, 1);
@@ -31,7 +31,7 @@ public class TemplateAttackGraphics : MonoBehaviour {
 	}
 
 	//INCOMPLETE.
-	void RenderDirectAttack (float Magnitude) {
+	public void RenderDirectAttack (float Magnitude) {
 		float size = (MaxScale * Magnitude) + MinScale;
 		if (size > MaxScale) {
 			transform.localScale = new Vector3(MaxScale, MaxScale, 1);
