@@ -4,30 +4,40 @@ using UnityEngine;
 
 public class AreaAttack : MonoBehaviour {
 
-	public int ExplosionForce = 10000;
+	public int ExplosionForce = 400;
 	public int ExplosionRadius = 100;
 
-	private Vector3 GrowthFactor;
-	private Vector3 MaxSize;
+	private Vector3 growthFactor;
+	private Vector3 maxSize;
+	private float currentScale;
+	private TemplateAttackGraphics Template;
 
 	// Use this for initialization
 	void Start () {
-		GrowthFactor = new Vector3(1, 1, 1);
-		MaxSize = new Vector3(ExplosionRadius, ExplosionRadius, ExplosionRadius);
-		this.transform.localScale = GrowthFactor;
+		growthFactor = new Vector3(1, 1, 1);
+		maxSize = new Vector3(ExplosionRadius, ExplosionRadius, ExplosionRadius);
+		this.transform.localScale = growthFactor;
+		Template = GameObject.Instantiate<TemplateAttackGraphics> (Template);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Grow ();
+		DrawTemplate ();
 	}
 
 	void Grow()
 	{
-		if (transform.localScale.x >= MaxSize.x) 
+		if (transform.localScale.x >= maxSize.x) 
 		{
-			this.transform.localScale += GrowthFactor;
+			currentScale = this.transform.localScale + growthFactor;
+			this.transform.localScale = currentScale;
 		}
+	}
+
+	void DrawTemplate()
+	{
+		
 	}
 
 	public void Hit(Rigidbody target)
@@ -37,11 +47,10 @@ public class AreaAttack : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		Debug.Log ("Sphere Hit!");
 		if (col.gameObject.name.Contains ("Enemy"))
 		{
-			Rigidbody RB = col.gameObject.GetComponent<Rigidbody>();
-			RB.AddExplosionForce (ExplosionForce, this.gameObject.transform.position, ExplosionRadius);
+			Rigidbody EnemyBody = col.gameObject.GetComponent<Rigidbody>();
+			Hit (EnemyBody);
 		}
 	}
 }
