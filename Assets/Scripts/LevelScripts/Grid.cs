@@ -9,9 +9,7 @@ public class Grid : MonoBehaviour
 
     public int cellSize = 1;
 
-    [HideInInspector]
     public int cols = 0;
-    [HideInInspector]
     public int rows = 0;
 
     private List<List<Cell>> cells = new List<List<Cell>>(); 

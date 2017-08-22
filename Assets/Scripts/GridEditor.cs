@@ -17,11 +17,21 @@ public class GridEditor : Editor
         // cols = 2
         DrawDefaultInspector();
 
-        Grid grid = (Grid)target;
-
         Cols = EditorGUILayout.IntSlider("Cols", Cols, 0, 30);
         Rows = EditorGUILayout.IntSlider("Rows", Rows, 0, 30);
 
+        Grid grid = (Grid)target;      
+
+        if (GUILayout.Button("Populate Islands"))
+            grid.PopulateIslands();
+
+        if (GUILayout.Button("Update Grid Size"))
+            UpdateGridSize(grid);
+
+    }
+
+    public void UpdateGridSize(Grid grid)
+    {      
         int colsToAdd = Cols - grid.cols;
 
         if (colsToAdd != 0)
@@ -55,8 +65,5 @@ public class GridEditor : Editor
             for (int i = 0; i < Math.Abs(rowsToAdd); ++i)
                 gridRowOperator();
         }
-
-        if (GUILayout.Button("Populate Islands"))
-            grid.PopulateIslands();
     }
 }
