@@ -80,7 +80,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		public void AttackArea()
 		{
-			GameObject.Instantiate (AttackSphere, this.gameObject.transform.position, Quaternion.identity);
+			GameObject.Instantiate (AttackSphere, this.gameObject.transform.position, Quaternion.identity, this.transform);
 		}
 
 

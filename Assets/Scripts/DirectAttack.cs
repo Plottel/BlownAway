@@ -10,14 +10,15 @@ public class DirectAttack : MonoBehaviour {
 	private Vector3 growthFactor;
 	private Vector3 maxSize;
 	private float currentScale;
-	private TemplateAttackGraphics Template;
+	public TemplateAttackGraphics AttackTemplate;
+	private float growAmount;
 
 	// Use this for initialization
 	void Start () {
 		growthFactor = new Vector3(1, 1, 1);
 		maxSize = new Vector3(ExplosionRadius, ExplosionRadius, ExplosionRadius);
 		this.transform.localScale = growthFactor;
-		Template = GameObject.Instantiate<TemplateAttackGraphics> (Template);
+		AttackTemplate = GameObject.Instantiate<TemplateAttackGraphics> (AttackTemplate);
 	}
 
 	// Update is called once per frame
@@ -28,16 +29,12 @@ public class DirectAttack : MonoBehaviour {
 
 	void Grow()
 	{
-		if (transform.localScale.x >= maxSize.x) 
-		{
-			currentScale = this.transform.localScale + growthFactor;
-			this.transform.localScale = currentScale;
-		}
+		currentScale += growAmount * Time.deltaTime;
 	}
 
 	void DrawTemplate()
 	{
-		
+		AttackTemplate.RenderAreaAttack (currentScale);
 	}
 
 	public void Hit(Rigidbody target)
