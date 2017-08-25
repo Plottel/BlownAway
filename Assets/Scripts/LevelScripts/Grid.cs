@@ -118,7 +118,6 @@ public class Grid : MonoBehaviour
             {
                 var neighbours = new List<Cell>();
 
-
                 AddCell(this[col - 1, row], neighbours); // West
                 AddCell(this[col, row + 1], neighbours); // South
                 AddCell(this[col + 1, row], neighbours); // East
