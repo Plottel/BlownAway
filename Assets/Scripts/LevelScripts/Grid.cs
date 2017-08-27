@@ -3,20 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+namespace UnityEngine
+{
+    public enum Quadrant
+    {
+        TopLeft,
+        TopRight,
+        BotLeft,
+        BotRight
+    }
+}
+
 public class Grid : MonoBehaviour
 {
     public Cell cell;
 
     public int cellSize = 1;
 
-    public int cols = 0;
-    public int rows = 0;
+    public int cols;
+    public int rows;
 
-    private List<List<Cell>> _cells = new List<List<Cell>>(); 
+    public int ColCellCount
+    {
+        get { return _cells.Count; }
+    }
+
+    public List<List<Cell>> _cells;
 
     public Cell this[int col, int row]
     {
         get { return _cells[col][row]; }
+    }
+
+    public List<Cell> this[int col]
+    {
+        get
+        {
+            if (_cells.Count > 0)
+                return _cells[0];
+            return new List<Cell>();
+        }
     }
 
     private Cell CreateCellAt(Vector3 pos)
@@ -29,6 +55,9 @@ public class Grid : MonoBehaviour
 
     public void AddColumn()
     {
+        if (_cells == null)
+            _cells = new List<List<Cell>>();
+
         var newCol = new List<Cell>();
 
         // For each row in the newly created column.
@@ -47,6 +76,9 @@ public class Grid : MonoBehaviour
 
     public void AddRow()
     {
+        if (_cells == null)
+            _cells = new List<List<Cell>>();
+
         //For each column to have a new row added to it
         for (int col = 0; col < cols; ++col)
         {
@@ -111,6 +143,12 @@ public class Grid : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        cols = _cells.Count;
+
+        if (cols > 0)
+            rows = _cells[0].Count;
+
+
         // Setup cell neighbours.
         for (int col = 0; col < cols; ++col)
         {
@@ -128,8 +166,10 @@ public class Grid : MonoBehaviour
         }
 	}
 
-    public void SplitIntoFour()
+    public Dictionary<Quadrant, List<Cell>> GetQuadrants()
     {
+        var result = new Dictionary<Quadrant, List<Cell>>();
+
         // Top left
         var topLeft = new List<Cell>();
         // Col: 0 to Floor(Cols / 2)
@@ -170,8 +210,13 @@ public class Grid : MonoBehaviour
                 botRight.Add(_cells[col][row]);
         }
 
-        // Get vector from centre to each corner
-        // Island travels along that vector outwards until a stopping point.
+        // Return four cell lists mapped to each quadrant.
+        result.Add(Quadrant.TopLeft, topLeft);
+        result.Add(Quadrant.TopRight, topRight);
+        result.Add(Quadrant.BotLeft, botLeft);
+        result.Add(Quadrant.BotRight, botRight);
+
+        return result;
        
     }
 

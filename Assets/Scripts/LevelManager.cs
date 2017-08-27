@@ -5,16 +5,21 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour 
 {
     public Grid grid;
+    private GridCon _gridCon;
 
 	// Use this for initialization
-	void Start () 
-	{
+	void Start ()
+    { 
         PathManager.grid = grid;
-	}
+        _gridCon = new GridCon();
+    }
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		
-	}
+        if (Input.GetKeyDown(KeyCode.S))
+            GridCon.Instance.SplitGridIntoFour(grid);
+        if (Input.GetKeyDown(KeyCode.R))
+            GridCon.Instance.ReformGrid(grid);
+    }
 }

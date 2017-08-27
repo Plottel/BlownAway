@@ -8,7 +8,12 @@ public class IslandPiece : MonoBehaviour
     public IslandTerrain terrainPrefab;
     public IslandTerrain terrain;
 
-    public bool FollowPath = false;
+    private bool _followDirect = false;
+    public Vector3 directTarget;
+    private float _speed;
+
+
+    private bool _followPath = false;
 
     private List<Cell> _path;
 
@@ -29,10 +34,17 @@ public class IslandPiece : MonoBehaviour
         terrain = null;
     }
 
-    public void MoveToCell(Cell target)
+    public void SetPathDirect(Vector3 target, float speed)
+    {
+        _followDirect = true;
+        directTarget = target;
+        _speed = speed;
+    }
+
+    public void SetPathToCell(Cell target)
     {
         // Should only be true if valid path fetched.
-        FollowPath = true;
+        _followPath = true;
 
         var src = this.transform.parent.GetComponent<Cell>();
         var open = new List<Cell>();
@@ -119,9 +131,13 @@ public class IslandPiece : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if (FollowPath)
+		if (_followPath)
         {
             // Path following stuff here.
+        }
+        else if (_followDirect)
+        {
+            this.transform.position = Vector3.MoveTowards(this.transform.position, directTarget, _speed * Time.deltaTime);
         }
 	}
 }
