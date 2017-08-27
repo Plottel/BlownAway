@@ -118,7 +118,6 @@ public class Grid : MonoBehaviour
             {
                 var neighbours = new List<Cell>();
 
-
                 AddCell(this[col - 1, row], neighbours); // West
                 AddCell(this[col, row + 1], neighbours); // South
                 AddCell(this[col + 1, row], neighbours); // East
@@ -128,6 +127,53 @@ public class Grid : MonoBehaviour
             }
         }
 	}
+
+    public void SplitIntoFour()
+    {
+        // Top left
+        var topLeft = new List<Cell>();
+        // Col: 0 to Floor(Cols / 2)
+        // Row: 0 to Floor(Rows / 2)
+        for (int col = 0; col < (int)Mathf.Floor(cols / 2); ++col)
+        {
+            for (int row = 0; row < (int)Mathf.Floor(rows / 2); ++row)
+                topLeft.Add(_cells[col][row]);
+        }
+
+        // Top right
+        var topRight = new List<Cell>();
+        // Col: Floor(Cols / 2) + 1 to Cols
+        // Row: 0 to Floor(Rows / 2)
+        for (int col = (int)Mathf.Floor(cols / 2); col < cols; ++col)
+        {
+            for (int row = 0; row < (int)Mathf.Floor(rows / 2); ++row)
+                topRight.Add(_cells[col][row]);
+        }
+
+        // Bottom left
+        var botLeft = new List<Cell>();
+        // Col: 0 to Floor(Cols / 2)
+        // Row: Floor(Rows / 2) + 1 to Rows
+        for (int col = 0; col < (int)Mathf.Floor(cols / 2); ++col)
+        {
+            for (int row = (int)Mathf.Floor(rows / 2); row < rows; ++row)
+                botLeft.Add(_cells[col][row]);
+        }
+
+        // Bottom right
+        var botRight = new List<Cell>();
+        // Col: Floor(Cols / 2) + 1 to Cols
+        // Row: Floor(Rows / 2) + 1 to Rows
+        for (int col = (int)Mathf.Floor(cols / 2); col < cols; ++col)
+        {
+            for (int row = (int)Mathf.Floor(rows / 2); row < rows; ++row)
+                botRight.Add(_cells[col][row]);
+        }
+
+        // Get vector from centre to each corner
+        // Island travels along that vector outwards until a stopping point.
+       
+    }
 
     private void AddCell(Cell cell, ICollection<Cell> list)
     {
