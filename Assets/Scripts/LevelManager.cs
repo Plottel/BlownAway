@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour 
 {
+    [SerializeField]
     public Grid grid;
+    
     private GridCon _gridCon;
 
 	// Use this for initialization
 	void Start ()
-    { 
+    {
         PathManager.grid = grid;
         _gridCon = new GridCon();
     }

@@ -14,25 +14,46 @@ namespace UnityEngine
     }
 }
 
+[System.Serializable]
 public class Grid : MonoBehaviour
 {
     public Cell cell;
 
     public int cellSize = 1;
 
-    public int cols;
-    public int rows;
+    [SerializeField]
+    public int Cols;
+    [SerializeField]
+    public int Rows;
 
+    [SerializeField]
+    public List<CellListWrapper> _cells;
+
+    [SerializeField]
     public int ColCellCount
     {
         get { return _cells.Count; }
     }
 
-    public List<List<Cell>> _cells;
+    public Cell MidCell
+    {
+        get
+        {
+            if (Cols <= 0 || Rows <= 0)
+                return null;
+
+            return _cells[(int)Mathf.Floor(Cols / 2)][(int)Mathf.Floor(Rows / 2)];        
+        }
+    }
 
     public Cell this[int col, int row]
     {
-        get { return _cells[col][row]; }
+        get
+        {
+            if (col < Cols && col >= 0 && row < Rows && row >= 0)
+                return _cells[col].items[row];
+            return null;
+        }
     }
 
     public List<Cell> this[int col]
@@ -40,7 +61,7 @@ public class Grid : MonoBehaviour
         get
         {
             if (_cells.Count > 0)
-                return _cells[0];
+                return _cells[0].items;
             return new List<Cell>();
         }
     }
@@ -55,46 +76,40 @@ public class Grid : MonoBehaviour
 
     public void AddColumn()
     {
-        if (_cells == null)
-            _cells = new List<List<Cell>>();
-
-        var newCol = new List<Cell>();
+        var newCol = new CellListWrapper();
 
         // For each row in the newly created column.
-        for (int row = 0; row < rows; ++row)
+        for (int row = 0; row < Rows; ++row)
         {
-            float x = transform.position.x + cols * cellSize;
+            float x = transform.position.x + Cols * cellSize;
             float y = transform.position.y;
             float z = transform.position.z + row * cellSize;
 
-            newCol.Add(CreateCellAt(new Vector3(x, y, z)));
+            newCol.items.Add(CreateCellAt(new Vector3(x, y, z)));
         }
 
         _cells.Add(newCol);
-        ++cols;
+        ++Cols;
     }    
 
     public void AddRow()
     {
-        if (_cells == null)
-            _cells = new List<List<Cell>>();
-
         //For each column to have a new row added to it
-        for (int col = 0; col < cols; ++col)
+        for (int col = 0; col < Cols; ++col)
         {
             float x = transform.position.x + col * cellSize;
             float y = transform.position.y;
-            float z = transform.position.z + rows * cellSize;
+            float z = transform.position.z + Rows * cellSize;
 
-            _cells[col].Add(CreateCellAt(new Vector3(x, y, z)));
+            _cells[col].items.Add(CreateCellAt(new Vector3(x, y, z)));
         }
 
-        ++rows;
+        ++Rows;
     }
 
     public void RemoveColumn()
     {
-        for (int row = 0; row < rows; ++row)
+        for (int row = 0; row < Rows; ++row)
         {
             DestroyImmediate(_cells.Last()[row].gameObject);
             _cells.Last()[row] = null;
@@ -102,26 +117,26 @@ public class Grid : MonoBehaviour
 
         _cells.Remove(_cells.Last());
 
-        --cols;
+        --Cols;
     }
 
     public void RemoveRow()
     {
-        for (int col = 0; col < cols; ++col)
+        for (int col = 0; col < Cols; ++col)
         {
-            DestroyImmediate(_cells[col].Last().gameObject);
-            _cells[col][rows - 1] = null;
-            _cells[col].RemoveAt(rows - 1);
+            DestroyImmediate(_cells[col].items.Last().gameObject);
+            _cells[col][Rows - 1] = null;
+            _cells[col].items.RemoveAt(Rows - 1);
         }
 
-        --rows;
+        --Rows;
     }
 
     public void PopulateIslands()
     {
-        for (int col = 0; col < cols; ++col)
+        for (int col = 0; col < Cols; ++col)
         {
-            for (int row = 0; row < rows; ++row)
+            for (int row = 0; row < Rows; ++row)
                 _cells[col][row].AddIslandPiece();
         }
     }
@@ -130,9 +145,9 @@ public class Grid : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
 
-        for (int col = 0; col < cols; ++col)
+        for (int col = 0; col < Cols; ++col)
         {
-            for (int row = 0; row < rows; ++row)
+            for (int row = 0; row < Rows; ++row)
             {
                 Cell c = _cells[col][row];
                 Gizmos.DrawWireCube(c.transform.position, c.transform.localScale);
@@ -143,16 +158,10 @@ public class Grid : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        cols = _cells.Count;
-
-        if (cols > 0)
-            rows = _cells[0].Count;
-
-
         // Setup cell neighbours.
-        for (int col = 0; col < cols; ++col)
+        for (int col = 0; col < Cols; ++col)
         {
-            for (int row = 0; row < rows; ++row)
+            for (int row = 0; row < Rows; ++row)
             {
                 var neighbours = new List<Cell>();
 
@@ -174,9 +183,9 @@ public class Grid : MonoBehaviour
         var topLeft = new List<Cell>();
         // Col: 0 to Floor(Cols / 2)
         // Row: 0 to Floor(Rows / 2)
-        for (int col = 0; col < (int)Mathf.Floor(cols / 2); ++col)
+        for (int col = 0; col < (int)Mathf.Floor(Cols / 2); ++col)
         {
-            for (int row = 0; row < (int)Mathf.Floor(rows / 2); ++row)
+            for (int row = 0; row < (int)Mathf.Floor(Rows / 2); ++row)
                 topLeft.Add(_cells[col][row]);
         }
 
@@ -184,9 +193,9 @@ public class Grid : MonoBehaviour
         var topRight = new List<Cell>();
         // Col: Floor(Cols / 2) + 1 to Cols
         // Row: 0 to Floor(Rows / 2)
-        for (int col = (int)Mathf.Floor(cols / 2); col < cols; ++col)
+        for (int col = (int)Mathf.Floor(Cols / 2); col < Cols; ++col)
         {
-            for (int row = 0; row < (int)Mathf.Floor(rows / 2); ++row)
+            for (int row = 0; row < (int)Mathf.Floor(Rows / 2); ++row)
                 topRight.Add(_cells[col][row]);
         }
 
@@ -194,9 +203,9 @@ public class Grid : MonoBehaviour
         var botLeft = new List<Cell>();
         // Col: 0 to Floor(Cols / 2)
         // Row: Floor(Rows / 2) + 1 to Rows
-        for (int col = 0; col < (int)Mathf.Floor(cols / 2); ++col)
+        for (int col = 0; col < (int)Mathf.Floor(Cols / 2); ++col)
         {
-            for (int row = (int)Mathf.Floor(rows / 2); row < rows; ++row)
+            for (int row = (int)Mathf.Floor(Rows / 2); row < Rows; ++row)
                 botLeft.Add(_cells[col][row]);
         }
 
@@ -204,9 +213,9 @@ public class Grid : MonoBehaviour
         var botRight = new List<Cell>();
         // Col: Floor(Cols / 2) + 1 to Cols
         // Row: Floor(Rows / 2) + 1 to Rows
-        for (int col = (int)Mathf.Floor(cols / 2); col < cols; ++col)
+        for (int col = (int)Mathf.Floor(Cols / 2); col < Cols; ++col)
         {
-            for (int row = (int)Mathf.Floor(rows / 2); row < rows; ++row)
+            for (int row = (int)Mathf.Floor(Rows / 2); row < Rows; ++row)
                 botRight.Add(_cells[col][row]);
         }
 

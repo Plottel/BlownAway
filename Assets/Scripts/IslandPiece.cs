@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
 public class IslandPiece : MonoBehaviour 
 {
     public IslandTerrain terrainPrefab;
@@ -140,4 +141,17 @@ public class IslandPiece : MonoBehaviour
             this.transform.position = Vector3.MoveTowards(this.transform.position, directTarget, _speed * Time.deltaTime);
         }
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+            collision.gameObject.transform.parent = this.transform;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        // TODO: Maybe need to set parent back to "Map"
+        if (collision.gameObject.tag == "Player")
+            collision.gameObject.transform.parent = null;
+    }
 }

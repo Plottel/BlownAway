@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Cell : MonoBehaviour 
 {
     [SerializeField]
@@ -11,6 +12,8 @@ public class Cell : MonoBehaviour
     public Tree treePrefab;
 
     public IslandPiece islandPrefab;
+
+    [SerializeField]
     public IslandPiece islandPiece;
 
     public List<Cell> neighbours = new List<Cell>();
