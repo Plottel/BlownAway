@@ -9,18 +9,15 @@ public class IslandPiece : MonoBehaviour
     public IslandTerrain terrainPrefab;
     public IslandTerrain terrain;
 
-    private bool _followDirect = false;
-    public Vector3 directTarget;
     private float _speed;
+
+    private bool _followPath = false;
+    private Queue<Vector3> _path = new Queue<Vector3>();
 
     public bool HasArrived
     {
-        get { return this.transform.position == directTarget; }
+        get { return _followPath == false && _path.Count == 0; }
     }
-
-    private bool _followPath = false;
-
-    private List<Cell> _path;
 
     public void AddTerrain()
     {
@@ -39,13 +36,19 @@ public class IslandPiece : MonoBehaviour
         terrain = null;
     }
 
-    public void SetPathDirect(Vector3 target, float speed)
+    public void SetPath(Vector3 target, float speed)
     {
-        _followDirect = true;
-        directTarget = target;
+        SetPath(new List<Vector3> { target }, speed);
+    }
+
+    public void SetPath(List<Vector3> path, float speed)
+    {
+        _followPath = true;
+        _path = new Queue<Vector3>(path);
         _speed = speed;
     }
 
+    /*
     public void SetPathToCell(Cell target)
     {
         // Should only be true if valid path fetched.
@@ -126,11 +129,13 @@ public class IslandPiece : MonoBehaviour
 
         _path.Reverse();    
     }
+    */
+
 
     // Use this for initialization
     void Start () 
 	{
-        _path = new List<Cell>();
+        _path = new Queue<Vector3>();
 	}
 	
 	// Update is called once per frame
@@ -138,14 +143,17 @@ public class IslandPiece : MonoBehaviour
 	{
 		if (_followPath)
         {
-            // Path following stuff here.
-        }
-        else if (_followDirect)
-        {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, directTarget, _speed * Time.deltaTime);
+            // Move towards next node in path.
+            this.transform.position = Vector3.MoveTowards(this.transform.position, _path.Peek(), _speed * Time.deltaTime);
 
-            if (this.transform.position == directTarget)
-                _followDirect = false;
+            // Have we reached target node?
+            if (this.transform.position == _path.Peek())
+            {
+                // Do we have more nodes in the path?
+                _path.Dequeue();
+                if (_path.Count == 0)
+                    _followPath = false;
+            }
         }
 	}
 

@@ -18,15 +18,10 @@ public class LevelManager : MonoBehaviour
 
         _scene = new GridScene(grid);
 
-        _scene.EnqueueMove(GridCon.Instance.MoveGridBy, 0, new Vector3(2f, 0, 0));
-        _scene.EnqueueMove(GridCon.Instance.ReformGrid, 0);
-        _scene.EnqueueMove(GridCon.Instance.MoveGridBy, 0, new Vector3(-2f, 0, 0));
-        _scene.EnqueueMove(GridCon.Instance.ReformGrid, 0);
-        _scene.EnqueueMove(GridCon.Instance.MoveGridBy, 0, new Vector3(0, 0, 2f));
-        _scene.EnqueueMove(GridCon.Instance.ReformGrid, 0);
-        _scene.EnqueueMove(GridCon.Instance.MoveGridBy, 0, new Vector3(0, 0, -2f));
+        _scene.EnqueueMove(GridCon.Instance.SwapTwoCells, 0, grid[0, 0], grid[5, 5]);
         _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour, 2);
-        _scene.EnqueueMove(GridCon.Instance.ReformGrid, 1);
+        _scene.EnqueueMove(GridCon.Instance.ReformGrid, 0.5f);
+        _scene.EnqueueMove(GridCon.Instance.SwapTwoCells, 0, grid[2, 2], grid[2, 7]);
     }
 	
 	// Update is called once per frame

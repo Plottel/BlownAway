@@ -14,6 +14,7 @@ public class GridScene
     private Queue<float> _moveDelays;
     private Queue<object[]> _args;
 
+    private bool _isPlaying = false;
     private bool _waitingForNextMove = false;
     private float _moveFinishedAt = 0f;
 
@@ -35,12 +36,15 @@ public class GridScene
     public void Start()
     {
         if (_moves.Count > 0)
+        {
             _moves.Peek()(_grid, _args.Dequeue());
+            _isPlaying = true;
+        }
     }
 
     public void Play()
     {
-        if (_moves.Count == 0)
+        if (!_isPlaying || _moves.Count == 0)
             return;
 
         if (MoveIsComplete)
