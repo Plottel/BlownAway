@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        grid = FindObjectOfType<Grid>();
         _gridCon = new GridCon();
     }
 	

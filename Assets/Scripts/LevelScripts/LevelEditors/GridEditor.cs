@@ -38,7 +38,10 @@ public class GridEditor : Editor
 
         // Clear all islands and turn it back into a blank grid.
         if (GUILayout.Button("Reset"))
-            grid._cells = new List<CellListWrapper>();
+            grid.Clear();
+
+        if (GUILayout.Button("Make Populated 10x10 Island"))
+            grid.MakePopulated1010();
 
     }
 

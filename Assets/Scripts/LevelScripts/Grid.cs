@@ -132,6 +132,27 @@ public class Grid : MonoBehaviour
         --Rows;
     }
 
+    public void Clear()
+    {
+        for (int col = 0; col < Cols; ++col)
+            RemoveColumn();
+        for (int row = 0; row < Rows; ++row)
+            RemoveRow();
+    }
+
+    public void MakePopulated1010()
+    {
+        Clear();
+        
+        for (int i = 0; i < 10; ++i)
+        {
+            AddColumn();
+            AddRow();
+        }
+
+        PopulateIslands();
+    }
+
     public void PopulateIslands()
     {
         for (int col = 0; col < Cols; ++col)

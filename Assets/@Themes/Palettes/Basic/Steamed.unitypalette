@@ -3,7 +3,7 @@
 	Main                : #1D1D1D  
 	MainActive          : #2F374A  
 	MainButton          : #FFFFFF20
-	MainIcons           : #5A7FD3  
+	MainIcons           : #DBFF00  
 	Border              : #1D1D1D  
 	BorderActive        : #2F374A  
 	BorderButton        : #292C32  
@@ -36,5 +36,5 @@
 	Details             : #1D1D1D   : Border      
 	Cursor              : #FFE200  
 	Selection           : #48629D   : 1.5
-	Curve               : #2E2E2E   : Highlight    : 1.5
-	CurveBackground     : #1D1D1D   : Border       : 0.5
+	Curve               : #535353   : Highlight    : 1.5
+	CurveBackground     : #272727   : Border       : 0.5
