@@ -131,8 +131,8 @@ namespace UnityEngine
             c2Waypoints.Add(c1Waypoints[0]);
 
             // Waypoint 5 - Back to original cell position, but swapped.
-            c1Waypoints.Add(c2.transform.position - new Vector3(0, 0.5f, 0)); // TODO: 0.5f hardcoded. Will break if cell size changes. 
-            c2Waypoints.Add(c1.transform.position - new Vector3(0, 0.5f, 0));
+            c1Waypoints.Add(c2Waypoints[0] - new Vector3(0, MAGIC_NUMBER, 0));
+            c2Waypoints.Add(c1Waypoints[0] - new Vector3(0, MAGIC_NUMBER, 0));
 
 
             // Set path for two cells
