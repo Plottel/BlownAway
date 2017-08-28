@@ -8,7 +8,7 @@ namespace UnityEngine
 
     public class GridCon
     {
-        public static float ISLAND_SPEED = 2f;
+        public static float ISLAND_SPEED = 4f;
         public static float SPLIT_DIST = 4f;
 
         private static GridCon _instance;
@@ -87,6 +87,65 @@ namespace UnityEngine
             MoveCellsAsGroup(quadrants[Quadrant.TopRight], topRightDest, topRight);
             MoveCellsAsGroup(quadrants[Quadrant.TopLeft], topLeftDest, topLeft);
             MoveCellsAsGroup(quadrants[Quadrant.BotRight], botRightDest, botRight);
+        }
+
+        public void SwapTwoCells(Grid grid, params object[] args)
+        {
+            int MAGIC_NUMBER = 3;
+
+            if (args.Length != 2)
+                Debug.LogError(args.Length + " arguments passed instead of 2 to SwapTwoPieces");
+
+            Cell c1 = (Cell)args[0];
+            Cell c2 = (Cell)args[1];
+
+            var c1Waypoints = new List<Vector3>();
+            var c2Waypoints = new List<Vector3>();
+
+            // Waypoint 1 - go straight up
+            c1Waypoints.Add(c1.transform.position + new Vector3(0, MAGIC_NUMBER, 0));
+            c2Waypoints.Add(c2.transform.position + new Vector3(0, MAGIC_NUMBER, 0));
+
+            // Waypoint 2 - split 90 degrees
+            Vector3 from1To2Raised = c2.transform.position - c1.transform.position;
+            from1To2Raised.y += 5;
+            //Quarternion.Euler(x, y, z)
+            // One of them needs to be 90, dunno which. Test.
+            Vector3 normedPerp = Quaternion.Euler(0, 0, 90) * from1To2Raised;
+            normedPerp.y = 0; // Don't want to move on Y-axis.
+            normedPerp.Normalize();
+
+            // C1 minus -> C2 plus
+            // Go in opposite directions
+            c1Waypoints.Add(c1Waypoints[0] + (normedPerp * MAGIC_NUMBER));
+            c2Waypoints.Add(c2Waypoints[0] - (normedPerp * MAGIC_NUMBER));
+
+            // Waypoint 3 head towards other cell at offset same as split
+            // Calculated by projecting vector from Waypoint 2 the opposite way and assigning to opposite cell.
+            // i.e. if Cell 1 went left, then Cell 2's waypoint is result if Cell 2 instead went right.
+            c1Waypoints.Add(c2Waypoints[0] + (normedPerp * MAGIC_NUMBER));
+            c2Waypoints.Add(c1Waypoints[0] - (normedPerp * MAGIC_NUMBER));
+
+            // Waypoint 4 - split 90 degrees back into being above cell
+            c1Waypoints.Add(c2Waypoints[0]);
+            c2Waypoints.Add(c1Waypoints[0]);
+
+            // Waypoint 5 - Back to original cell position, but swapped.
+            c1Waypoints.Add(c2.transform.position - new Vector3(0, 0.5f, 0)); // TODO: 0.5f hardcoded. Will break if cell size changes. 
+            c2Waypoints.Add(c1.transform.position - new Vector3(0, 0.5f, 0));
+
+
+            // Set path for two cells
+            if (c1.islandPiece != null)
+                c1.islandPiece.SetPath(c1Waypoints, ISLAND_SPEED);
+            if (c2.islandPiece != null)
+                c2.islandPiece.SetPath(c2Waypoints, ISLAND_SPEED);
+
+
+            // Swap island piece ownership
+            IslandPiece temp = c1.islandPiece;
+            c1.islandPiece = c2.islandPiece;
+            c2.islandPiece = temp;
         }
 
         private void MoveCellsAsGroup(List<Cell> cells, Vector3 target, Vector3 offsetFrom)
