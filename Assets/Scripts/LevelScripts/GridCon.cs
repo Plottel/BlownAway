@@ -18,7 +18,7 @@ namespace UnityEngine
             get { return _instance; }
         }
 
-        public void ReformGrid(Grid grid)
+        public void ReformGrid(Grid grid, params object[] args)
         {
             Debug.DrawRay(grid.MidCell.transform.Mid3D(), Vector3.up, Color.blue, 5, false);
 
@@ -34,13 +34,26 @@ namespace UnityEngine
             }
         }
         
-        public void MoveGridFullLength(Grid grid)
+        public void MoveGridBy(Grid grid, params object[] args)
         {
-            Vector3 destination = grid.transform.position - new Vector3(grid.Cols / 2, 0, 0);
-            MoveCellsAsGroup(grid.CellsAsList, destination, grid.MidCell.transform.Mid3D());
+            if (args.Length != 1)
+                Debug.LogError(args.Length + " arguments instead of 3 passed to MoveGridFullLength()");
+
+            Vector3 moveBy = (Vector3)args[0];
+            
+            for (int col = 0; col < grid.Cols; ++col)
+            {
+                for (int row = 0; row < grid.Rows; ++row)
+                {
+                    Cell c = grid[col, row];
+
+                    if (c.islandPiece != null)
+                        c.islandPiece.SetPathDirect(c.islandPiece.transform.position + moveBy, ISLAND_SPEED);
+                }
+            }
         }
 
-        public void SplitGridIntoFour(Grid grid)
+        public void SplitGridIntoFour(Grid grid, params object[] args)
         {
             // Need to normalize all "norm" vectors
             QuadMap quadrants = grid.GetQuadrants();

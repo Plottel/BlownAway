@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEngine
 {
-    public delegate void GridMove(Grid grid);
+    public delegate void GridMove(Grid grid, params object[] args);
 }
 
 public class GridScene
@@ -12,6 +12,8 @@ public class GridScene
     private Grid _grid;
     private Queue<GridMove> _moves;
     private Queue<float> _moveDelays;
+    private Queue<object[]> _args;
+
     private bool _waitingForNextMove = false;
     private float _moveFinishedAt = 0f;
 
@@ -20,18 +22,20 @@ public class GridScene
         _grid = grid;
         _moves = new Queue<GridMove>();
         _moveDelays = new Queue<float>();
+        _args = new Queue<object[]>();
     }
 
-    public void EnqueueMove(GridMove move, float delay)
+    public void EnqueueMove(GridMove move, float delay, params object[] args)
     {
         _moves.Enqueue(move);
         _moveDelays.Enqueue(delay);
+        _args.Enqueue(args);
     }
 
     public void Start()
     {
         if (_moves.Count > 0)
-            _moves.Peek()(_grid);
+            _moves.Peek()(_grid, _args.Peek());
     }
 
     public void Play()
@@ -52,8 +56,10 @@ public class GridScene
             else if (Time.time - _moveFinishedAt > _moveDelays.Peek())
             {
                 _moveDelays.Dequeue();
-                _moves.Peek()(_grid);
                 _waitingForNextMove = false;
+
+
+                _moves.Peek()(_grid, _args.Peek());
             }
         }        
     }
