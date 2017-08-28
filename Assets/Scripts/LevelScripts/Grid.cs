@@ -3,16 +3,68 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+namespace UnityEngine
+{
+    public enum Quadrant
+    {
+        TopLeft,
+        TopRight,
+        BotLeft,
+        BotRight
+    }
+}
+
+[System.Serializable]
 public class Grid : MonoBehaviour
 {
     public Cell cell;
 
     public int cellSize = 1;
 
-    public int cols = 0;
-    public int rows = 0;
+    [SerializeField]
+    public int Cols;
+    [SerializeField]
+    public int Rows;
 
-    private List<List<Cell>> cells = new List<List<Cell>>(); 
+    [SerializeField]
+    public List<CellListWrapper> _cells;
+
+    [SerializeField]
+    public int ColCellCount
+    {
+        get { return _cells.Count; }
+    }
+
+    public Cell MidCell
+    {
+        get
+        {
+            if (Cols <= 0 || Rows <= 0)
+                return null;
+
+            return _cells[(int)Mathf.Floor(Cols / 2)][(int)Mathf.Floor(Rows / 2)];        
+        }
+    }
+
+    public Cell this[int col, int row]
+    {
+        get
+        {
+            if (col < Cols && col >= 0 && row < Rows && row >= 0)
+                return _cells[col].items[row];
+            return null;
+        }
+    }
+
+    public List<Cell> this[int col]
+    {
+        get
+        {
+            if (_cells.Count > 0)
+                return _cells[0].items;
+            return new List<Cell>();
+        }
+    }
 
     private Cell CreateCellAt(Vector3 pos)
     {
@@ -24,68 +76,68 @@ public class Grid : MonoBehaviour
 
     public void AddColumn()
     {
-        var newCol = new List<Cell>();
+        var newCol = new CellListWrapper();
 
         // For each row in the newly created column.
-        for (int row = 0; row < rows; ++row)
+        for (int row = 0; row < Rows; ++row)
         {
-            float x = transform.position.x + cols * cellSize;
+            float x = transform.position.x + Cols * cellSize;
             float y = transform.position.y;
             float z = transform.position.z + row * cellSize;
 
-            newCol.Add(CreateCellAt(new Vector3(x, y, z)));
+            newCol.items.Add(CreateCellAt(new Vector3(x, y, z)));
         }
 
-        cells.Add(newCol);
-        ++cols;
+        _cells.Add(newCol);
+        ++Cols;
     }    
 
     public void AddRow()
     {
         //For each column to have a new row added to it
-        for (int col = 0; col < cols; ++col)
+        for (int col = 0; col < Cols; ++col)
         {
             float x = transform.position.x + col * cellSize;
             float y = transform.position.y;
-            float z = transform.position.z + rows * cellSize;
+            float z = transform.position.z + Rows * cellSize;
 
-            cells[col].Add(CreateCellAt(new Vector3(x, y, z)));
+            _cells[col].items.Add(CreateCellAt(new Vector3(x, y, z)));
         }
 
-        ++rows;
+        ++Rows;
     }
 
     public void RemoveColumn()
     {
-        for (int row = 0; row < rows; ++row)
+        for (int row = 0; row < Rows; ++row)
         {
-            DestroyImmediate(cells.Last()[row].gameObject);
-            cells.Last()[row] = null;
+            DestroyImmediate(_cells.Last()[row].gameObject);
+            _cells.Last()[row] = null;
         }
 
-        cells.Remove(cells.Last());
+        _cells.Remove(_cells.Last());
 
-        --cols;
+        --Cols;
     }
 
     public void RemoveRow()
     {
-        for (int col = 0; col < cols; ++col)
+        for (int col = 0; col < Cols; ++col)
         {
-            DestroyImmediate(cells[col].Last().gameObject);
-            cells[col][rows - 1] = null;
-            cells[col].RemoveAt(rows - 1);
+            DestroyImmediate(_cells[col].items.Last().gameObject);
+            _cells[col][Rows - 1] = null;
+            _cells[col].items.RemoveAt(Rows - 1);
         }
 
-        --rows;
+        --Rows;
     }
 
     public void PopulateIslands()
     {
-        for (int col = 0; col < cols; ++col)
+        for (int col = 0; col < Cols; ++col)
         {
-            for (int row = 0; row < rows; ++row)
-                cells[col][row].AddIslandPiece();
+            for (int row = 0; row < Rows; ++row)
+                _cells[col][row].AddIslandPiece();
         }
     }
 
@@ -93,24 +145,95 @@ public class Grid : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
 
-        for (int col = 0; col < cols; ++col)
+        for (int col = 0; col < Cols; ++col)
         {
-            for (int row = 0; row < rows; ++row)
+            for (int row = 0; row < Rows; ++row)
             {
-                Cell c = cells[col][row];
+                Cell c = _cells[col][row];
                 Gizmos.DrawWireCube(c.transform.position, c.transform.localScale);
             }
         }
     }
 
-    void Awake()
-    {
-    }
-
     // Use this for initialization
     void Start ()
     {
+        // Setup cell neighbours.
+        for (int col = 0; col < Cols; ++col)
+        {
+            for (int row = 0; row < Rows; ++row)
+            {
+                var neighbours = new List<Cell>();
+
+                AddCell(this[col - 1, row], neighbours); // West
+                AddCell(this[col, row + 1], neighbours); // South
+                AddCell(this[col + 1, row], neighbours); // East
+                AddCell(this[col, row - 1], neighbours); // North
+
+                this[col, row].neighbours = neighbours;
+            }
+        }
 	}
+
+    public Dictionary<Quadrant, List<Cell>> GetQuadrants()
+    {
+        var result = new Dictionary<Quadrant, List<Cell>>();
+
+        // Top left
+        var topLeft = new List<Cell>();
+        // Col: 0 to Floor(Cols / 2)
+        // Row: 0 to Floor(Rows / 2)
+        for (int col = 0; col < (int)Mathf.Floor(Cols / 2); ++col)
+        {
+            for (int row = 0; row < (int)Mathf.Floor(Rows / 2); ++row)
+                topLeft.Add(_cells[col][row]);
+        }
+
+        // Top right
+        var topRight = new List<Cell>();
+        // Col: Floor(Cols / 2) + 1 to Cols
+        // Row: 0 to Floor(Rows / 2)
+        for (int col = (int)Mathf.Floor(Cols / 2); col < Cols; ++col)
+        {
+            for (int row = 0; row < (int)Mathf.Floor(Rows / 2); ++row)
+                topRight.Add(_cells[col][row]);
+        }
+
+        // Bottom left
+        var botLeft = new List<Cell>();
+        // Col: 0 to Floor(Cols / 2)
+        // Row: Floor(Rows / 2) + 1 to Rows
+        for (int col = 0; col < (int)Mathf.Floor(Cols / 2); ++col)
+        {
+            for (int row = (int)Mathf.Floor(Rows / 2); row < Rows; ++row)
+                botLeft.Add(_cells[col][row]);
+        }
+
+        // Bottom right
+        var botRight = new List<Cell>();
+        // Col: Floor(Cols / 2) + 1 to Cols
+        // Row: Floor(Rows / 2) + 1 to Rows
+        for (int col = (int)Mathf.Floor(Cols / 2); col < Cols; ++col)
+        {
+            for (int row = (int)Mathf.Floor(Rows / 2); row < Rows; ++row)
+                botRight.Add(_cells[col][row]);
+        }
+
+        // Return four cell lists mapped to each quadrant.
+        result.Add(Quadrant.TopLeft, topLeft);
+        result.Add(Quadrant.TopRight, topRight);
+        result.Add(Quadrant.BotLeft, botLeft);
+        result.Add(Quadrant.BotRight, botRight);
+
+        return result;
+       
+    }
+
+    private void AddCell(Cell cell, ICollection<Cell> list)
+    {
+        if (cell != null)
+            list.Add(cell);
+    }
 	
 	// Update is called once per frame
 	void Update ()
