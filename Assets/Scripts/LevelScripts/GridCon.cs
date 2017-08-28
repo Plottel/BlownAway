@@ -29,7 +29,7 @@ namespace UnityEngine
                     Cell c = grid[col, row];
 
                     if (c.islandPiece != null)
-                        c.islandPiece.SetPathDirect(c.transform.Mid3D(), ISLAND_SPEED);
+                        c.islandPiece.SetPath(c.transform.Mid3D(), ISLAND_SPEED);
                 }
             }
         }
@@ -37,7 +37,7 @@ namespace UnityEngine
         public void MoveGridBy(Grid grid, params object[] args)
         {
             if (args.Length != 1)
-                Debug.LogError(args.Length + " arguments instead of 3 passed to MoveGridFullLength()");
+                Debug.LogError(args.Length + " arguments instead of 1 passed to MoveGridBy(Vector3)");
 
             Vector3 moveBy = (Vector3)args[0];
 
@@ -48,7 +48,7 @@ namespace UnityEngine
                     Cell c = grid[col, row];
 
                     if (c.islandPiece != null)
-                        c.islandPiece.SetPathDirect(c.transform.position + moveBy, ISLAND_SPEED);
+                        c.islandPiece.SetPath(c.transform.position + moveBy, ISLAND_SPEED);
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace UnityEngine
                 Vector3 adjustedTarget = target + (c.transform.Mid3D() - offsetFrom);
 
                 if (c.islandPiece != null)
-                    c.islandPiece.SetPathDirect(adjustedTarget, ISLAND_SPEED);
+                    c.islandPiece.SetPath(adjustedTarget, ISLAND_SPEED);
             }
         }
 
