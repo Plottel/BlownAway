@@ -13,6 +13,10 @@ public class IslandPiece : MonoBehaviour
     public Vector3 directTarget;
     private float _speed;
 
+    public bool HasArrived
+    {
+        get { return this.transform.position == directTarget; }
+    }
 
     private bool _followPath = false;
 
@@ -139,6 +143,9 @@ public class IslandPiece : MonoBehaviour
         else if (_followDirect)
         {
             this.transform.position = Vector3.MoveTowards(this.transform.position, directTarget, _speed * Time.deltaTime);
+
+            if (this.transform.position == directTarget)
+                _followDirect = false;
         }
 	}
 
