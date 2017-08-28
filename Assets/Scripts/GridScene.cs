@@ -35,7 +35,7 @@ public class GridScene
     public void Start()
     {
         if (_moves.Count > 0)
-            _moves.Peek()(_grid, _args.Peek());
+            _moves.Peek()(_grid, _args.Dequeue());
     }
 
     public void Play()
@@ -59,7 +59,7 @@ public class GridScene
                 _waitingForNextMove = false;
 
 
-                _moves.Peek()(_grid, _args.Peek());
+                _moves.Peek()(_grid, _args.Dequeue());
             }
         }
     }

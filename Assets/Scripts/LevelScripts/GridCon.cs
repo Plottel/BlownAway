@@ -48,7 +48,7 @@ namespace UnityEngine
                     Cell c = grid[col, row];
 
                     if (c.islandPiece != null)
-                        c.islandPiece.SetPathDirect(c.islandPiece.transform.position + moveBy, ISLAND_SPEED);
+                        c.islandPiece.SetPathDirect(c.transform.position + moveBy, ISLAND_SPEED);
                 }
             }
         }
