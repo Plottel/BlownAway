@@ -11,16 +11,21 @@ public class GridScene
 {
     private Grid _grid;
     private Queue<GridMove> _moves;
+    private Queue<float> _moveDelays;
+    private bool _waitingForNextMove = false;
+    private float _moveFinishedAt = 0f;
 
     public GridScene(Grid grid)
     {
         _grid = grid;
         _moves = new Queue<GridMove>();
+        _moveDelays = new Queue<float>();
     }
 
-    public void EnqueueMove(GridMove move)
+    public void EnqueueMove(GridMove move, float delay)
     {
         _moves.Enqueue(move);
+        _moveDelays.Enqueue(delay);
     }
 
     public void Start()
@@ -29,23 +34,31 @@ public class GridScene
             _moves.Peek()(_grid);
     }
 
-    public bool Play()
+    public void Play()
     {
-        if (!MoveIsComplete)
-            return false;
-
-        // Move has finished. Are there still moves to process?
-        _moves.Dequeue();
         if (_moves.Count == 0)
-            return true;
+            return;
 
-        // Start new move
-        _moves.Peek()(_grid);
-        return false;
-
+        if (MoveIsComplete)
+        {
+            // Move has finished. Are there still moves to process?
+            if (!_waitingForNextMove)
+            {
+                _moves.Dequeue();
+                _waitingForNextMove = true;
+                _moveFinishedAt = Time.time;
+            }
+            // Has enough time passed to start the next move?
+            else if (Time.time - _moveFinishedAt > _moveDelays.Peek())
+            {
+                _moveDelays.Dequeue();
+                _moves.Peek()(_grid);
+                _waitingForNextMove = false;
+            }
+        }        
     }
 
-    public bool MoveIsComplete
+    private bool MoveIsComplete
     {
         get
         {

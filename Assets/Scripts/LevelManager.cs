@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour
     
     private GridCon _gridCon;
     private GridScene _scene;
-    private bool _sequenceIsFinished = false;
 
     // Use this for initialization
     void Start()
@@ -19,8 +18,14 @@ public class LevelManager : MonoBehaviour
 
         _scene = new GridScene(grid);
 
-        _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour);
-        _scene.EnqueueMove(GridCon.Instance.ReformGrid);
+        _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour, 0);
+        _scene.EnqueueMove(GridCon.Instance.ReformGrid, 0.5f);
+        _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour, 0.5f);
+        _scene.EnqueueMove(GridCon.Instance.ReformGrid, 1f);
+        _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour, 1f);
+        _scene.EnqueueMove(GridCon.Instance.ReformGrid, 1.5f);
+        _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour, 2);
+        _scene.EnqueueMove(GridCon.Instance.ReformGrid, 1);
     }
 	
 	// Update is called once per frame
@@ -29,7 +34,6 @@ public class LevelManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
             _scene.Start();
 
-        if (!_sequenceIsFinished)
-            _sequenceIsFinished = _scene.Play();
+        _scene.Play();
     }
 }
