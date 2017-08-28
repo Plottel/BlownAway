@@ -8,7 +8,7 @@ namespace UnityEngine
 
     public class GridCon
     {
-        public static float ISLAND_SPEED = 6f;
+        public static float ISLAND_SPEED = 2f;
         public static float SPLIT_DIST = 4f;
 
         private static GridCon _instance;
