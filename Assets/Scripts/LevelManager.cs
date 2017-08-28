@@ -18,11 +18,11 @@ public class LevelManager : MonoBehaviour
 
         _scene = new GridScene(grid);
 
-        _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour, 0);
+        _scene.EnqueueMove(GridCon.Instance.MoveGridFullLength, 1f);
         _scene.EnqueueMove(GridCon.Instance.ReformGrid, 0.5f);
-        _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour, 0.5f);
+        _scene.EnqueueMove(GridCon.Instance.MoveGridFullLength, 2);
         _scene.EnqueueMove(GridCon.Instance.ReformGrid, 1f);
-        _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour, 1f);
+        _scene.EnqueueMove(GridCon.Instance.MoveGridFullLength, 1f);
         _scene.EnqueueMove(GridCon.Instance.ReformGrid, 1.5f);
         _scene.EnqueueMove(GridCon.Instance.SplitGridIntoFour, 2);
         _scene.EnqueueMove(GridCon.Instance.ReformGrid, 1);

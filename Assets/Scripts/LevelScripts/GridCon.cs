@@ -33,6 +33,12 @@ namespace UnityEngine
                 }
             }
         }
+        
+        public void MoveGridFullLength(Grid grid)
+        {
+            Vector3 destination = grid.transform.position - new Vector3(grid.Cols / 2, 0, 0);
+            MoveCellsAsGroup(grid.CellsAsList, destination, grid.MidCell.transform.Mid3D());
+        }
 
         public void SplitGridIntoFour(Grid grid)
         {
@@ -64,13 +70,13 @@ namespace UnityEngine
 
             // Move the island pieces to their respective destinations.
             // Takes into account offsets so quadrant moves as one whole.
-            MoveCellsToOffset(quadrants[Quadrant.BotLeft], botLeftDest, botLeft);
-            MoveCellsToOffset(quadrants[Quadrant.TopRight], topRightDest, topRight);
-            MoveCellsToOffset(quadrants[Quadrant.TopLeft], topLeftDest, topLeft);
-            MoveCellsToOffset(quadrants[Quadrant.BotRight], botRightDest, botRight);
+            MoveCellsAsGroup(quadrants[Quadrant.BotLeft], botLeftDest, botLeft);
+            MoveCellsAsGroup(quadrants[Quadrant.TopRight], topRightDest, topRight);
+            MoveCellsAsGroup(quadrants[Quadrant.TopLeft], topLeftDest, topLeft);
+            MoveCellsAsGroup(quadrants[Quadrant.BotRight], botRightDest, botRight);
         }
 
-        private void MoveCellsToOffset(List<Cell> cells, Vector3 target, Vector3 offsetFrom)
+        private void MoveCellsAsGroup(List<Cell> cells, Vector3 target, Vector3 offsetFrom)
         {
             foreach (Cell c in cells)
             {

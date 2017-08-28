@@ -56,6 +56,22 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public List<Cell> CellsAsList
+    {
+        get
+        {
+            var result = new List<Cell>();
+
+            for (int col = 0; col < Cols; ++col)
+            {
+                for (int row = 0; row < Rows; ++row)
+                    result.Add(_cells[col][row]);
+            }
+
+            return result;
+        }
+    }
+
     public List<Cell> this[int col]
     {
         get
