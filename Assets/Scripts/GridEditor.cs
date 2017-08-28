@@ -8,31 +8,43 @@ using System;
 [CustomEditor(typeof(Grid))]
 public class GridEditor : Editor
 {
+    [SerializeField]
     public int Cols = 0;
+    [SerializeField]
     public int Rows = 0;
 
     public override void OnInspectorGUI()
     {
-        // grid.cols = 6
-        // cols = 2
         DrawDefaultInspector();
 
+        // Update slider values for desired Cols and Rows.
         Cols = EditorGUILayout.IntSlider("Cols", Cols, 0, 30);
         Rows = EditorGUILayout.IntSlider("Rows", Rows, 0, 30);
 
-        Grid grid = (Grid)target;      
+        // Store target object to work with.
+        Grid grid = (Grid)target;
 
+        // IMPORTANT:
+        // Ensures editor changes persist in play mode
+        EditorUtility.SetDirty(grid);
+
+        // Fill all cells with default island.
         if (GUILayout.Button("Populate Islands"))
             grid.PopulateIslands();
 
+        // Apply changes to grid size based on Cols and Rows sliders.
         if (GUILayout.Button("Update Grid Size"))
             UpdateGridSize(grid);
+
+        // Clear all islands and turn it back into a blank grid.
+        if (GUILayout.Button("Reset"))
+            grid._cells = new List<CellListWrapper>();
 
     }
 
     public void UpdateGridSize(Grid grid)
     {      
-        int colsToAdd = Cols - grid.cols;
+        int colsToAdd = Cols - grid.Cols;
 
         if (colsToAdd != 0)
         {
@@ -49,7 +61,7 @@ public class GridEditor : Editor
                 gridColOperator();
         }
 
-        int rowsToAdd = Rows - grid.rows;
+        int rowsToAdd = Rows - grid.Rows;
 
         if (rowsToAdd != 0)
         {
