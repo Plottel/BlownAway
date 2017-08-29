@@ -5,7 +5,7 @@ using UnityEngine;
 namespace UnityEngine
 {
     public delegate void GridMove(Grid grid, params object[] args);
-}
+}   
 
 public class GridScene
 {
