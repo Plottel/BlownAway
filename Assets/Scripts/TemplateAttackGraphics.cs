@@ -8,31 +8,41 @@ public class TemplateAttackGraphics : MonoBehaviour {
 	public float AreaMaxScale = 5.0f;
 	public float DirectMinScale = 0.5f;
 	public float DirectMaxScale = 4.0f;
-	float JumpChargeTEMP = 0;
+	float _charge = 0;
 
-	void Update () {
+	void Update () 
+	{
 		transform.position = new Vector3(transform.position.x, 1.01f, transform.position.z);
-		//MY TESTING CODE. DELETE.
-		if (Input.GetKey (KeyCode.Q)) {
-			JumpChargeTEMP += 0.01f;
-			RenderDirectAttack (JumpChargeTEMP);
-		}
-		if (Input.GetKeyUp (KeyCode.Q)) {
-			JumpChargeTEMP = 0;
+	}
+
+	public void Grow()
+	{
+		_charge += 1f;
+		RenderAreaAttack (_charge);
+	}
+
+	public void Show(bool show)
+	{
+		if (show) {
+			this.gameObject.layer = 8;	//8 = "Attacks"
+		} else {
+			this.gameObject.layer = 9;	//9 = "Hidden"
 		}
 	}
 
-	public void RenderAreaAttack (float Magnitude) {
+	public void RenderAreaAttack (float Magnitude) 
+	{
 		float size = (AreaMaxScale * Magnitude) + AreaMinScale;
-		if (size > AreaMaxScale) {
+		if (_charge > AreaMaxScale) {
 			transform.localScale = new Vector3(AreaMaxScale, AreaMaxScale, 1);
 		} else {
-			transform.localScale = new Vector3(size, size, 1);
+			transform.localScale = new Vector3(_charge, _charge, 1);
 		}
 	}
 
 	//INCOMPLETE.
-	public void RenderDirectAttack (float Magnitude) {
+	public void RenderDirectAttack (float Magnitude) 
+	{
 		float size = (DirectMaxScale * Magnitude) + DirectMinScale;
 		if (size > DirectMaxScale) {
 			transform.localScale = new Vector3(DirectMaxScale, DirectMaxScale, 1);
