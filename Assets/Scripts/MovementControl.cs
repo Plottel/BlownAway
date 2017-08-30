@@ -13,6 +13,7 @@ public class MovementControl : MonoBehaviour {
 	private bool m_Jump;                    // the world-relative desired move direction, calculated from the camForward and user input.
 	private bool m_attack_area;
 	private bool m_attack_direct;
+	public string Player = "P1";
 
 	private void Start()
 	{
@@ -37,12 +38,12 @@ public class MovementControl : MonoBehaviour {
 	{
 		if (!m_Jump)
 		{
-			m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+			m_Jump = CrossPlatformInputManager.GetButtonDown(Player + "_Jump");
 		}
 		if (!m_attack_area && !m_attack_direct) 
 		{
-			m_attack_area = CrossPlatformInputManager.GetButtonDown ("Jump");
-			m_attack_direct = CrossPlatformInputManager.GetButtonDown ("AttackDirect");
+			m_attack_area = CrossPlatformInputManager.GetButtonDown (Player + "_Jump");
+			m_attack_direct = CrossPlatformInputManager.GetButtonDown (Player + "_AttackDirect");
 		}
 	}
 
@@ -51,8 +52,8 @@ public class MovementControl : MonoBehaviour {
 	private void FixedUpdate()
 	{
 		// read inputs
-		float h = CrossPlatformInputManager.GetAxis("Horizontal");
-		float v = CrossPlatformInputManager.GetAxis("Vertical");
+		float h = CrossPlatformInputManager.GetAxis(Player + "_Horizontal");
+		float v = CrossPlatformInputManager.GetAxis(Player + "_Vertical");
 		bool crouch = Input.GetKey(KeyCode.C);
 
 		// calculate move direction to pass to character
