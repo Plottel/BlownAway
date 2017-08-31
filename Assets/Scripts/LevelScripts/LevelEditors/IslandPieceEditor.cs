@@ -13,13 +13,6 @@ public class IslandPieceEditor : Editor
 
         var islandPieces = targets;
 
-        if (GUILayout.Button("Add Terrain"))
-        {
-            foreach (IslandPiece IP in targets)
-                IP.AddTerrain();
-
-        }
-
         if (GUILayout.Button("Remove Terrain"))
         {
             foreach (IslandPiece IP in targets)

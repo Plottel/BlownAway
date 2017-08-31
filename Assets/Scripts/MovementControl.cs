@@ -10,10 +10,13 @@ public class MovementControl : MonoBehaviour {
 	private Transform m_Cam;                // A reference to the main camera in the scene
 	private Vector3 m_CamForward;           // The current forward direction of the camera
 	private Vector3 m_Move;
+
 	private bool m_Jump;                    // the world-relative desired move direction, calculated from the camForward and user input.
 	private bool m_attack_area;
 	private bool m_attack_direct;
 	public string Player = "P1";
+	private bool a_direct_attack;
+	public DirectAttack AttackCone;
 
 	private void Start()
 	{
@@ -25,7 +28,7 @@ public class MovementControl : MonoBehaviour {
 		else
 		{
 			Debug.LogWarning(
-				"Warning: no main camera found. Need a Camera named \"MainCamera\", for camera-relative controls.", gameObject);
+				"Warning: no main camera found in scene. Add a camera named \"MainCamera\", for camera-relative controls.", gameObject);
 			// we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
 		}
 
@@ -45,8 +48,9 @@ public class MovementControl : MonoBehaviour {
 			m_attack_area = CrossPlatformInputManager.GetButtonDown (Player + "_Jump");
 			m_attack_direct = CrossPlatformInputManager.GetButtonDown (Player + "_AttackDirect");
 		}
-	}
 
+		a_direct_attack = CrossPlatformInputManager.GetButtonDown ("AttackDirect");
+	}
 
 	// Fixed update is called in sync with physics
 	private void FixedUpdate()
@@ -75,8 +79,11 @@ public class MovementControl : MonoBehaviour {
 
 		// pass all parameters to the character control script
 		m_Character.Move(m_Move, crouch, m_Jump);
-		if (m_Jump)
-			m_Character.AttackArea ();
 		m_Jump = false;
+
+		if (a_direct_attack) 
+		{
+			var attack = GameObject.Instantiate(AttackCone, this.gameObject.transform.position, this.gameObject.transform.rotation, this.gameObject.transform);
+		}
 	}
 }

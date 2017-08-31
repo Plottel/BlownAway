@@ -19,12 +19,16 @@ public class IslandPiece : MonoBehaviour
         get { return _followPath == false && _path.Count == 0; }
     }
 
-    public void AddTerrain()
+    public void AddTerrain(TerrainType type)
     {
         if (terrain != null)
             DestroyImmediate(terrain.gameObject);
 
-        terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity);
+        if (type == TerrainType.SpikyBush)
+            terrain = Instantiate(Prefabs.SpikyBush, transform.position, Quaternion.identity);
+        else if (type == TerrainType.Tree)
+            terrain = Instantiate(Prefabs.Tree, transform.position, Quaternion.identity);
+
         terrain.transform.localScale = new Vector3(0.75f, 1.2f, 0.75f);
         terrain.transform.Translate(0, terrain.transform.localScale.y, 0);
         terrain.transform.SetParent(this.transform);

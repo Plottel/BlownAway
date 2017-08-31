@@ -40,14 +40,7 @@ public class CellEditor : Editor
                 var ip = c.islandPiece;
 
                 if (ip != null)
-                {
-                    if (terrainType == TerrainType.SpikyBush)
-                        ip.terrainPrefab = c.spikyBushPrefab;
-                    else if (terrainType == TerrainType.Tree)
-                        ip.terrainPrefab = c.treePrefab;
-
-                    ip.AddTerrain();
-                }                
+                    ip.AddTerrain(terrainType);            
             }
         }
 

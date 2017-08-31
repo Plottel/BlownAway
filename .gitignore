@@ -32,3 +32,27 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+Assets/Prefabs/Player/AreaAttack.prefab.meta
+
+Assets/Prefabs/Player/DirectAttack.prefab.meta
+
+Assets/Prefabs/Resources/AreaAttack.prefab.meta
+
+Assets/Prefabs/Resources/Cell.prefab
+
+Assets/Prefabs/Resources/DirectAttack.prefab.meta
+
+Assets/Prefabs/Resources/EnemyCube.prefab.meta
+
+Assets/Prefabs/Resources/Grid.prefab
+
+Assets/Prefabs/World/Cell.prefab
+
+Assets/Prefabs/World/Tile.prefab
+
+Assets/Prefabs/World/Grid.prefab
+
+Assets/Prefabs/World/Tile.prefab.meta
+
+Assets/Prefabs/Enemies/EnemyCube.prefab.meta

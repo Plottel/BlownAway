@@ -28,10 +28,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
+		float scale;
 
-		public GameObject AttackSphere;
-		public int AreaAttackRadius = 100;
-
+		public GameObject AttackCone;
+	
 
 		void Start()
 		{
@@ -43,6 +43,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
+			scale = 0.1f;
 		}
 
 
@@ -78,11 +79,18 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			UpdateAnimator(move);
 		}
 
-		public void AttackArea()
+		public void AttackDirect(bool buttonPressed)
 		{
-			GameObject.Instantiate (AttackSphere, this.gameObject.transform.position, Quaternion.identity, this.transform);
+			if (buttonPressed) 
+			{
+				Quaternion rot = this.gameObject.transform.rotation;
+				AttackCone.transform.localScale = new Vector3 (scale, scale, scale);
+				GameObject.Instantiate (AttackCone, 
+					this.gameObject.transform.position, 
+					this.transform.localRotation,
+					this.transform);
+			}
 		}
-
 
 		void ScaleCapsuleForCrouching(bool crouch)
 		{
@@ -169,7 +177,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
 		}
-
 
 		void HandleGroundedMovement(bool crouch, bool jump)
 		{

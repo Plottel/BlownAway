@@ -7,10 +7,13 @@ public class SpikyBush : IslandTerrain
 {
     public override void ApplyEffect(Collision c)
     {
-        var rb = c.collider.GetComponent<Rigidbody>();
-
-        Vector3 normToCollider = (rb.gameObject.transform.position - transform.position).normalized;
-        rb.AddForce(normToCollider * 174, ForceMode.Impulse);
+        if (c.gameObject.tag == "Player")
+        {
+            Debug.Log("IM EXPLODIN HERE");
+            Debug.Log(c.gameObject);
+            var rb = c.collider.GetComponent<Rigidbody>();
+            rb.AddExplosionForce(400, this.gameObject.transform.position, 100);
+        }
     }
 
     // Use this for initialization

@@ -11,32 +11,24 @@ public class AreaAttack : MonoBehaviour {
 	private Vector3 maxSize;
 	private float currentScale;
 	private float growAmount;
-	public TemplateAttackGraphics AttackTemplate;
+	private float endTime;
 
 	// Use this for initialization
 	void Start () {
 		growthFactor = new Vector3(1, 1, 1);
 		maxSize = new Vector3(ExplosionRadius, ExplosionRadius, ExplosionRadius);
 		this.transform.localScale = growthFactor;
-		AttackTemplate = GameObject.Instantiate<TemplateAttackGraphics> (AttackTemplate, this.transform);
-		AttackTemplate.transform.position = this.transform.position;
+		endTime = Time.time + Time.fixedTime + 0.5f;
+	
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		Grow ();
-		DrawTemplate ();
-		AttackTemplate.transform.position = this.transform.position;
-	}
-
-	void Grow()
+	void Update () 
 	{
-		currentScale += growAmount * Time.deltaTime;
-	}
-
-	void DrawTemplate()
-	{
-		AttackTemplate.RenderAreaAttack (currentScale);
+		if (Time.fixedTime >= endTime) 
+		{
+			Destroy (this.gameObject);
+		}
 	}
 
 	public void Hit(Rigidbody target)
@@ -46,7 +38,7 @@ public class AreaAttack : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.gameObject.name.Contains ("Enemy"))
+		if (col.gameObject.tag == "Player")
 		{
 			Rigidbody EnemyBody = col.gameObject.GetComponent<Rigidbody>();
 			Hit (EnemyBody);
