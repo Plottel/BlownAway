@@ -49,7 +49,7 @@ public class MovementControl : MonoBehaviour {
 			m_attack_direct = CrossPlatformInputManager.GetButtonDown (Player + "_AttackDirect");
 		}
 
-		a_direct_attack = CrossPlatformInputManager.GetButtonDown ("AttackDirect");
+		a_direct_attack = CrossPlatformInputManager.GetButtonDown (Player + "_AttackDirect");
 	}
 
 	// Fixed update is called in sync with physics
