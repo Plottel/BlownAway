@@ -40,15 +40,19 @@ public class IslandPiece : MonoBehaviour
         terrain = null;
     }
 
-    public void SetPath(Vector3 target, float speed)
+    public void SetPath(Vector3 target, float speed, bool clearPath)
     {
-        SetPath(new List<Vector3> { target }, speed);
+        SetPath(new List<Vector3> { target }, speed, clearPath); 
     }
 
-    public void SetPath(List<Vector3> path, float speed)
+    public void SetPath(List<Vector3> path, float speed, bool clearPath)
     {
         _followPath = true;
-        _path = new Queue<Vector3>(path);
+
+        if (clearPath)
+            _path = new Queue<Vector3>(path);
+        else
+            _path = new Queue<Vector3>(path.Concat(_path));
         _speed = speed;
     }
 

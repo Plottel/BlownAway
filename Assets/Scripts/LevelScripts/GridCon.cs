@@ -8,6 +8,7 @@ namespace UnityEngine
 
     public static class GridCon
     {
+
         public static float ISLAND_SPEED = 4f;
         public static float SPLIT_DIST = 4f;
 
@@ -22,7 +23,10 @@ namespace UnityEngine
                     Cell c = grid[col, row];
 
                     if (c.islandPiece != null)
-                        c.islandPiece.SetPath(c.transform.Mid3D(), ISLAND_SPEED);
+                    {
+                        c.islandPiece.SetPath(c.transform.Mid3D(), ISLAND_SPEED, true);
+                        ShakeCell(c, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+                    }
                 }
             }
         }
@@ -41,7 +45,11 @@ namespace UnityEngine
                     Cell c = grid[col, row];
 
                     if (c.islandPiece != null)
-                        c.islandPiece.SetPath(c.transform.position + moveBy, ISLAND_SPEED);
+                    {
+                        c.islandPiece.SetPath(c.transform.position + moveBy, ISLAND_SPEED, true);
+                        ShakeCell(c, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+
+                    }
                 }
             }
         }
@@ -125,21 +133,28 @@ namespace UnityEngine
             c2Waypoints.Add(c1Waypoints[0]);
 
             // Waypoint 5 - Back to original cell position, but swapped.
-            c1Waypoints.Add(c2Waypoints[0] - new Vector3(0, RAISE_DIST, 0));
-            c2Waypoints.Add(c1Waypoints[0] - new Vector3(0, RAISE_DIST, 0));
+            c1Waypoints.Add(c2Waypoints[0] - new Vector3(0, RAISE_DIST + 0.5f, 0));
+            c2Waypoints.Add(c1Waypoints[0] - new Vector3(0, RAISE_DIST + 0.5f, 0));
 
 
             // Set path for two cells
             if (c1.islandPiece != null)
-                c1.islandPiece.SetPath(c1Waypoints, ISLAND_SPEED);
+            {
+                c1.islandPiece.SetPath(c1Waypoints, ISLAND_SPEED, true);
+                ShakeCell(c1, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+            }
+
             if (c2.islandPiece != null)
-                c2.islandPiece.SetPath(c2Waypoints, ISLAND_SPEED);
+            {
+                c2.islandPiece.SetPath(c2Waypoints, ISLAND_SPEED, true);
+                ShakeCell(c2, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+            }
 
 
             // Swap island piece ownership
             IslandPiece temp = c1.islandPiece;
             c1.islandPiece = c2.islandPiece;
-            c2.islandPiece = temp;
+            c2.islandPiece = temp;          
         }
 
         private static void MoveCellsAsGroup(List<Cell> cells, Vector3 target, Vector3 offsetFrom)
@@ -149,8 +164,32 @@ namespace UnityEngine
                 Vector3 adjustedTarget = target + (c.transform.Mid3D() - offsetFrom);
 
                 if (c.islandPiece != null)
-                    c.islandPiece.SetPath(adjustedTarget, ISLAND_SPEED);
+                {
+                    c.islandPiece.SetPath(adjustedTarget, ISLAND_SPEED, true);
+                    ShakeCell(c, 10, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+                }
+                    
             }
+        }
+
+        public static void ShakeCell(Cell c, float shakeCount, float shakeSpeed, float shakeDistance)
+        {
+            if (c.islandPiece != null)
+            {
+                var shakeWaypoints = new List<Vector3>();
+
+                for (int i = 0; i < shakeCount; ++i)
+                {
+                    Vector3 pos = c.transform.position;
+                    Vector3 shake = new Vector3(0, shakeDistance, 0);
+
+                    shakeWaypoints.Add(pos + shake);
+                    shakeWaypoints.Add(pos - shake);
+                }
+
+                c.islandPiece.SetPath(shakeWaypoints, ISLAND_SPEED, false);
+            }
+           
         }
     }
 }
