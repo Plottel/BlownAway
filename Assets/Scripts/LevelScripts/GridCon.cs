@@ -10,7 +10,7 @@ namespace UnityEngine
     {
         private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
-        public static float ISLAND_SPEED = 4f;
+        public static float ISLAND_SPEED = 2f;
         public static float SPLIT_DIST = 4f;
 
         public static void CleanUpOffScreenPieces()
@@ -135,24 +135,24 @@ namespace UnityEngine
             c2Waypoints.Add(c2.transform.position + new Vector3(0, RAISE_DIST, 0));
 
             // Waypoint 2 - split 90 degrees
-            Vector3 from1To2Raised = c2.transform.position - c1.transform.position;
-            from1To2Raised.y += 5;
-            //Quarternion.Euler(x, y, z)
-            // One of them needs to be 90, dunno which. Test.
-            Vector3 normedPerp = Quaternion.Euler(0, 0, 90) * from1To2Raised;
-            normedPerp.y = 0; // Don't want to move on Y-axis.
-            normedPerp.Normalize();
+            //Vector3 from1To2Raised = c2.transform.position - c1.transform.position;
+            //from1To2Raised.y += 5;
+            ////Quarternion.Euler(x, y, z)
+            //// One of them needs to be 90, dunno which. Test.
+            //Vector3 normedPerp = Quaternion.Euler(0, 0, 90) * from1To2Raised;
+            //normedPerp.y = 0; // Don't want to move on Y-axis.
+            //normedPerp.Normalize();
 
-            // C1 minus -> C2 plus
-            // Go in opposite directions
-            c1Waypoints.Add(c1Waypoints[0] + (normedPerp * SPLIT_DIST));
-            c2Waypoints.Add(c2Waypoints[0] - (normedPerp * SPLIT_DIST));
+            //// C1 minus -> C2 plus
+            //// Go in opposite directions
+            //c1Waypoints.Add(c1Waypoints[0] + (normedPerp * SPLIT_DIST));
+            //c2Waypoints.Add(c2Waypoints[0] - (normedPerp * SPLIT_DIST));
 
             // Waypoint 3 head towards other cell at offset same as split
             // Calculated by projecting vector from Waypoint 2 the opposite way and assigning to opposite cell.
             // i.e. if Cell 1 went left, then Cell 2's waypoint is result if Cell 2 instead went right.
-            c1Waypoints.Add(c2Waypoints[0] + (normedPerp * SPLIT_DIST));
-            c2Waypoints.Add(c1Waypoints[0] - (normedPerp * SPLIT_DIST));
+            //c1Waypoints.Add(c2Waypoints[0] + (normedPerp * SPLIT_DIST));
+            //c2Waypoints.Add(c1Waypoints[0] - (normedPerp * SPLIT_DIST));
 
             // Waypoint 4 - split 90 degrees back into being above cell
             c1Waypoints.Add(c2Waypoints[0]);
@@ -181,6 +181,21 @@ namespace UnityEngine
             IslandPiece temp = c1.islandPiece;
             c1.islandPiece = c2.islandPiece;
             c2.islandPiece = temp;          
+        }
+
+        public static void SwapTwoChunks(Grid grid, params object[] args)
+        {
+            if (args.Length != 2)
+                Debug.LogError(args.Length + " arguments send instead of 2 to ReplaceBorderWIthTrees()");
+
+            var chunk1 = (List<Cell>)args[0];
+            var chunk2 = (List<Cell>)args[1];
+
+            if (chunk1.Count != chunk2.Count)
+                Debug.LogError("Chunks not same size in SwapTwoChunks");
+
+            for (int i = 0; i < chunk1.Count; ++i)
+                SwapTwoCells(grid, chunk1[i], chunk2[i]);
         }
 
         public static void ReplaceBorderWithTrees(Grid grid, params object[] args)

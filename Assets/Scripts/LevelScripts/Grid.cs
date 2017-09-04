@@ -17,10 +17,8 @@ namespace UnityEngine
 [System.Serializable]
 public class Grid : MonoBehaviour
 {
-    [SerializeField]
     public static float SHAKE_DISTANCE = 0.1f;
-    [SerializeField]
-    public static float SHAKE_SPEED = 0.01f;
+    public static float SHAKE_SPEED = 0.01f; 
 
     public Cell cell;
 
