@@ -22,26 +22,31 @@ public class LevelManager : MonoBehaviour
 
         //_scene.EnqueueMove(GridCon.SplitGridIntoFour, 3f);
         //_scene.EnqueueMove(GridCon.ReformGrid, 3f);
-        _scene.EnqueueMove(GridCon.SwapTwoCells, 5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        _scene.EnqueueMove(GridCon.SwapTwoCells, 5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-
-     
-
         //_scene.EnqueueMove(GridCon.SwapTwoCells, 5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        //_scene.EnqueueMove(GridCon.SwapTwoCells, 7.65f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        //_scene.EnqueueMove(GridCon.SwapTwoCells, 3.9f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        //_scene.EnqueueMove(GridCon.SwapTwoCells, 1.23487f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        //_scene.EnqueueMove(GridCon.SwapTwoCells, 10.75f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        //_scene.EnqueueMove(GridCon.SwapTwoCells, 12f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        //_scene.EnqueueMove(GridCon.SwapTwoCells, 3.544f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        //_scene.EnqueueMove(GridCon.SwapTwoCells, 2.543258f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+        //_scene.EnqueueMove(GridCon.SwapTwoCells, 5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
 
+        _scene.EnqueueMove(GridCon.SplitGridIntoFour, 4f);
+        _scene.EnqueueMove(GridCon.ReformGrid, 1f);
+
+        _scene.EnqueueMove(GridCon.ReplaceBorderWithTrees, 5f);
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20)));
+
+
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 20)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 20)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 1.5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeBallistaCellAt(grid.transform.position + new Vector3(10, 0, 30)));
+                                                                                                                                                                     
         //TestAllMoves();
 
-        // There's an extra shake somewhere.
-        // Definitely affects SplitGridIntoFour()
-        // Possibly affects ReformGrid()
-        // SwapTwoCells() is fine
         UpdateTimeToNextGridMove();
 
     }
@@ -65,11 +70,13 @@ public class LevelManager : MonoBehaviour
             _scene.Start();
 
         _scene.Play();
+
         UpdateTimeToNextGridMove();
+        GridCon.CleanUpOffScreenPieces();
     }
 
     void UpdateTimeToNextGridMove()
     {
-        timeToNextGridMove.text = "Grid Move In: " + _scene.TimeToNextMove.ToString();  // + Get some value from GridScene here
-    }
+        timeToNextGridMove.text = "Grid Move In: " + _scene.TimeToNextMove.ToString("n2");  // + Get some value from GridScene here
+    }    
 }

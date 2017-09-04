@@ -77,6 +77,25 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public List<Cell> Border
+    {
+        get
+        {
+            var result = new List<Cell>();
+
+            for (int col = 0; col < Cols; col++)
+            {
+                for (int row = 0; row < Rows; row++)
+                {
+                    if (col == 0 || col == Cols - 1 || row == 0 || row == Rows - 1)
+                        result.Add(_cells[col][row]);
+                }
+            }
+
+            return result;
+        }
+    }
+
     public List<Cell> this[int col]
     {
         get

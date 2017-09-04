@@ -64,6 +64,7 @@ public class GridScene
             // Move has finished. Are there still moves to process?
             if (!_waitingForNextMove)
             {
+                GridCon.CleanUpOffScreenPieces();
                 _waitingForNextMove = true;
                 _moveFinishedAt = Time.time;
             }

@@ -8,9 +8,24 @@ namespace UnityEngine
 
     public static class GridCon
     {
+        private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
         public static float ISLAND_SPEED = 4f;
         public static float SPLIT_DIST = 4f;
+
+        public static void CleanUpOffScreenPieces()
+        {
+            for (int i = _offScreenPiecesToDelete.Count - 1; i >= 0; --i)
+            {
+                Cell c = _offScreenPiecesToDelete[i];
+
+                if (c.islandPiece.HasArrived)
+                {
+                    Object.Destroy(c.gameObject);
+                    _offScreenPiecesToDelete.RemoveAt(i);
+                }
+            }
+        }
 
         public static void ReformGrid(Grid grid, params object[] args)
         {
@@ -88,6 +103,19 @@ namespace UnityEngine
             MoveCellsAsGroup(quadrants[Quadrant.BotRight], botRightDest, botRight);
         }
 
+        public static void ReplaceWithOffScreenPiece(Grid grid, params object[] args)
+        {
+            if (args.Length != 2)
+                Debug.LogError(args.Length + " argumnts passed instead of 2 to ReplaceWithOffScreenPiece");
+
+            Cell toReplace = (Cell)args[0];
+            Cell newCell = (Cell)args[1];
+
+    
+            SwapTwoCells(grid, toReplace, newCell);
+            _offScreenPiecesToDelete.Add(toReplace);
+        }
+
         public static void SwapTwoCells(Grid grid, params object[] args)
         {
             int RAISE_DIST = 3;
@@ -131,8 +159,8 @@ namespace UnityEngine
             c2Waypoints.Add(c1Waypoints[0]);
 
             // Waypoint 5 - Back to original cell position, but swapped.
-            c1Waypoints.Add(c2Waypoints[0] - new Vector3(0, RAISE_DIST + 0.5f, 0));
-            c2Waypoints.Add(c1Waypoints[0] - new Vector3(0, RAISE_DIST + 0.5f, 0));
+            c1Waypoints.Add(c2Waypoints[0] - new Vector3(0, RAISE_DIST, 0));
+            c2Waypoints.Add(c1Waypoints[0] - new Vector3(0, RAISE_DIST, 0));
 
 
             // Set path for two cells
@@ -153,6 +181,25 @@ namespace UnityEngine
             IslandPiece temp = c1.islandPiece;
             c1.islandPiece = c2.islandPiece;
             c2.islandPiece = temp;          
+        }
+
+        public static void ReplaceBorderWithTrees(Grid grid, params object[] args)
+        {
+            if (args.Length != 0)
+                Debug.LogError(args.Length + " arguments sent instead of 0 to ReplaceBorderWithTrees()");
+
+            foreach (Cell c in grid.Border)
+            {
+                var offScreenTree = GridFactory.MakeTreeCellAt(GetOffScreenPosFor(grid, c));
+
+                ReplaceWithOffScreenPiece(grid, c, offScreenTree);
+            }
+        }
+
+        public static Vector3 GetOffScreenPosFor(Grid grid, Cell c)
+        {
+            Vector3 gridCtrToC = c.transform.position - grid.MidCell.transform.position;
+            return gridCtrToC.normalized * 25;
         }
 
         private static void MoveCellsAsGroup(List<Cell> cells, Vector3 target, Vector3 offsetFrom)
@@ -178,7 +225,7 @@ namespace UnityEngine
 
                 for (int i = 0; i < shakeCount; ++i)
                 {
-                    Vector3 pos = c.islandPiece.transform.position - new Vector3(0, 0.5f, 0);
+                    Vector3 pos = c.islandPiece.transform.position;
                     Vector3 shake = new Vector3(0, shakeDistance, 0);
 
                     shakeWaypoints.Add(pos + shake);

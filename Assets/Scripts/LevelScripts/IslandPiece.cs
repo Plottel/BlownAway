@@ -151,7 +151,6 @@ public class IslandPiece : MonoBehaviour
     // Use this for initialization
     void Start () 
 	{
-        _path = new Queue<Vector3>();
 	}
 	
 	// Update is called once per frame

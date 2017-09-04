@@ -7,7 +7,7 @@ public class Ballista : IslandTerrain
     private List<GameObject> _players;
 
     [SerializeField]
-    public float BoltSpeed = 25f;
+    public float BoltSpeed;
 
     [SerializeField]
     public float ActivationDistance;

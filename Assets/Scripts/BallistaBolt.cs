@@ -9,7 +9,7 @@ public class BallistaBolt : MonoBehaviour
 	void Start ()
     {
         // Destroy self after 5 seconds.
-        Destroy(gameObject, 5.0f);
+        Destroy(gameObject, 3.0f);
 	}
 	
 	// Update is called once per frame
