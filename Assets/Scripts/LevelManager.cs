@@ -19,6 +19,11 @@ public class LevelManager : MonoBehaviour
 
         TestAllMoves();
 
+        // There's an extra shake somewhere.
+        // Definitely affects SplitGridIntoFour()
+        // Possibly affects ReformGrid()
+        // SwapTwoCells() is fine
+
     }
 
     public void TestAllMoves()
