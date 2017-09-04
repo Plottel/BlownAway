@@ -18,6 +18,18 @@ public class GridScene
     private bool _waitingForNextMove = false;
     private float _moveFinishedAt = 0f;
 
+    public float TimeToNextMove
+    {
+        get
+        {
+            if (!_isPlaying || !_waitingForNextMove)
+                return 0;
+
+            float result = _moveDelays.Peek() - (Time.time - _moveFinishedAt);
+            return result > 0 ? result : 0f; 
+        }
+    }
+
     public GridScene(Grid grid)
     {
         _grid = grid;
@@ -52,16 +64,15 @@ public class GridScene
             // Move has finished. Are there still moves to process?
             if (!_waitingForNextMove)
             {
-                _moves.Dequeue();
                 _waitingForNextMove = true;
                 _moveFinishedAt = Time.time;
             }
             // Has enough time passed to start the next move?
             else if (Time.time - _moveFinishedAt > _moveDelays.Peek())
             {
+                _moves.Dequeue();
                 _moveDelays.Dequeue();
                 _waitingForNextMove = false;
-
 
                 _moves.Peek()(_grid, _args.Dequeue());
             }

@@ -9,6 +9,7 @@ public class SpikyBush : IslandTerrain
     {
         if (c.gameObject.tag == "Player")
         {
+           
             Debug.Log("IM EXPLODIN HERE");
             Debug.Log(c.gameObject);
             var rb = c.collider.GetComponent<Rigidbody>();
@@ -19,7 +20,6 @@ public class SpikyBush : IslandTerrain
     // Use this for initialization
     void Start () 
 	{
-		
 	}
 	
 	// Update is called once per frame
