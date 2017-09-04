@@ -10,7 +10,7 @@ namespace UnityEngine
     {
         private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
-        public static float ISLAND_SPEED = 2f;
+        public static float ISLAND_SPEED = 30f;
         public static float SPLIT_DIST = 4f;
 
         public static void CleanUpOffScreenPieces()
@@ -114,6 +114,15 @@ namespace UnityEngine
     
             SwapTwoCells(grid, toReplace, newCell);
             _offScreenPiecesToDelete.Add(toReplace);
+        }
+
+        public static void SwapTwoRandomCells(Grid grid, params object[] args)
+        {
+            System.Random rng = LevelManager.RNG;
+
+            SwapTwoCells(grid,
+                grid[rng.Next(0, grid.Cols - 1), rng.Next(0, grid.Rows - 1)],
+                grid[rng.Next(0, grid.Cols - 1), rng.Next(0, grid.Rows - 1)]);
         }
 
         public static void SwapTwoCells(Grid grid, params object[] args)
@@ -237,6 +246,9 @@ namespace UnityEngine
             if (c.islandPiece != null)
             {
                 var shakeWaypoints = new List<Vector3>();
+
+                // FIX: HARDCODE SHAKE COUNT
+                shakeCount = 7;
 
                 for (int i = 0; i < shakeCount; ++i)
                 {
