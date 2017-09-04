@@ -14,8 +14,6 @@ namespace UnityEngine
 
         public static void ReformGrid(Grid grid, params object[] args)
         {
-            Debug.DrawRay(grid.MidCell.transform.Mid3D(), Vector3.up, Color.blue, 5, false);
-
             for (int col = 0; col < grid.Cols; ++col)
             {
                 for (int row = 0; row < grid.Rows; ++row)
@@ -25,7 +23,7 @@ namespace UnityEngine
                     if (c.islandPiece != null)
                     {
                         c.islandPiece.SetPath(c.transform.Mid3D(), ISLAND_SPEED, true);
-                        ShakeCell(c, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+                        ShakeCell(c, 10, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
                     }
                 }
             }
@@ -180,7 +178,7 @@ namespace UnityEngine
 
                 for (int i = 0; i < shakeCount; ++i)
                 {
-                    Vector3 pos = c.transform.position;
+                    Vector3 pos = c.islandPiece.transform.position - new Vector3(0, 0.5f, 0);
                     Vector3 shake = new Vector3(0, shakeDistance, 0);
 
                     shakeWaypoints.Add(pos + shake);

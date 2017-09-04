@@ -20,15 +20,21 @@ public class LevelManager : MonoBehaviour
 
         _scene = new GridScene(grid);
 
-
+        //_scene.EnqueueMove(GridCon.SplitGridIntoFour, 3f);
+        //_scene.EnqueueMove(GridCon.ReformGrid, 3f);
         _scene.EnqueueMove(GridCon.SwapTwoCells, 5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        _scene.EnqueueMove(GridCon.SwapTwoCells, 7.65f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        _scene.EnqueueMove(GridCon.SwapTwoCells, 3.9f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        _scene.EnqueueMove(GridCon.SwapTwoCells, 1.23487f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        _scene.EnqueueMove(GridCon.SwapTwoCells, 10.75f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        _scene.EnqueueMove(GridCon.SwapTwoCells, 12f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        _scene.EnqueueMove(GridCon.SwapTwoCells, 3.544f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
-        _scene.EnqueueMove(GridCon.SwapTwoCells, 2.543258f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+        _scene.EnqueueMove(GridCon.SwapTwoCells, 5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+
+     
+
+        //_scene.EnqueueMove(GridCon.SwapTwoCells, 5f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+        //_scene.EnqueueMove(GridCon.SwapTwoCells, 7.65f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+        //_scene.EnqueueMove(GridCon.SwapTwoCells, 3.9f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+        //_scene.EnqueueMove(GridCon.SwapTwoCells, 1.23487f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+        //_scene.EnqueueMove(GridCon.SwapTwoCells, 10.75f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+        //_scene.EnqueueMove(GridCon.SwapTwoCells, 12f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+        //_scene.EnqueueMove(GridCon.SwapTwoCells, 3.544f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
+        //_scene.EnqueueMove(GridCon.SwapTwoCells, 2.543258f, grid[RNG.Next(0, 8), RNG.Next(0, 8)], grid[RNG.Next(0, 8), RNG.Next(0, 8)]);
 
         //TestAllMoves();
 
