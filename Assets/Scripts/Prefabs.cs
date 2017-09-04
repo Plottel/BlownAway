@@ -12,4 +12,5 @@ public static class Prefabs
     public static SpikyBush SpikyBush = (SpikyBush)Resources.Load("SpikyBush", typeof(SpikyBush));
     public static Tree Tree = (Tree)Resources.Load("Tree", typeof(Tree));
     public static Ballista Ballista = (Ballista)Resources.Load("Ballista", typeof(Ballista));
+    public static BallistaBolt BallistaBolt = (BallistaBolt)Resources.Load("BallistaBolt", typeof(BallistaBolt));
 }
