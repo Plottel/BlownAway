@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Ballista : IslandTerrain
 {
-    private List<Player> _players;
+    private List<GameObject> _players;
 
-    public float ActivationDistance = 0.5f;
+    [SerializeField]
+    public float ActivationDistance;
 
 
     public override void ApplyEffect(Collision c)
@@ -16,7 +17,9 @@ public class Ballista : IslandTerrain
     // Use this for initialization
     void Start ()
     {
-        _players = new List<Player>(FindObjectsOfType<Player>());
+        
+        _players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
+        Debug.Log(_players.Count + " : Player Objects");
 	}
 
     private bool AtLeastOnePlayerIsInRange
@@ -27,14 +30,14 @@ public class Ballista : IslandTerrain
         }
     }
 
-    private Player ClosestPlayer
+    private GameObject ClosestPlayer
     {
         get
         {
             float closestDistance = float.MaxValue;
-            Player closestPlayer = null;
+            GameObject closestPlayer = null;
 
-            foreach (Player p in _players)
+            foreach (GameObject p in _players)
             {
                 float dist = Vector3.Distance(transform.position, p.transform.position);
 
@@ -53,6 +56,17 @@ public class Ballista : IslandTerrain
 	void Update ()
     {
 		if (AtLeastOnePlayerIsInRange)
-            transform.LookAt(2 * transform.position - ClosestPlayer.transform.position); // Look away from closest player
+        {
+            Vector3 toBallista = transform.position - ClosestPlayer.transform.position;
+            Vector3 target = toBallista * 2; // Project past Ballista to look in opposite direction
+            target.y = 0; // Assume player always same height as Ballista.
+
+            // Change rotation.
+            transform.LookAt(target);
+
+            transform.rotation = Quaternion.LookRotation(target);
+            transform.Rotate(Prefabs.Ballista.transform.rotation.eulerAngles); // Maintain sideways cylinder
+        }
+            
 	}
 }
