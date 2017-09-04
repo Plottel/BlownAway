@@ -11,4 +11,5 @@ public static class Prefabs
     public static DirectAttack DirectAttack = (DirectAttack)Resources.Load("DirectAttack", typeof(DirectAttack));
     public static SpikyBush SpikyBush = (SpikyBush)Resources.Load("SpikyBush", typeof(SpikyBush));
     public static Tree Tree = (Tree)Resources.Load("Tree", typeof(Tree));
+    public static Ballista Ballista = (Ballista)Resources.Load("Ballista", typeof(Ballista));
 }

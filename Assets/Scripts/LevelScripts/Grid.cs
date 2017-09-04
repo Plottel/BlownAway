@@ -89,8 +89,8 @@ public class Grid : MonoBehaviour
 
     private Cell CreateCellAt(Vector3 pos)
     {
-        Cell newCell = Instantiate(Prefabs.Cell, pos, Quaternion.identity);
-        newCell.transform.SetParent(this.gameObject.transform);
+        Cell newCell = Instantiate(Prefabs.Cell, pos, Prefabs.Cell.transform.rotation);
+        newCell.transform.parent = this.gameObject.transform;
 
         return newCell;
     }
