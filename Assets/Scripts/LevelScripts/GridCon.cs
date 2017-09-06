@@ -10,7 +10,7 @@ namespace UnityEngine
     {
         private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
-        public static float ISLAND_SPEED = 30f;
+        public static float ISLAND_SPEED = 1.5f;
         public static float SPLIT_DIST = 4f;
 
         public static void CleanUpOffScreenPieces()

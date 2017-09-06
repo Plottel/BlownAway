@@ -8,7 +8,7 @@ public class BallistaBolt : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        // Destroy self after 5 seconds.
+        // Destroy self after 3 seconds.
         Destroy(gameObject, 3.0f);
 	}
 	
