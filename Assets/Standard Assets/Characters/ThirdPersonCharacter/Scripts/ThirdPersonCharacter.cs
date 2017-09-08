@@ -29,8 +29,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
 		float scale;
-
-		public GameObject AttackCone;
 	
 
 		void Start()
@@ -77,19 +75,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			// send input and other state parameters to the animator
 			UpdateAnimator(move);
-		}
-
-		public void AttackDirect(bool buttonPressed)
-		{
-			if (buttonPressed) 
-			{
-				Quaternion rot = this.gameObject.transform.rotation;
-				AttackCone.transform.localScale = new Vector3 (scale, scale, scale);
-				GameObject.Instantiate (AttackCone, 
-					this.gameObject.transform.position, 
-					this.transform.localRotation,
-					this.transform);
-			}
 		}
 
 		void ScaleCapsuleForCrouching(bool crouch)

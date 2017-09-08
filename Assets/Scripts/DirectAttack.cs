@@ -7,18 +7,11 @@ public class DirectAttack : MonoBehaviour {
 	public int ExplosionForce = 400;
 	public int ExplosionRadius = 100;
 
-	private Vector3 growthFactor;
-	private Vector3 maxSize;
-	private float currentScale;
-	private float growAmount;
 	private float endTime;
 
 	// Use this for initialization
 	void Start () 
 	{
-		growthFactor = new Vector3(1, 1, 1);
-		maxSize = new Vector3(ExplosionRadius, ExplosionRadius, ExplosionRadius);
-		this.transform.localScale = growthFactor;
 		endTime = Time.fixedTime + 0.05f;
 	}
 
