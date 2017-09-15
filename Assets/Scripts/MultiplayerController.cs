@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MultiplayerController : MonoBehaviour {
 
@@ -12,6 +13,10 @@ public class MultiplayerController : MonoBehaviour {
 	public int StartingLives = 4;
 	private int MaxLives = 4;
 	private int[] Lives = new int[4];
+	private int Paused = -1;
+	public GameObject PauseMenuPrefab;
+	private GameObject PauseMenu;
+	public GameObject EventSystem;
 
 	private Image[,] Stocks = new Image[4,4];
 
@@ -53,7 +58,7 @@ public class MultiplayerController : MonoBehaviour {
 
 		for (int p = 0; p <= 3; p++) {
 			if (!ActivePlayers [p]) {
-				if (ActivePlayers [p] = CrossPlatformInputManager.GetButtonDown ("P" + (p+1) + "_Start")) {
+				if (ActivePlayers [p] = CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Start")) {
 
 					CreatePlayer (p);
 					Debug.Log ("Created in Update");
@@ -70,6 +75,25 @@ public class MultiplayerController : MonoBehaviour {
 					}
 					*/
 
+				}
+			} else {
+				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Start")) {
+					if (Paused == -1) {
+						Paused = p;
+						Time.timeScale = 0;
+						PauseMenu = Instantiate (PauseMenuPrefab, transform.parent);
+
+						//EventSystem.GetComponent<EventSystem> ().firstSelectedGameObject = 
+						PauseMenu.GetComponentInChildren<Button> ().Select();
+
+						StandaloneInputModule SIM = EventSystem.GetComponent<StandaloneInputModule> ();
+						SIM.submitButton = ("P" + (p + 1) + "_Jump");
+						SIM.horizontalAxis = ("P" + (p + 1) + "_Horizontal");
+					} else if (Paused == p) {
+						Paused = -1;
+						Time.timeScale = 1;
+						Destroy (PauseMenu);
+					}
 				}
 			}
 		}
