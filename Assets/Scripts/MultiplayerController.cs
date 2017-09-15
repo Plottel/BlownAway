@@ -26,9 +26,10 @@ public class MultiplayerController : MonoBehaviour {
 		ActivePlayers = MainMenu.ActivePlayers;
 		StartingLives = MainMenu.Lives;
 
-		//TEMPORARY LINES FOR DEBUGGING:
+		/*TEMPORARY LINES FOR DEBUGGING:
 		ActivePlayers [0] = true;
 		ActivePlayers [2] = true;
+		*/
 
 		if (StartingLives > MaxLives) {
 			StartingLives = MaxLives;
@@ -39,6 +40,8 @@ public class MultiplayerController : MonoBehaviour {
 				Lives [i] = StartingLives;
 				CreatePlayer (i);
 			}
+
+			GetComponentsInChildren<Image> () [i].enabled = false;
 		}
 
 		int k = 4;
@@ -75,7 +78,6 @@ public class MultiplayerController : MonoBehaviour {
 						Time.timeScale = 0;
 						PauseMenu = Instantiate (PauseMenuPrefab, transform.parent);
 
-						//EventSystem.GetComponent<EventSystem> ().firstSelectedGameObject = 
 						PauseMenu.GetComponentInChildren<Button> ().Select();
 
 						StandaloneInputModule SIM = EventSystem.GetComponent<StandaloneInputModule> ();
