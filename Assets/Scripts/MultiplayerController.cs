@@ -22,12 +22,23 @@ public class MultiplayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		ActivePlayers = MainMenu.ActivePlayers;
+		StartingLives = MainMenu.Lives;
+
+		//TEMPORARY LINES FOR DEBUGGING:
+		ActivePlayers [0] = true;
+		ActivePlayers [2] = true;
+
 		if (StartingLives > MaxLives) {
 			StartingLives = MaxLives;
 		}
 
 		for (int i = 0; i <= 3; i++) {
-			Lives [i] = 0;
+			if (ActivePlayers [i] == true) {
+				Lives [i] = StartingLives;
+				CreatePlayer (i);
+			}
 		}
 
 		int k = 4;
@@ -57,26 +68,7 @@ public class MultiplayerController : MonoBehaviour {
 	void Update () {
 
 		for (int p = 0; p <= 3; p++) {
-			if (!ActivePlayers [p]) {
-				if (ActivePlayers [p] = CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Start")) {
-
-					CreatePlayer (p);
-					Debug.Log ("Created in Update");
-
-					GetComponentsInChildren<Image> () [p].enabled = false;
-
-					Lives [p] = StartingLives;
-					ActivePlayers [p] = true;
-
-					UpdateStockGraphics ();
-					/*
-					for (int i = 0; i <= 3; i++) {
-						Stocks [p, i].enabled = true;
-					}
-					*/
-
-				}
-			} else {
+			if (ActivePlayers [p]) {
 				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Start")) {
 					if (Paused == -1) {
 						Paused = p;
