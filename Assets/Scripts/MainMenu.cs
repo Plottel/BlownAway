@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour {
 
@@ -18,12 +19,18 @@ public class MainMenu : MonoBehaviour {
 	public GameObject B_Area;
 	public GameObject B_Lives;
 
+	public GameObject Messages;
+
+	public GameObject EventSystem;
+
+	public int PlayerHoldingMenu = 0;
+
 
 	// Use this for initialization
 	void Start () {
-		
+		B_Lives.GetComponentInChildren<Text> ().text = "" + Lives;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -37,6 +44,10 @@ public class MainMenu : MonoBehaviour {
 					GetComponentsInChildren<Image> () [p].enabled = false;
 
 					ActivePlayers [p] = true;
+
+					Messages.GetComponent<Text> ().enabled = false;
+
+					ChooseController (p);
 				}
 			}
 			if (ActivePlayers [p]) {
@@ -46,6 +57,10 @@ public class MainMenu : MonoBehaviour {
 					GetComponentsInChildren<Image> () [p].enabled = true;
 
 					ActivePlayers [p] = false;
+
+					if (PlayerHoldingMenu == p) {
+						ChooseController (p);
+					}
 				}
 			}
 		}
@@ -54,16 +69,13 @@ public class MainMenu : MonoBehaviour {
 	public void ToggleMode() {
 		if (Mode == "Normal") {
 			Mode = "Tutorial";
-			Lives = -1;
-			B_Lives.GetComponentInChildren<Text> ().text = "infinite";
+			B_Lives.GetComponentInChildren<Text> ().text = "--";
 		} else if (Mode == "Tutorial") {
 			Mode = "Freeplay";
-			Lives = -1;
-			B_Lives.GetComponentInChildren<Text> ().text = "infinite";
+			B_Lives.GetComponentInChildren<Text> ().text = "--";
 		} else {
 			Mode = "Normal";
-			Lives = 1;
-			B_Lives.GetComponentInChildren<Text> ().text = "1";
+			B_Lives.GetComponentInChildren<Text> ().text = "" + Lives;
 		}
 
 		B_Mode.GetComponentInChildren<Text> ().text = Mode;
@@ -84,21 +96,65 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void ToggleLives() {
-		if (Lives == MaxLives) {
-			Lives = 1;
-		} else  {
-			Lives += 1;
+
+		if (Mode == "Normal") {
+			
+			if (Lives == MaxLives) {
+				Lives = 1;
+			} else  {
+				Lives += 1;
+			}
+
+			B_Lives.GetComponentInChildren<Text> ().text = "" + Lives;
+
 		}
-
-		string Temp = "" + Lives;
-
-		B_Lives.GetComponentInChildren<Text> ().text = Temp;
 	}
 
 	public void StartGame() {
 		//Go to the scene from here.
 		//Choose scene based on area? Ask Matt.
-		Debug.Log("Game Started. Right?");
-		SceneManager.LoadScene ("Game");
+		int n = 0;
+		for (int i = 0; i < 4; i++) {
+			if (ActivePlayers [i])
+				n += 1;
+		}
+
+		if (n >= 2) {
+			SceneManager.LoadScene ("Game");
+		} else {
+			Messages.GetComponent<Text> ().enabled = true;
+		}
+	}
+
+	void ChooseController(int Default) {
+		if (!ActivePlayers [PlayerHoldingMenu]) {
+			int n = 0;
+			for (int i = 0; i < 4; i++) {
+				if (ActivePlayers [i])
+					n += 1;
+			}
+
+			if (n > 0) {
+				if (ActivePlayers [Default]) {
+					PassControl (Default);
+				} else {
+					n = -1;
+					for (int i = 3; i >= 0; i--) {
+						if (ActivePlayers [i])
+							n = i;
+					}
+
+					PassControl (n);
+				}
+			}
+		}
+	}
+
+	private void PassControl(int p) {
+		StandaloneInputModule SIM = EventSystem.GetComponent<StandaloneInputModule> ();
+		SIM.submitButton = ("P" + (p + 1) + "_Jump");
+		SIM.horizontalAxis = ("P" + (p + 1) + "_Horizontal");
+		SIM.verticalAxis = ("P" + (p + 1) + "_Vertical");
+		PlayerHoldingMenu = p;
 	}
 }

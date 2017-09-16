@@ -18,18 +18,24 @@ public class MultiplayerController : MonoBehaviour {
 	private GameObject PauseMenu;
 	public GameObject EventSystem;
 
+	public Vector3[] PlayerSpawnPos = new Vector3[4];
+
 	private Image[,] Stocks = new Image[4,4];
 
 	// Use this for initialization
 	void Start () {
 
+		//If spawn positions are not set, set them to these defaults.
+		if (PlayerSpawnPos == new Vector3[4]) {
+			PlayerSpawnPos[0] = new Vector3 (0, 5, -10);
+			PlayerSpawnPos[0] = new Vector3 (10, 5, -10);
+			PlayerSpawnPos[0] = new Vector3 (10, 5, 0);
+			PlayerSpawnPos[0] = new Vector3 (0, 5, -0);
+		}
+
+		//Get the settings chosen in the main menu.
 		ActivePlayers = MainMenu.ActivePlayers;
 		StartingLives = MainMenu.Lives;
-
-		/*TEMPORARY LINES FOR DEBUGGING:
-		ActivePlayers [0] = true;
-		ActivePlayers [2] = true;
-		*/
 
 		if (StartingLives > MaxLives) {
 			StartingLives = MaxLives;
