@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class MultiplayerController : MonoBehaviour {
 
 	public GameObject PlayerPrefab;
-	public GameObject StockPrefab;
+	public GameObject PlayerIconPrefab;
 	private bool[] ActivePlayers = new bool[4];
 	public int StartingLives = 4;
 	private int MaxLives = 4;
@@ -17,8 +17,10 @@ public class MultiplayerController : MonoBehaviour {
 	public GameObject PauseMenuPrefab;
 	private GameObject PauseMenu;
 	public GameObject EventSystem;
+	private PlayerIcon[] PlayerIcons = new PlayerIcon[4];
 
 	public Vector3[] PlayerSpawnPos = new Vector3[4];
+	public GameObject[] TutorialText = new GameObject[4];
 
 	private Image[,] Stocks = new Image[4,4];
 
@@ -37,45 +39,61 @@ public class MultiplayerController : MonoBehaviour {
 		ActivePlayers = MainMenu.ActivePlayers;
 		StartingLives = MainMenu.Lives;
 
+		//Disable the tutorial text if not in tutorial mode.
+		if (MainMenu.Mode != "Tutorial") {
+			TutorialText[0].GetComponent<Text>().enabled = false;
+			TutorialText[1].GetComponent<Text>().enabled = false;
+			TutorialText[2].GetComponent<Text>().enabled = false;
+			TutorialText[3].GetComponent<Text>().enabled = false;
+		}
+
 		if (StartingLives > MaxLives) {
 			StartingLives = MaxLives;
 		}
 
-		for (int i = 0; i <= 3; i++) {
-			if (ActivePlayers [i] == true) {
-				Lives [i] = StartingLives;
-				CreatePlayer (i);
-			}
-
-			GetComponentsInChildren<Image> () [i].enabled = false;
-		}
-
+		//Put all the stocks in a list and change their visibility depending on which players are present.
 		int k = 4;
 		for (int i = 0; i <= 3; i++) {
 			int j = 0;
-			Stocks [i,j] = Instantiate (StockPrefab).GetComponent<Image>();
-			Stocks [i,j].enabled = false;
+			Stocks [i, j] = GetComponentsInChildren<Image> () [i * 4 + j];
+			Stocks [i, j].enabled = ActivePlayers [i];
 			j += 1;
 			k += 1;
-			Stocks[i,j] = Instantiate (StockPrefab).GetComponent<Image>();
-			Stocks [i,j].enabled = false;
+			Stocks [i, j] = GetComponentsInChildren<Image> () [i * 4 + j];
+			Stocks [i, j].enabled = ActivePlayers [i];
 			j += 1;
 			k += 1;
-			Stocks[i,j] = Instantiate (StockPrefab).GetComponent<Image>();
-			Stocks [i,j].enabled = false;
+			Stocks [i, j] = GetComponentsInChildren<Image> () [i * 4 + j];
+			Stocks [i, j].enabled = ActivePlayers [i];
 			j += 1;
 			k += 1;
-			Stocks[i,j] = Instantiate (StockPrefab).GetComponent<Image>();
-			Stocks [i,j].enabled = false;
+			Stocks [i, j] = GetComponentsInChildren<Image> () [i * 4 + j];
+			Stocks [i, j].enabled = ActivePlayers [i];
 			j += 1;
 			k += 1;
 		}
 
+		//Create and gives lives to the players in this match, and create and setup their icon.
+		for (int i = 0; i <= 3; i++) {
+			if (ActivePlayers [i] == true) {
+				
+				PlayerIcons [i] = Instantiate (PlayerIconPrefab, transform).GetComponent<PlayerIcon> ();
+				PlayerIcons [i].PlayerNumber = i + 1;
+				PlayerIcons [i].SetHealth = 0;
+				PlayerIcons [i].UseName = false;
+
+				Lives [i] = StartingLives;
+				CreatePlayer (i);
+			}
+		}
+
+		UpdateStockGraphics ();
 	}
 
 	// Update is called once per frame
 	void Update () {
 
+		//Check if any of the players in the game pressed start, and pause (or unpause) if they did.
 		for (int p = 0; p <= 3; p++) {
 			if (ActivePlayers [p]) {
 				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Start")) {
@@ -96,41 +114,43 @@ public class MultiplayerController : MonoBehaviour {
 					}
 				}
 			}
+
+			if (MainMenu.Mode == "Tutorial") {
+				if (CrossPlatformInputManager.GetAxis("P" + (p + 1) + "_Horizontal") != 0)
+					TutorialText[0].GetComponent<Text>().enabled = false;
+				if (CrossPlatformInputManager.GetAxis("P" + (p + 1) + "_Horizontal2") != 0)
+					TutorialText[1].GetComponent<Text>().enabled = false;
+				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Jump"))
+					TutorialText[2].GetComponent<Text>().enabled = false;
+				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_AttackDirect"))
+					TutorialText[3].GetComponent<Text>().enabled = false;
+			}
 		}
 	}
 
 	//Show or hide stocks based on the number of lives the player has.
 	private void UpdateStockGraphics() {
 		for (int p = 0; p <= 3; p++) {
-			for (int i = 0; i <= 3; i++) {
-				Stocks [p, i].enabled = false;
-			}
-			for (int i = 0; i < Lives[p]; i++) {
-				Stocks [p, i].enabled = true;
+			if (ActivePlayers[p]) {
+				for (int i = 0; i <= 3; i++) {
+					Stocks [p, i].enabled = false;
+				}
+				for (int i = 0; i < Lives[p]; i++) {
+					Stocks [p, i].enabled = true;
+				}
 			}
 		}
 	}
 
 	//CHANGE THE SPAWN POSITION OF PLAYERS HERE (for now).
-	private void CreatePlayer(int Player) {
-		Debug.Log ("Created: " + Player);
-		if (Player == 0) {
-			GameObject P = Instantiate (PlayerPrefab);
-			P.GetComponent<MovementControl> ().Player = "P1";
-			P.GetComponent<Transform> ().position = new Vector3 (0, 5, -10);
-		} else if (Player == 1) {
-			GameObject P = Instantiate (PlayerPrefab);
-			P.GetComponent<MovementControl> ().Player = "P2";
-			P.GetComponent<Transform> ().position = new Vector3 (10, 5, -10);
-		} else if (Player == 2) {
-			GameObject P = Instantiate (PlayerPrefab);
-			P.GetComponent<MovementControl> ().Player = "P3";
-			P.GetComponent<Transform> ().position = new Vector3 (10, 5, 0);
-		} else if (Player == 3) {
-			GameObject P = Instantiate (PlayerPrefab);
-			P.GetComponent<MovementControl> ().Player = "P4";
-			P.GetComponent<Transform> ().position = new Vector3 (0, 5, -0);
-		}
+	private void CreatePlayer(int PlayerNum) {
+		Debug.Log ("Created: " + PlayerNum);
+
+		GameObject P = Instantiate (PlayerPrefab);
+		P.GetComponent<MovementControl> ().Player = "P" + (PlayerNum + 1);
+		P.GetComponent<Transform> ().position = PlayerSpawnPos[PlayerNum];
+
+		PlayerIcons [PlayerNum].Target = P.transform;
 	}
 
 	public void KillPlayerByString (string PName) {
@@ -144,13 +164,8 @@ public class MultiplayerController : MonoBehaviour {
 		} else if (PName == "P4") {
 			PNumber = 3;
 		}
-		Lives [PNumber] -= 1;
-		if (Lives [PNumber] != 0) {
-			CreatePlayer (PNumber);
-			Debug.Log ("Created in String");
-		}
-		UpdateStockGraphics ();
-		Debug.Log ("Name: " + PName + ", Number: " + PNumber + ", Lives: " + Lives [PNumber]);
+
+		KillPlayerByInt (PNumber);
 	}
 
 	public void KillPlayerByInt (int PNumber) {
@@ -158,6 +173,8 @@ public class MultiplayerController : MonoBehaviour {
 		if (Lives [PNumber] != 0) {
 			CreatePlayer (PNumber);
 			Debug.Log ("Created in Int");
+		} else {
+			Destroy (PlayerIcons [PNumber].gameObject);
 		}
 		UpdateStockGraphics ();
 	}
