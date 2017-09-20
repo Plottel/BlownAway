@@ -10,7 +10,7 @@ namespace UnityEngine
     {
         private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
-        public static float ISLAND_SPEED = 1.5f;
+        public static float ISLAND_SPEED = 15f;
         public static float SPLIT_DIST = 4f;
 
         public static void CleanUpOffScreenPieces()
@@ -116,13 +116,30 @@ namespace UnityEngine
             _offScreenPiecesToDelete.Add(toReplace);
         }
 
-        public static void SwapTwoRandomCells(Grid grid, params object[] args)
+        public static void SwapRandomCells(Grid grid, params object[] args)
         {
             System.Random rng = LevelManager.RNG;
-
+ 
             SwapTwoCells(grid,
                 grid[rng.Next(0, grid.Cols - 1), rng.Next(0, grid.Rows - 1)],
                 grid[rng.Next(0, grid.Cols - 1), rng.Next(0, grid.Rows - 1)]);
+        }
+
+        /// <summary>
+        /// Num Args: 1
+        /// args[0]: int numSwaps
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <param name="args"></param>
+        public static void SwapRandomCellsMultiple(Grid grid, params object[] args)
+        {
+            if (args.Length != 1)
+                Debug.LogError(args.Length + " arguments passed instead of 1 to SwapRandomCellsMultiple");
+
+            int numSwaps = (int)args[0];
+
+            for (int i = 0; i < numSwaps; ++i)
+                SwapRandomCells(grid);
         }
 
         public static void SwapTwoCells(Grid grid, params object[] args)

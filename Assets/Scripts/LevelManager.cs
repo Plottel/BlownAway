@@ -20,53 +20,21 @@ public class LevelManager : MonoBehaviour
 
         _scene = new GridScene(grid);
 
+        for (int i = 0; i < 30; ++i)
+            _scene.EnqueueMove(GridCon.SwapRandomCellsMultiple, 0, i);
+
         //_scene.EnqueueMove(GridCon.ReplaceBorderWithTrees, 1.5f);
 
-        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20)));
-        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20)));
-        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20)));
-        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20)));
-        _scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20))); 
+        //_scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20)));
+        //_scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20)));
+        //_scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20)));
+        //_scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20)));
+        //_scene.EnqueueMove(GridCon.ReplaceWithOffScreenPiece, 0, grid[RNG.Next(0, 8), RNG.Next(0, 8)], GridFactory.MakeTreeCellAt(grid.transform.position + new Vector3(10, 0, 20))); 
 
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
-        _scene.EnqueueMove(GridCon.SwapTwoRandomCells, 0);
+        //_scene.EnqueueMove(GridCon.SwapRandomCells, 0);
 
-        _scene.EnqueueMove(GridCon.SwapTwoChunks, 3, grid.GetQuadrants()[Quadrant.BotRight], grid.GetQuadrants()[Quadrant.TopLeft]);
-        _scene.EnqueueMove(GridCon.SwapTwoChunks, 3, grid.GetQuadrants()[Quadrant.BotLeft], grid.GetQuadrants()[Quadrant.TopRight]);
+        //_scene.EnqueueMove(GridCon.SwapTwoChunks, 3, grid.GetQuadrants()[Quadrant.BotRight], grid.GetQuadrants()[Quadrant.TopLeft]);
+        //_scene.EnqueueMove(GridCon.SwapTwoChunks, 3, grid.GetQuadrants()[Quadrant.BotLeft], grid.GetQuadrants()[Quadrant.TopRight]);
 
 
 
