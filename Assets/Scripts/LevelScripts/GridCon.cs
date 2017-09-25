@@ -8,9 +8,24 @@ namespace UnityEngine
 
     public static class GridCon
     {
+        private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
-        public static float ISLAND_SPEED = 4f;
+        public static float ISLAND_SPEED = 15f;
         public static float SPLIT_DIST = 4f;
+
+        public static void CleanUpOffScreenPieces()
+        {
+            for (int i = _offScreenPiecesToDelete.Count - 1; i >= 0; --i)
+            {
+                Cell c = _offScreenPiecesToDelete[i];
+
+                if (c.islandPiece.HasArrived)
+                {
+                    Object.Destroy(c.gameObject);
+                    _offScreenPiecesToDelete.RemoveAt(i);
+                }
+            }
+        }
 
         public static void ReformGrid(Grid grid, params object[] args)
         {
@@ -88,6 +103,45 @@ namespace UnityEngine
             MoveCellsAsGroup(quadrants[Quadrant.BotRight], botRightDest, botRight);
         }
 
+        public static void ReplaceWithOffScreenPiece(Grid grid, params object[] args)
+        {
+            if (args.Length != 2)
+                Debug.LogError(args.Length + " argumnts passed instead of 2 to ReplaceWithOffScreenPiece");
+
+            Cell toReplace = (Cell)args[0];
+            Cell newCell = (Cell)args[1];
+
+    
+            SwapTwoCells(grid, toReplace, newCell);
+            _offScreenPiecesToDelete.Add(toReplace);
+        }
+
+        public static void SwapRandomCells(Grid grid, params object[] args)
+        {
+            System.Random rng = LevelManager.RNG;
+ 
+            SwapTwoCells(grid,
+                grid[rng.Next(0, grid.Cols - 1), rng.Next(0, grid.Rows - 1)],
+                grid[rng.Next(0, grid.Cols - 1), rng.Next(0, grid.Rows - 1)]);
+        }
+
+        /// <summary>
+        /// Num Args: 1
+        /// args[0]: int numSwaps
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <param name="args"></param>
+        public static void SwapRandomCellsMultiple(Grid grid, params object[] args)
+        {
+            if (args.Length != 1)
+                Debug.LogError(args.Length + " arguments passed instead of 1 to SwapRandomCellsMultiple");
+
+            int numSwaps = (int)args[0];
+
+            for (int i = 0; i < numSwaps; ++i)
+                SwapRandomCells(grid);
+        }
+
         public static void SwapTwoCells(Grid grid, params object[] args)
         {
             int RAISE_DIST = 3;
@@ -107,32 +161,32 @@ namespace UnityEngine
             c2Waypoints.Add(c2.transform.position + new Vector3(0, RAISE_DIST, 0));
 
             // Waypoint 2 - split 90 degrees
-            Vector3 from1To2Raised = c2.transform.position - c1.transform.position;
-            from1To2Raised.y += 5;
-            //Quarternion.Euler(x, y, z)
-            // One of them needs to be 90, dunno which. Test.
-            Vector3 normedPerp = Quaternion.Euler(0, 0, 90) * from1To2Raised;
-            normedPerp.y = 0; // Don't want to move on Y-axis.
-            normedPerp.Normalize();
+            //Vector3 from1To2Raised = c2.transform.position - c1.transform.position;
+            //from1To2Raised.y += 5;
+            ////Quarternion.Euler(x, y, z)
+            //// One of them needs to be 90, dunno which. Test.
+            //Vector3 normedPerp = Quaternion.Euler(0, 0, 90) * from1To2Raised;
+            //normedPerp.y = 0; // Don't want to move on Y-axis.
+            //normedPerp.Normalize();
 
-            // C1 minus -> C2 plus
-            // Go in opposite directions
-            c1Waypoints.Add(c1Waypoints[0] + (normedPerp * SPLIT_DIST));
-            c2Waypoints.Add(c2Waypoints[0] - (normedPerp * SPLIT_DIST));
+            //// C1 minus -> C2 plus
+            //// Go in opposite directions
+            //c1Waypoints.Add(c1Waypoints[0] + (normedPerp * SPLIT_DIST));
+            //c2Waypoints.Add(c2Waypoints[0] - (normedPerp * SPLIT_DIST));
 
             // Waypoint 3 head towards other cell at offset same as split
             // Calculated by projecting vector from Waypoint 2 the opposite way and assigning to opposite cell.
             // i.e. if Cell 1 went left, then Cell 2's waypoint is result if Cell 2 instead went right.
-            c1Waypoints.Add(c2Waypoints[0] + (normedPerp * SPLIT_DIST));
-            c2Waypoints.Add(c1Waypoints[0] - (normedPerp * SPLIT_DIST));
+            //c1Waypoints.Add(c2Waypoints[0] + (normedPerp * SPLIT_DIST));
+            //c2Waypoints.Add(c1Waypoints[0] - (normedPerp * SPLIT_DIST));
 
             // Waypoint 4 - split 90 degrees back into being above cell
             c1Waypoints.Add(c2Waypoints[0]);
             c2Waypoints.Add(c1Waypoints[0]);
 
             // Waypoint 5 - Back to original cell position, but swapped.
-            c1Waypoints.Add(c2Waypoints[0] - new Vector3(0, RAISE_DIST + 0.5f, 0));
-            c2Waypoints.Add(c1Waypoints[0] - new Vector3(0, RAISE_DIST + 0.5f, 0));
+            c1Waypoints.Add(c2Waypoints[0] - new Vector3(0, RAISE_DIST, 0));
+            c2Waypoints.Add(c1Waypoints[0] - new Vector3(0, RAISE_DIST, 0));
 
 
             // Set path for two cells
@@ -153,6 +207,40 @@ namespace UnityEngine
             IslandPiece temp = c1.islandPiece;
             c1.islandPiece = c2.islandPiece;
             c2.islandPiece = temp;          
+        }
+
+        public static void SwapTwoChunks(Grid grid, params object[] args)
+        {
+            if (args.Length != 2)
+                Debug.LogError(args.Length + " arguments send instead of 2 to ReplaceBorderWIthTrees()");
+
+            var chunk1 = (List<Cell>)args[0];
+            var chunk2 = (List<Cell>)args[1];
+
+            if (chunk1.Count != chunk2.Count)
+                Debug.LogError("Chunks not same size in SwapTwoChunks");
+
+            for (int i = 0; i < chunk1.Count; ++i)
+                SwapTwoCells(grid, chunk1[i], chunk2[i]);
+        }
+
+        public static void ReplaceBorderWithTrees(Grid grid, params object[] args)
+        {
+            if (args.Length != 0)
+                Debug.LogError(args.Length + " arguments sent instead of 0 to ReplaceBorderWithTrees()");
+
+            foreach (Cell c in grid.Border)
+            {
+                var offScreenTree = GridFactory.MakeTreeCellAt(GetOffScreenPosFor(grid, c));
+
+                ReplaceWithOffScreenPiece(grid, c, offScreenTree);
+            }
+        }
+
+        public static Vector3 GetOffScreenPosFor(Grid grid, Cell c)
+        {
+            Vector3 gridCtrToC = c.transform.position - grid.MidCell.transform.position;
+            return gridCtrToC.normalized * 25;
         }
 
         private static void MoveCellsAsGroup(List<Cell> cells, Vector3 target, Vector3 offsetFrom)
@@ -176,9 +264,12 @@ namespace UnityEngine
             {
                 var shakeWaypoints = new List<Vector3>();
 
+                // FIX: HARDCODE SHAKE COUNT
+                shakeCount = 7;
+
                 for (int i = 0; i < shakeCount; ++i)
                 {
-                    Vector3 pos = c.islandPiece.transform.position - new Vector3(0, 0.5f, 0);
+                    Vector3 pos = c.islandPiece.transform.position;
                     Vector3 shake = new Vector3(0, shakeDistance, 0);
 
                     shakeWaypoints.Add(pos + shake);

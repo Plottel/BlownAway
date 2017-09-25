@@ -17,10 +17,8 @@ namespace UnityEngine
 [System.Serializable]
 public class Grid : MonoBehaviour
 {
-    [SerializeField]
     public static float SHAKE_DISTANCE = 0.1f;
-    [SerializeField]
-    public static float SHAKE_SPEED = 0.01f;
+    public static float SHAKE_SPEED = 0.01f; 
 
     public Cell cell;
 
@@ -77,6 +75,25 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public List<Cell> Border
+    {
+        get
+        {
+            var result = new List<Cell>();
+
+            for (int col = 0; col < Cols; col++)
+            {
+                for (int row = 0; row < Rows; row++)
+                {
+                    if (col == 0 || col == Cols - 1 || row == 0 || row == Rows - 1)
+                        result.Add(_cells[col][row]);
+                }
+            }
+
+            return result;
+        }
+    }
+
     public List<Cell> this[int col]
     {
         get
@@ -89,8 +106,8 @@ public class Grid : MonoBehaviour
 
     private Cell CreateCellAt(Vector3 pos)
     {
-        Cell newCell = Instantiate(Prefabs.Cell, pos, Quaternion.identity);
-        newCell.transform.SetParent(this.gameObject.transform);
+        Cell newCell = Instantiate(Prefabs.Cell, pos, Prefabs.Cell.transform.rotation);
+        newCell.transform.parent = this.gameObject.transform;
 
         return newCell;
     }

@@ -24,14 +24,22 @@ public class IslandPiece : MonoBehaviour
         if (terrain != null)
             DestroyImmediate(terrain.gameObject);
 
+        // Figure out which prefab it is
         if (type == TerrainType.SpikyBush)
-            terrain = Instantiate(Prefabs.SpikyBush, transform.position, Quaternion.identity);
+            terrainPrefab = Prefabs.SpikyBush;
         else if (type == TerrainType.Tree)
-            terrain = Instantiate(Prefabs.Tree, transform.position, Quaternion.identity);
+            terrainPrefab = Prefabs.Tree;
+        else if (type == TerrainType.Ballista)
+            terrainPrefab = Prefabs.Ballista;
 
-        terrain.transform.localScale = new Vector3(0.75f, 1.2f, 0.75f);
-        terrain.transform.Translate(0, terrain.transform.localScale.y, 0);
-        terrain.transform.SetParent(this.transform);
+        // Instantiate, maintaining Prefab rotation
+        terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity); // terrainPrefab.transform.rotation);
+        terrain.transform.parent = this.transform;
+        terrain.transform.Translate(0, transform.lossyScale.y, 0);
+        terrain.transform.rotation = terrainPrefab.transform.rotation;
+
+        // Move terrain so it sits on top of island - parent it.
+        //terrain.transform.Translate(0, terrainPrefab.transform.localScale.y, 0);
     }
 
     public void RemoveTerrain()
@@ -143,7 +151,6 @@ public class IslandPiece : MonoBehaviour
     // Use this for initialization
     void Start () 
 	{
-        _path = new Queue<Vector3>();
 	}
 	
 	// Update is called once per frame

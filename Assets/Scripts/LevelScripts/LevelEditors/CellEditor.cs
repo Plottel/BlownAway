@@ -6,7 +6,8 @@ using UnityEditor;
 public enum TerrainType
 {
     SpikyBush,
-    Tree
+    Tree,
+    Ballista
 }
 
 [CustomEditor(typeof(Cell))]
