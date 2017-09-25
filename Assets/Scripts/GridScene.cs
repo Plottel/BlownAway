@@ -22,7 +22,9 @@ public class GridScene
     {
         get
         {
-            if (!_isPlaying || !_waitingForNextMove)
+            if (!_isPlaying)
+                return 0;
+            if (!_waitingForNextMove)
                 return 0;
 
             float result = _moveDelays.Peek() - (Time.time - _moveFinishedAt);
@@ -56,7 +58,9 @@ public class GridScene
 
     public void Play()
     {
-        if (!_isPlaying || _moves.Count == 0)
+        if (!_isPlaying)
+            return;
+        if (_moves.Count == 0)
             return;
 
         if (MoveIsComplete)
@@ -75,7 +79,8 @@ public class GridScene
                 _moveDelays.Dequeue();
                 _waitingForNextMove = false;
 
-                _moves.Peek()(_grid, _args.Dequeue());
+                if (_moves.Count > 0)
+                    _moves.Peek()(_grid, _args.Dequeue());
             }
         }
     }

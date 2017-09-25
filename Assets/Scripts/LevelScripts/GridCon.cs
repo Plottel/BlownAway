@@ -10,7 +10,7 @@ namespace UnityEngine
     {
         private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
-        public static float ISLAND_SPEED = 15f;
+        public static float ISLAND_SPEED = 4f;
         public static float SPLIT_DIST = 4f;
 
         public static void CleanUpOffScreenPieces()
@@ -19,14 +19,25 @@ namespace UnityEngine
             {
                 Cell c = _offScreenPiecesToDelete[i];
 
-                if (c.islandPiece.HasArrived)
+                // Validate that it's a real cell.
+                if (c == null)
                 {
-                    Object.Destroy(c.gameObject);
                     _offScreenPiecesToDelete.RemoveAt(i);
                 }
+                else
+                {
+                    if (c.islandPiece.HasArrived)
+                    {
+                        Object.Destroy(c.gameObject);
+                        _offScreenPiecesToDelete.RemoveAt(i);
+                    }
+                }                
             }
         }
 
+        /// <summary>
+        /// Num Args: 0
+        /// </summary>
         public static void ReformGrid(Grid grid, params object[] args)
         {
             for (int col = 0; col < grid.Cols; ++col)
@@ -44,6 +55,10 @@ namespace UnityEngine
             }
         }
 
+        /// <summary>
+        /// Num Args: 1
+        /// args[0]: Vector3 moveBy 
+        /// </summary>
         public static void MoveGridBy(Grid grid, params object[] args)
         {
             if (args.Length != 1)
@@ -67,6 +82,9 @@ namespace UnityEngine
             }
         }
 
+        /// <summary>
+        /// Num Args: 0
+        /// </summary>
         public static void SplitGridIntoFour(Grid grid, params object[] args)
         {
             // Need to normalize all "norm" vectors
@@ -103,34 +121,112 @@ namespace UnityEngine
             MoveCellsAsGroup(quadrants[Quadrant.BotRight], botRightDest, botRight);
         }
 
+        /// <summary>
+        /// Num Args: 2
+        /// args[0]: Cell oldCell
+        /// args[1]: TerrainType newTerrainType
+        /// </summary>
+        public static void ChangeCellTerrain(Grid grid, params object[] args)
+        {
+            if (args.Length != 2)
+                Debug.LogError(args.Length + " arguments passed instead of 2 to ChangeCellTerrain");
+
+            Cell oldCell = (Cell)args[0];
+            TerrainType newTerrainType = (TerrainType)args[1];
+
+            Vector3 spawnPos = GetOffScreenPosFor(grid, oldCell);
+            Cell newCell = GridFactory.MakeTerrainCellAt(spawnPos, newTerrainType);
+
+            ReplaceWithOffScreenPiece(grid, oldCell, newCell);
+        }
+
+        /// <summary>
+        /// Num Args: 1
+        /// args[0] Cell toDrop
+        /// </summary>
+        public static void DropCell(Grid grid, params object[] args)
+        {
+            if (args.Length != 1)
+                Debug.LogError(args.Length + " arguments passed instead of 1 to DropCell");
+
+            Cell toDrop = (Cell)args[0];
+
+            if (toDrop.islandPiece == null)
+                return;
+
+            Vector3 dropTo = toDrop.transform.position - new Vector3(0, 10, 0);
+            Cell destroyOnContact = GridFactory.MakeEmptyCellAt(dropTo);
+
+            toDrop.islandPiece.SetPath(dropTo, ISLAND_SPEED, true);
+            ShakeCell(toDrop, Grid.SHAKE_COUNT, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+
+            destroyOnContact.islandPiece = toDrop.islandPiece;
+            destroyOnContact.islandPiece.transform.SetParent(destroyOnContact.transform);
+
+            //toDrop.islandPiece = null; //MAYBE NEEDED?????????
+            _offScreenPiecesToDelete.Add(destroyOnContact);
+        }
+
+        /// <summary>
+        /// Num Args: 1
+        /// args[0]: List of Cell toDrop
+        /// </summary>
+        public static void DropCellMultiple(Grid grid, params object[] args)
+        {
+            if (args.Length != 1)
+                Debug.LogError(args.Length + " arguments passed instead of 1 to DropCell");
+
+            List<Cell> toDrop = (List<Cell>)args[0];
+
+            foreach (Cell c in toDrop)
+                DropCell(grid, c);
+        }
+
+        /// <summary>
+        /// Num Args: 0
+        /// </summary>
+        public static void DropRandomCell(Grid grid, params object[] args)
+        {
+            if (args.Length != 0)
+                Debug.LogError(args.Length + " arguments passed instead of 0 to DropRandomCell");
+
+            DropCell(grid, grid[LevelManager.RNG.Next(0, grid.Cols - 1), LevelManager.RNG.Next(0, grid.Rows - 1)]);
+        }
+
+
+        /// <summary>
+        /// Num Args: 2
+        /// args[0]: Cell oldCell
+        /// args[1]: Cell newCell
+        /// </summary>
         public static void ReplaceWithOffScreenPiece(Grid grid, params object[] args)
         {
             if (args.Length != 2)
                 Debug.LogError(args.Length + " argumnts passed instead of 2 to ReplaceWithOffScreenPiece");
 
-            Cell toReplace = (Cell)args[0];
+            Cell oldCell = (Cell)args[0];
             Cell newCell = (Cell)args[1];
 
+            //Vector2 oldCellIndex = grid.IndexOf(oldCell);
     
-            SwapTwoCells(grid, toReplace, newCell);
-            _offScreenPiecesToDelete.Add(toReplace);
+            SwapTwoCells(grid, oldCell, newCell);
+            _offScreenPiecesToDelete.Add(newCell);
         }
-
+        
+        /// <summary>
+        /// Num Args: 0
+        /// </summary>
         public static void SwapRandomCells(Grid grid, params object[] args)
-        {
-            System.Random rng = LevelManager.RNG;
- 
+        { 
             SwapTwoCells(grid,
-                grid[rng.Next(0, grid.Cols - 1), rng.Next(0, grid.Rows - 1)],
-                grid[rng.Next(0, grid.Cols - 1), rng.Next(0, grid.Rows - 1)]);
+                grid[LevelManager.RNG.Next(0, grid.Cols - 1), LevelManager.RNG.Next(0, grid.Rows - 1)],
+                grid[LevelManager.RNG.Next(0, grid.Cols - 1), LevelManager.RNG.Next(0, grid.Rows - 1)]);
         }
 
         /// <summary>
         /// Num Args: 1
         /// args[0]: int numSwaps
         /// </summary>
-        /// <param name="grid"></param>
-        /// <param name="args"></param>
         public static void SwapRandomCellsMultiple(Grid grid, params object[] args)
         {
             if (args.Length != 1)
@@ -142,6 +238,11 @@ namespace UnityEngine
                 SwapRandomCells(grid);
         }
 
+        /// <summary>
+        /// Num Args: 2
+        /// args[0]: Cell c1
+        /// args[1]: Cell c2
+        /// </summary>
         public static void SwapTwoCells(Grid grid, params object[] args)
         {
             int RAISE_DIST = 3;
@@ -193,22 +294,33 @@ namespace UnityEngine
             if (c1.islandPiece != null)
             {
                 c1.islandPiece.SetPath(c1Waypoints, ISLAND_SPEED, true);
-                ShakeCell(c1, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+                ShakeCell(c1, Grid.SHAKE_COUNT, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
             }
 
             if (c2.islandPiece != null)
             {
                 c2.islandPiece.SetPath(c2Waypoints, ISLAND_SPEED, true);
-                ShakeCell(c2, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+                ShakeCell(c2, Grid.SHAKE_COUNT, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
             }
 
 
             // Swap island piece ownership
             IslandPiece temp = c1.islandPiece;
+
             c1.islandPiece = c2.islandPiece;
-            c2.islandPiece = temp;          
+            c2.islandPiece = temp;           
+
+            if (c1.islandPiece != null)
+                c1.islandPiece.transform.SetParent(c1.transform);
+            if (c2.islandPiece != null)
+                c2.islandPiece.transform.SetParent(c2.transform);
         }
 
+        /// <summary>
+        /// Num Args: 2
+        /// args[0]: List of Cell chunk1
+        /// args[1]: List of Cell chunk2
+        /// </summary>
         public static void SwapTwoChunks(Grid grid, params object[] args)
         {
             if (args.Length != 2)
@@ -224,6 +336,9 @@ namespace UnityEngine
                 SwapTwoCells(grid, chunk1[i], chunk2[i]);
         }
 
+        /// <summary>
+        /// Num Args: 0
+        /// </summary>
         public static void ReplaceBorderWithTrees(Grid grid, params object[] args)
         {
             if (args.Length != 0)
@@ -237,10 +352,45 @@ namespace UnityEngine
             }
         }
 
+        /// <summary>
+        /// Num Args: 1
+        /// args[0]: List of Cell toRestore
+        /// </summary>
+        public static void RestoreEmptyCellMultiple(Grid grid, params object[] args)
+        {
+            if (args.Length != 1)
+                Debug.LogError(args.Length + " arguments sent instead of 0 to RestoreEmptyCellMultiple()");
+
+            List<Cell> toRestore = (List<Cell>)args[0];
+
+            foreach (Cell c in toRestore)
+                RestoreEmptyCell(grid, c);
+        }
+
+        /// <summary>
+        /// Num Args: 1
+        /// args[0]: Cell toRestore
+        /// </summary>
+        public static void RestoreEmptyCell(Grid grid, params object[] args)
+        {
+            if (args.Length != 1)
+                Debug.LogError(args.Length + " arguments sent instead of 0 to RestoreEmptyCell()");
+
+            Cell cell = (Cell)args[0];
+            Cell offScreenPiece = GridFactory.MakeIslandPieceCellAt(GetOffScreenPosFor(grid, cell));
+
+            ReplaceWithOffScreenPiece(grid, cell, offScreenPiece);
+        }
+
         public static Vector3 GetOffScreenPosFor(Grid grid, Cell c)
         {
-            Vector3 gridCtrToC = c.transform.position - grid.MidCell.transform.position;
-            return gridCtrToC.normalized * 25;
+            Vector3 centerCellOffScreenPos = grid.MidCell.transform.position + new Vector3(20, 0, 0);
+
+            Vector3 offScreenPos = centerCellOffScreenPos + (c.transform.position - grid.MidCell.transform.position);
+
+            return offScreenPos;
+            //Vector3 gridCtrToC = c.transform.position - grid.MidCell.transform.position;
+            //return c.transform.position + (gridCtrToC.normalized * 25);
         }
 
         private static void MoveCellsAsGroup(List<Cell> cells, Vector3 target, Vector3 offsetFrom)

@@ -18,7 +18,8 @@ namespace UnityEngine
 public class Grid : MonoBehaviour
 {
     public static float SHAKE_DISTANCE = 0.1f;
-    public static float SHAKE_SPEED = 0.01f; 
+    public static float SHAKE_SPEED = 0.01f;
+    public static int SHAKE_COUNT = 20;
 
     public Cell cell;
 
@@ -57,6 +58,20 @@ public class Grid : MonoBehaviour
                 return _cells[col].items[row];
             return null;
         }
+    }
+
+    public Vector2 IndexOf(Cell cell)
+    {
+        for (int col = 0; col < Cols; ++col)
+        {
+            for (int row = 0; row < Rows; ++row)
+            {
+                if (cell == _cells[col][row])
+                    return new Vector2(col, row);
+            }                
+        }
+
+        throw new System.Exception("Cell not in Grid");
     }
 
     public List<Cell> CellsAsList
