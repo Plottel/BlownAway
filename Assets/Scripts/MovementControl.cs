@@ -12,7 +12,7 @@ public class MovementControl : MonoBehaviour {
 	private Vector3 m_Move;
 
 
-	private bool m_Jump;                    // the world-relative desired move direction, calculated from the camForward and user input.
+	private bool m_dodge;                    // the world-relative desired move direction, calculated from the camForward and user input.
 	private bool m_attack_area;
 	private bool m_attack_direct;
 	public string Player = "P1";
@@ -40,26 +40,29 @@ public class MovementControl : MonoBehaviour {
 
 	private void Update()
 	{
-		if (!m_Jump) 
+		if (!m_dodge) 
 		{
-			m_Jump = CrossPlatformInputManager.GetButtonDown(Player + "_Jump");
+			m_dodge = CrossPlatformInputManager.GetButtonDown(Player + "_Jump");
 		}
-		if (!m_attack_area && !m_attack_direct) 
+		if (!m_attack_direct) 
 		{
-			m_attack_area = CrossPlatformInputManager.GetButtonDown (Player + "_Jump");
 			m_attack_direct = CrossPlatformInputManager.GetButtonDown (Player + "_AttackDirect");
 		}
-
-		a_direct_attack = CrossPlatformInputManager.GetButtonDown (Player + "_AttackDirect");
 	}
 
 	// Fixed update is called in sync with physics
 	private void FixedUpdate()
 	{
-		// read inputs
+		// Read motion inputs
+
+		// Movement
 		float h = CrossPlatformInputManager.GetAxis(Player + "_Horizontal");
 		float v = CrossPlatformInputManager.GetAxis(Player + "_Vertical");
-		bool crouch = Input.GetKey(KeyCode.C);
+
+		// Rotation
+		float rX = CrossPlatformInputManager.GetAxis(Player + "_RotationX");
+		float rZ = CrossPlatformInputManager.GetAxis(Player + "_RotationZ");
+	
 
 		// calculate move direction to pass to character
 		if (m_Cam != null)
@@ -78,8 +81,8 @@ public class MovementControl : MonoBehaviour {
 		if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
 		#endif
 		// pass all parameters to the character control script
-		m_Character.Move(m_Move, m_Jump);
-		m_Jump = false;
+		m_Character.Move(m_Move, rX, rZ, m_dodge);
+		m_dodge = false;
 
 		if (a_direct_attack) 
 		{

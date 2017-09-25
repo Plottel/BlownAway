@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
 	private Vector3 dodgeDirection;
 	private float dodgeStart;
 	private int groundCheckDistance;
+	private Vector3 dirVector;
 
 	public float MaxSpeed = 10;
 	public int ReduceAirMovementByFactorOf = 3;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		dirVector = this.gameObject.transform.rotation.eulerAngles;
 	}
 
 	// Update is called once per frame
@@ -38,8 +39,14 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void Move (Vector3 direction, bool dodge) 
+	public void Move (Vector3 direction, float rotX, float rotZ, bool dodge) 
 	{
+		// Rotate Player
+		if (rotX != 0.0f && rotZ != 0.0f)
+			dirVector += new Vector3(rotX, 0, rotZ);
+
+		transform.rotation = Quaternion.LookRotation( dirVector );
+
 		RaycastHit airborne;
 		Physics.Raycast (transform.position + (Vector3.down * 0.3f), Vector3.down, out airborne, groundCheckDistance);
 		//Check if airborne

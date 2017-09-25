@@ -48,3 +48,5 @@ Assets/Prefabs/World/Tile.prefab
 Assets/Prefabs/World/Tile.prefab.meta
 
 Assets/Prefabs/Enemies/EnemyCube.prefab.meta
+
+*.meta
