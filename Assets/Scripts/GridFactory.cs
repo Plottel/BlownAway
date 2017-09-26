@@ -10,8 +10,10 @@ public static class GridFactory
             return MakeBallistaCellAt(pos);
         else if (type == TerrainType.Tree)
             return MakeTreeCellAt(pos);
-        else
+        else if (type == TerrainType.SpikyBush)
             return MakeSpikyBushCellAt(pos);
+        else
+            return MakePistonCellAt(pos);
     }
 
     public static Cell MakeBallistaCellAt(Vector3 pos)
@@ -48,6 +50,15 @@ public static class GridFactory
     {
         Cell c = Object.Instantiate(Prefabs.Cell, pos, Quaternion.identity);
         c.AddIslandPiece();
+
+        return c;
+    }
+
+    public static Cell MakePistonCellAt(Vector3 pos)
+    {
+        Cell c = Object.Instantiate(Prefabs.Cell, pos, Quaternion.identity);
+        c.AddIslandPiece();
+        c.islandPiece.AddTerrain(TerrainType.Piston);
 
         return c;
     }

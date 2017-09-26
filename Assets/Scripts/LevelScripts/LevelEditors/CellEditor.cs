@@ -7,7 +7,8 @@ public enum TerrainType
 {
     SpikyBush,
     Tree,
-    Ballista
+    Ballista,
+    Piston
 }
 
 [CustomEditor(typeof(Cell))]

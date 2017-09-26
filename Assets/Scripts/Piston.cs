@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class IslandTerrain : MonoBehaviour 
+public class Piston : IslandTerrain 
 {
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -15,4 +16,9 @@ public abstract class IslandTerrain : MonoBehaviour
 	{
 		
 	}
+
+    public void Push()
+    {
+
+    }
 }

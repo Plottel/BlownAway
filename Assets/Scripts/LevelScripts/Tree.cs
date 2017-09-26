@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class Tree : IslandTerrain 
 {
-    public override void ApplyEffect(Collision c)
-    {
-    }
-
     // Use this for initialization
     void Start () 
 	{
