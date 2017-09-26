@@ -13,7 +13,8 @@ public class Player : MonoBehaviour {
 
 	public float MaxSpeed = 10;
 	public int ReduceAirMovementByFactorOf = 3;
-	public int JumpHeight = 4;
+	public int JumpHeight = 3;
+	public int JumpDist = 20;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour {
 			dodging = false;
 			dodgeTimer = true;
 		}
-		if (Time.time - dodgeStart > 0.02f && dodgeTimer) 
+		if (Time.time - dodgeStart > 0.04f && dodgeTimer) 
 		{
 			dodgeTimer = false;
 			gameObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;
@@ -41,9 +42,11 @@ public class Player : MonoBehaviour {
 
 	public void Move (Vector3 direction, float rotX, float rotZ, bool dodge) 
 	{
+		dirVector = this.gameObject.transform.rotation.eulerAngles;
+
 		// Rotate Player
-		if (rotX != 0.0f && rotZ != 0.0f)
-			dirVector += new Vector3(rotX, 0, rotZ);
+		if (rotX != 0.0f || rotZ != 0.0f)
+			dirVector = new Vector3(rotX*10, 0, rotZ*10);
 
 		transform.rotation = Quaternion.LookRotation( dirVector );
 
@@ -67,19 +70,21 @@ public class Player : MonoBehaviour {
 
 	void HandleGroundMovement(Vector3 direction, bool dodge)
 	{
-		if (dodge && !dodging) 
-		{
+		if (dodge && !dodging) {
 			direction = direction.normalized; 
-			direction *= 80;
-			direction += Vector3.up*JumpHeight*2;
+			direction *= JumpDist;
+			if (direction != Vector3.zero)
+				direction += Vector3.up * JumpHeight * 2;
+			Debug.Log ("Dodge: " + direction);
+
 			dodging = true;
 			dodgeDirection = direction;
 		}
-		if (gameObject.GetComponent<Rigidbody> ().velocity.magnitude > MaxSpeed) 
+		else if (gameObject.GetComponent<Rigidbody> ().velocity.magnitude > MaxSpeed) 
 		{
 			return;
 		}
 
-		gameObject.GetComponent<Rigidbody> ().AddForce (direction*100);
+		gameObject.GetComponent<Rigidbody> ().AddForce (direction*100); // Do not use dodgeDirection here. That persists after the initial dodge happens.
 	}
 }
