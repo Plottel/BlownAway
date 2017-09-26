@@ -46,7 +46,21 @@ public class Grid : MonoBehaviour
             if (Cols <= 0 || Rows <= 0)
                 return null;
 
-            return _cells[(int)Mathf.Floor(Cols / 2)][(int)Mathf.Floor(Rows / 2)];        
+            return _cells[(int)Mathf.Floor(Cols / 2)][(int)Mathf.Floor(Rows / 2)];
+        }
+    }
+
+    public List<Cell> Corners
+    {
+        get
+        {
+            return new List<Cell>
+            {
+                _cells[0][0],
+                _cells[0][Rows - 1],
+                _cells[Cols - 1][0],
+                _cells[Cols - 1][Rows - 1]
+            };
         }
     }
 

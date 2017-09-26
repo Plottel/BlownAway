@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UnityEngine
 {
@@ -138,6 +139,22 @@ namespace UnityEngine
             Cell newCell = GridFactory.MakeTerrainCellAt(spawnPos, newTerrainType);
 
             ReplaceWithOffScreenPiece(grid, oldCell, newCell);
+        }
+
+        public static void ChangeCellTerrainMultiple(Grid grid, params object[] args)
+        {
+            if (args.Length != 2)
+                Debug.LogError(args.Length + "arguments passed instead of 2 to ChanceCellTerrainMultiple");
+
+            List<Cell> cells = (List<Cell>)args[0];
+            TerrainType newTerrainType = (TerrainType)args[1];
+
+            foreach (Cell c in cells)
+            {
+                Vector3 spawnPos = GetOffScreenPosFor(grid, c);
+                Cell newCell = GridFactory.MakeTerrainCellAt(spawnPos, newTerrainType);
+                ReplaceWithOffScreenPiece(grid, c, newCell);
+            }
         }
 
         /// <summary>
@@ -374,7 +391,7 @@ namespace UnityEngine
         public static void RestoreEmptyCell(Grid grid, params object[] args)
         {
             if (args.Length != 1)
-                Debug.LogError(args.Length + " arguments sent instead of 0 to RestoreEmptyCell()");
+                Debug.LogError(args.Length + " arguments sent instead of 1 to RestoreEmptyCell()");
 
             Cell cell = (Cell)args[0];
             Cell offScreenPiece = GridFactory.MakeIslandPieceCellAt(GetOffScreenPosFor(grid, cell));
@@ -427,8 +444,18 @@ namespace UnityEngine
                 }
 
                 c.islandPiece.SetPath(shakeWaypoints, ISLAND_SPEED, false);
-            }
-           
+            }           
+        }
+
+        public static GridScene CreateGridScene(Grid grid, string name, Text contextualText)
+        {
+            Debug.Log("Name was: " + name);
+            if (name == "Tutorial")
+                return new GridScene_Tutorial(grid, contextualText);
+            else if (name == "Ballista")
+                return new GridScene_Ballistas(grid);
+
+            return null;
         }
     }
 }
