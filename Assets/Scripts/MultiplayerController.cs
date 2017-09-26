@@ -32,9 +32,6 @@ public class MultiplayerController : MonoBehaviour {
 	{
 		TutorialText = new Text[5];
 
-		Debug.Log ("Im startin manually here");
-		Debug.Log ("Num text children:" + GetComponentsInChildren<Text> ().Length);
-
 		for (int i = 0; i < 5; ++i)
 			TutorialText [i] = GetComponentsInChildren<Text>()[i];
 
@@ -49,6 +46,16 @@ public class MultiplayerController : MonoBehaviour {
 		//Get the settings chosen in the main menu.
 		ActivePlayers = MainMenu.ActivePlayers;
 		StartingLives = MainMenu.Lives;
+
+		bool n = true;
+		for( int i = 0; i < 4; i++) {
+			if (ActivePlayers [i] == true) {
+				n = false;
+				break;
+			}
+		}
+		if (n)
+			ActivePlayers [3] = true;
 
 		//Disable the tutorial text if not in tutorial mode.
 		if (MainMenu.Mode != "Tutorial") {			
@@ -211,7 +218,7 @@ public class MultiplayerController : MonoBehaviour {
 		for (int p = 0; p < 4; p++) {
 			if (SP [p] != null) {
 				if (SP [p].ManualUpdate ()) {
-					if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Jump")) {
+					if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_AttackDirect")) {
 						CreatePlayer (p);
 					}
 				}
@@ -249,5 +256,4 @@ public class MultiplayerController : MonoBehaviour {
 		}
 		UpdateStockGraphics ();
 	}
-
 }

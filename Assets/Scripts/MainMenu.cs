@@ -10,7 +10,8 @@ public class MainMenu : MonoBehaviour {
 
 	public static bool[] ActivePlayers = new bool[4];
 	public static string Area = "Normal";
-	public static string Mode = "Normal";
+	public static string Mode = "Freeplay";
+	//public static bool Testing = true;
 	public static int Lives = 2;
 
 	public int MaxLives = 4;
@@ -29,6 +30,7 @@ public class MainMenu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		B_Lives.GetComponentInChildren<Text> ().text = "" + Lives;
+		//Testing = false;
 	}
 
 	// Update is called once per frame

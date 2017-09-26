@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
 		ContextualText = GetComponentInChildren<MultiplayerController>().TutorialText[4];
 
 
-		_scene = new GridScene_Tutorial(grid, ContextualText);
+		_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
 
 		if (_scene == null)
 			Debug.Log ("Scene null right after init");

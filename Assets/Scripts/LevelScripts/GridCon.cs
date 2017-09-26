@@ -450,7 +450,7 @@ namespace UnityEngine
         public static GridScene CreateGridScene(Grid grid, string name, Text contextualText)
         {
             Debug.Log("Name was: " + name);
-            if (name == "Tutorial")
+            if (name == "Insane")
                 return new GridScene_Tutorial(grid, contextualText);
             else if (name == "Ballista")
                 return new GridScene_Ballistas(grid);

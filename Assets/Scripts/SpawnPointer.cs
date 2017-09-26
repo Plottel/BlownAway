@@ -22,7 +22,7 @@ public class SpawnPointer : MonoBehaviour {
 		Vector3 RayStart = new Vector3 (transform.position.x, 5, transform.position.z);
 
 		if (Physics.Raycast (RayStart, Vector3.down * 6, out Hit, 6)) {
-			Debug.DrawRay (RayStart, Vector3.down * 6, Color.red);
+			//Debug.DrawRay (RayStart, Vector3.down * 6, Color.red);
 			transform.position = Hit.point;
 			return true;
 		} else {
