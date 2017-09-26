@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class MultiplayerController : MonoBehaviour {
-
+	public Grid grid;
 	public GameObject PlayerPrefab;
 	public GameObject PlayerIconPrefab;
 	private bool[] ActivePlayers = new bool[4];
@@ -14,6 +14,9 @@ public class MultiplayerController : MonoBehaviour {
 	private int MaxLives = 4;
 	private int[] Lives = new int[4];
 	private int Paused = -1;
+	public GameObject SpawnPointer;
+	private SpawnPointer[] SP = new SpawnPointer[4];
+	private int[] SpawnTimer = new int[4];
 	public GameObject PauseMenuPrefab;
 	private GameObject PauseMenu;
 	public GameObject EventSystem;
@@ -91,18 +94,25 @@ public class MultiplayerController : MonoBehaviour {
 		//Create and gives lives to the players in this match, and create and setup their icon.
 		for (int i = 0; i <= 3; i++) {
 			if (ActivePlayers [i] == true) {
-				
+				/*
 				PlayerIcons [i] = Instantiate (PlayerIconPrefab, transform).GetComponent<PlayerIcon> ();
 				PlayerIcons [i].PlayerNumber = i + 1;
 				PlayerIcons [i].SetHealth = 0;
 				PlayerIcons [i].UseName = false;
+				*/
 
 				Lives [i] = StartingLives;
-				CreatePlayer (i);
+				//CreatePlayer (i);
+				StartSpawn(i);
 			}
 		}
 
 		UpdateStockGraphics ();
+	}
+
+	//Should probably change to Update and use Delta.Time
+	void FixedUpdate() {
+		ContinueSpawn ();
 	}
 
 	// Update is called once per frame
@@ -163,9 +173,54 @@ public class MultiplayerController : MonoBehaviour {
 
 		GameObject P = Instantiate (PlayerPrefab);
 		P.GetComponent<MovementControl> ().Player = "P" + (PlayerNum + 1);
-		P.GetComponent<Transform> ().position = PlayerSpawnPos[PlayerNum];
+		P.GetComponent<Transform> ().position = SP [PlayerNum].transform.position + new Vector3(0, 5, 0);
 
-		PlayerIcons [PlayerNum].Target = P.transform;
+		//PlayerIcons [PlayerNum].Target = P.transform;
+
+		Destroy (SP [PlayerNum].gameObject);
+	}
+
+	private void StartSpawn(int Player) {
+		SP [Player] = Instantiate (SpawnPointer, grid.MidCell.transform.position, Quaternion.Euler(new Vector3(90, 0, 0))).GetComponent<SpawnPointer>();
+		//SP [Player].transform.rotation = ;
+
+
+
+		SP [Player].Player = "P" + (Player + 1);
+
+		switch (Player) {
+		case 1:
+			SP[Player].GetComponent<SpriteRenderer>().color = new Color (1, 0, 0);
+			break;
+		case 2:
+			SP[Player].GetComponent<SpriteRenderer>().color = new Color (0, 0, 1);
+			break;
+		case 3:
+			SP[Player].GetComponent<SpriteRenderer>().color = new Color (0, 1, 0);
+			break;
+		case 4:
+			SP[Player].GetComponent<SpriteRenderer>().color = new Color (1, 1, 0);
+			break;
+		}
+
+		SpawnTimer [Player] = 300;
+	}
+
+	private void ContinueSpawn() {
+
+		for (int p = 0; p < 4; p++) {
+			if (SP [p] != null) {
+				if (SP [p].ManualUpdate ()) {
+					if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Jump")) {
+						CreatePlayer (p);
+					}
+				}
+				if (SpawnTimer [p] > 0)
+					SpawnTimer [p] -= 1;
+				else
+					CreatePlayer (p);
+			}
+		}
 	}
 
 	public void KillPlayerByString (string PName) {
@@ -186,7 +241,8 @@ public class MultiplayerController : MonoBehaviour {
 	public void KillPlayerByInt (int PNumber) {
 		Lives [PNumber] -= 1;
 		if (Lives [PNumber] != 0) {
-			CreatePlayer (PNumber);
+			StartSpawn (PNumber);
+			//CreatePlayer (PNumber);
 			Debug.Log ("Created in Int");
 		} else {
 			Destroy (PlayerIcons [PNumber].gameObject);

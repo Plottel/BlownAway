@@ -10,13 +10,12 @@ public class SpawnPointer : MonoBehaviour {
 	
 	// Update is called once per frame
 
-	//public bool Manual
-	void Update () {
+	public bool ManualUpdate () {
 
 		float h = CrossPlatformInputManager.GetAxis(Player + "_Horizontal");
 		float v = CrossPlatformInputManager.GetAxis(Player + "_Vertical");
 
-		transform.position = new Vector3 (transform.position.x + h, transform.position.y, transform.position.z + v);
+		transform.position = new Vector3 (transform.position.x + (h*0.3f), transform.position.y, transform.position.z + (v*0.3f));
 
 		RaycastHit Hit;
 
@@ -25,9 +24,9 @@ public class SpawnPointer : MonoBehaviour {
 		if (Physics.Raycast (RayStart, Vector3.down * 6, out Hit, 6)) {
 			Debug.DrawRay (RayStart, Vector3.down * 6, Color.red);
 			transform.position = Hit.point;
-			//return true;
+			return true;
 		} else {
-			//return false;
+			return false;
 		}
 	}
 }

@@ -18,11 +18,13 @@ public class LevelManager : MonoBehaviour
     // Use this for initialization
     void Start()
 	{
+		grid = FindObjectOfType<Grid>();
+		GetComponentInChildren<MultiplayerController> ().grid = grid;
+
 		GetComponentInChildren<MultiplayerController> ().StartManual ();
 
 		ContextualText = GetComponentInChildren<MultiplayerController>().TutorialText[4];
 
-        grid = FindObjectOfType<Grid>();
 
 		_scene = new GridScene_Tutorial(grid, ContextualText);
 

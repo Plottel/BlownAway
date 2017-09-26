@@ -66,7 +66,6 @@ public class PlayerIcon : MonoBehaviour {
 		case 4:
 			TextObject.color = new Color (1, 1, 0);
 			break;
-			
 		}
 	}
 }

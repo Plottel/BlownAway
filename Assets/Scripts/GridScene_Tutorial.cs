@@ -37,9 +37,11 @@ public class GridScene_Tutorial : GridScene
 		_helpTexts.Enqueue("This is a tree. You can't walk through it");
 		_helpTexts.Enqueue ("This is a Spiky Bush. Walking into it hurts");
 		_helpTexts.Enqueue ("This is a Ballista. The closest player has control of it. Ballistas can rotate and shoot");
+		_helpTexts.Enqueue ("This is a piston. It will shove you");
         EnqueueMove(GridCon.ChangeCellTerrain, MOVE_DELAY, grid.MidCell, TerrainType.Tree);
         EnqueueMove(GridCon.ChangeCellTerrain, MOVE_DELAY, grid.MidCell, TerrainType.SpikyBush);
         EnqueueMove(GridCon.ChangeCellTerrain, MOVE_DELAY, grid.MidCell, TerrainType.Ballista);
+		EnqueueMove (GridCon.ChangeCellTerrain, MOVE_DELAY, grid.MidCell, TerrainType.Piston);
 
         // The island won't always stay in one piece.
 		_helpTexts.Enqueue("The island won't always stay together in one piece");
