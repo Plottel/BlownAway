@@ -14,8 +14,10 @@ public class GridScene
     private Queue<float> _moveDelays;
     private Queue<object[]> _args;
 
-    private bool _isPlaying = false;
-    private bool _waitingForNextMove = false;
+	protected bool _moveWasDequeued = false;
+
+    protected bool _isPlaying = false;
+    protected bool _waitingForNextMove = false;
     private float _moveFinishedAt = 0f;
 
     public float TimeToNextMove
@@ -47,7 +49,7 @@ public class GridScene
         _args.Enqueue(args);
     }
 
-    public void Start()
+    public virtual void Start()
     {
         if (_moves.Count > 0)
         {
@@ -56,8 +58,10 @@ public class GridScene
         }
     }
 
-    public void Play()
+    public virtual void Play()
     {
+		_moveWasDequeued = false;
+
         if (!_isPlaying)
             return;
         if (_moves.Count == 0)
@@ -75,6 +79,7 @@ public class GridScene
             // Has enough time passed to start the next move?
             else if (Time.time - _moveFinishedAt > _moveDelays.Peek())
             {
+				_moveWasDequeued = true;
                 _moves.Dequeue();
                 _moveDelays.Dequeue();
                 _waitingForNextMove = false;
@@ -85,7 +90,7 @@ public class GridScene
         }
     }
 
-    private bool MoveIsComplete
+    public bool MoveIsComplete
     {
         get
         {

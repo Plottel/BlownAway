@@ -20,12 +20,20 @@ public class MultiplayerController : MonoBehaviour {
 	private PlayerIcon[] PlayerIcons = new PlayerIcon[4];
 
 	public Vector3[] PlayerSpawnPos = new Vector3[4];
-	public GameObject[] TutorialText = new GameObject[4];
+	public Text[] TutorialText = new Text[5];
 
 	private Image[,] Stocks = new Image[4,4];
 
 	// Use this for initialization
-	void Start () {
+	public void StartManual()
+	{
+		TutorialText = new Text[5];
+
+		Debug.Log ("Im startin manually here");
+		Debug.Log ("Num text children:" + GetComponentsInChildren<Text> ().Length);
+
+		for (int i = 0; i < 5; ++i)
+			TutorialText [i] = GetComponentsInChildren<Text>()[i];
 
 		//If spawn positions are not set, set them to these defaults.
 		if (PlayerSpawnPos == new Vector3[4]) {
@@ -40,11 +48,16 @@ public class MultiplayerController : MonoBehaviour {
 		StartingLives = MainMenu.Lives;
 
 		//Disable the tutorial text if not in tutorial mode.
-		if (MainMenu.Mode != "Tutorial") {
-			TutorialText[0].GetComponent<Text>().enabled = false;
-			TutorialText[1].GetComponent<Text>().enabled = false;
-			TutorialText[2].GetComponent<Text>().enabled = false;
-			TutorialText[3].GetComponent<Text>().enabled = false;
+		if (MainMenu.Mode != "Tutorial") {			
+			TutorialText[0].enabled = false;
+			TutorialText[1].enabled = false;
+			TutorialText[2].enabled = false;
+			TutorialText[3].enabled = false;
+			TutorialText[4].enabled = false;
+		}
+
+		if (MainMenu.Mode != "Normal") {
+			StartingLives = -1;
 		}
 
 		if (StartingLives > MaxLives) {
@@ -72,6 +85,8 @@ public class MultiplayerController : MonoBehaviour {
 			j += 1;
 			k += 1;
 		}
+
+
 
 		//Create and gives lives to the players in this match, and create and setup their icon.
 		for (int i = 0; i <= 3; i++) {
@@ -117,13 +132,13 @@ public class MultiplayerController : MonoBehaviour {
 
 			if (MainMenu.Mode == "Tutorial") {
 				if (CrossPlatformInputManager.GetAxis("P" + (p + 1) + "_Horizontal") != 0)
-					TutorialText[0].GetComponent<Text>().enabled = false;
-				if (CrossPlatformInputManager.GetAxis("P" + (p + 1) + "_Horizontal2") != 0)
-					TutorialText[1].GetComponent<Text>().enabled = false;
+					TutorialText[0].enabled = false;
+				if (CrossPlatformInputManager.GetAxis("P" + (p + 1) + "_RotationX") != 0)
+					TutorialText[1].enabled = false;
 				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Jump"))
-					TutorialText[2].GetComponent<Text>().enabled = false;
+					TutorialText[2].enabled = false;
 				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_AttackDirect"))
-					TutorialText[3].GetComponent<Text>().enabled = false;
+					TutorialText[3].enabled = false;
 			}
 		}
 	}
