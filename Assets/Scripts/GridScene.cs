@@ -53,6 +53,7 @@ public class GridScene
     {
         if (_moves.Count > 0)
         {
+            _args.Enqueue(_args.Peek()); // Put first args to the back of the queue for looping. 
             _moves.Peek()(_grid, _args.Dequeue());
             _isPlaying = true;
         }
@@ -80,12 +81,23 @@ public class GridScene
             else if (Time.time - _moveFinishedAt > _moveDelays.Peek())
             {
 				_moveWasDequeued = true;
+
+                // Push move and move delay to back of queue for looping
+                _moves.Enqueue(_moves.Peek());
+                _moveDelays.Enqueue(_moveDelays.Peek());
+
                 _moves.Dequeue();
                 _moveDelays.Dequeue();
+
+
                 _waitingForNextMove = false;
 
                 if (_moves.Count > 0)
+                {
+                    // Push args to back of queue for looping
+                    _args.Enqueue(_args.Peek());
                     _moves.Peek()(_grid, _args.Dequeue());
+                }
             }
         }
     }

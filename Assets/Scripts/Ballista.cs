@@ -12,11 +12,6 @@ public class Ballista : IslandTerrain
     [SerializeField]
     public float ActivationDistance;
 
-
-    public override void ApplyEffect(Collision c)
-    {
-    }
-
     // Use this for initialization
     void Start ()
     {

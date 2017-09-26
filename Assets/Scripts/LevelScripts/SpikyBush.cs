@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class SpikyBush : IslandTerrain 
 {
-    public override void ApplyEffect(Collision c)
+    void OnCollisionEnter(Collision c)
     {
         if (c.gameObject.tag == "Player")
         {
-           
-            Debug.Log("IM EXPLODIN HERE");
-            Debug.Log(c.gameObject);
             var rb = c.collider.GetComponent<Rigidbody>();
             rb.AddExplosionForce(400, this.gameObject.transform.position, 100);
         }

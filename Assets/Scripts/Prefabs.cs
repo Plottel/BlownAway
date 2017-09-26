@@ -13,4 +13,5 @@ public static class Prefabs
     public static Tree Tree = (Tree)Resources.Load("Tree", typeof(Tree));
     public static Ballista Ballista = (Ballista)Resources.Load("Ballista", typeof(Ballista));
     public static BallistaBolt BallistaBolt = (BallistaBolt)Resources.Load("BallistaBolt", typeof(BallistaBolt));
+    public static Piston Piston = (Piston)Resources.Load("Piston", typeof(Piston));
 }
