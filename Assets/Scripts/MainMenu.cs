@@ -9,8 +9,14 @@ using UnityEngine.EventSystems;
 public class MainMenu : MonoBehaviour {
 
 	public static bool[] ActivePlayers = new bool[4];
-	public static string Area = "Normal";
+	public string[] Areas = new string[2];
+	public static string Area = "Ballista";
+	private int AreaN = 0;
 	public static string Mode = "Freeplay";
+	/*
+	public string[] Modes = new string[2];
+	public int ModeN = 0;
+	*/
 	//public static bool Testing = true;
 	public static int Lives = 2;
 
@@ -69,6 +75,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void ToggleMode() {
+
 		if (Mode == "Normal") {
 			Mode = "Tutorial";
 			B_Lives.GetComponentInChildren<Text> ().text = "--";
@@ -84,6 +91,15 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void ToggleArea() {
+		
+		if (AreaN >= Areas.Length-1)
+			AreaN = 0;
+		else
+			AreaN += 1;
+
+		Area = Areas [AreaN];
+
+		/*
 		if (Area == "Normal") {
 			Area = "Insane";
 		} else if (Area == "Insane") {
@@ -93,6 +109,7 @@ public class MainMenu : MonoBehaviour {
 		} else {
 			Area = "Normal";
 		}
+		*/
 
 		B_Area.GetComponentInChildren<Text> ().text = Area;
 	}

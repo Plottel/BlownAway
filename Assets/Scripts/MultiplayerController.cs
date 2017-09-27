@@ -182,7 +182,12 @@ public class MultiplayerController : MonoBehaviour {
 		P.GetComponent<MovementControl> ().Player = "P" + (PlayerNum + 1);
 		P.GetComponent<Transform> ().position = SP [PlayerNum].transform.position + new Vector3(0, 5, 0);
 
-		//PlayerIcons [PlayerNum].Target = P.transform;
+		PlayerIcons [PlayerNum] = Instantiate (PlayerIconPrefab, transform).GetComponent<PlayerIcon> ();
+		PlayerIcons [PlayerNum].PlayerNumber = PlayerNum + 1;
+		PlayerIcons [PlayerNum].SetHealth = 0;
+		PlayerIcons [PlayerNum].UseName = false;
+
+		PlayerIcons [PlayerNum].Target = P.transform;
 
 		Destroy (SP [PlayerNum].gameObject);
 	}
@@ -251,9 +256,8 @@ public class MultiplayerController : MonoBehaviour {
 			StartSpawn (PNumber);
 			//CreatePlayer (PNumber);
 			Debug.Log ("Created in Int");
-		} else {
-			Destroy (PlayerIcons [PNumber].gameObject);
 		}
+		Destroy (PlayerIcons [PNumber].gameObject);
 		UpdateStockGraphics ();
 	}
 }

@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
 
 		ContextualText = GetComponentInChildren<MultiplayerController>().TutorialText[4];
 
-
 		_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
 
 		if (_scene == null)
@@ -49,6 +48,8 @@ public class LevelManager : MonoBehaviour
 
     void UpdateTimeToNextGridMove()
     {
+		Debug.Log ("Scene? " + _scene);
         timeToNextGridMove.text = "Grid Move In: " + _scene.TimeToNextMove.ToString();  // + Get some value from GridScene here
     }
 }
+ 
