@@ -27,6 +27,7 @@ public class DirectAttack : MonoBehaviour {
 	public void Hit(Rigidbody target)
 	{
 		target.AddExplosionForce (ExplosionForce, this.gameObject.transform.position, ExplosionRadius);
+		//										^ Add * damage here
 	}
 
 	void OnTriggerEnter(Collider col)
@@ -34,7 +35,9 @@ public class DirectAttack : MonoBehaviour {
 		if (col.gameObject.tag == "Player")
 		{
 			Rigidbody EnemyBody = col.gameObject.GetComponent<Rigidbody>();
+			//Get it's damage property set + damage
 			Hit (EnemyBody);
+
 		}
 	}
 }

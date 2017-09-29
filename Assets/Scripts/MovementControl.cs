@@ -13,10 +13,8 @@ public class MovementControl : MonoBehaviour {
 
 
 	private bool m_dodge;                    // the world-relative desired move direction, calculated from the camForward and user input.
-	private bool m_attack_area;
 	private bool m_attack_direct;
 	public string Player = "P1";
-	private bool a_direct_attack;
 	public DirectAttack AttackCone;
 
 	private void Start()
@@ -84,10 +82,11 @@ public class MovementControl : MonoBehaviour {
 		m_Character.Move(m_Move, rX, rZ, m_dodge);
 		m_dodge = false;
 
-		if (a_direct_attack) 
+		if (m_attack_direct) 
 		{
+			Debug.Log ("AttaCKAKANFOWN");
 			var attack = GameObject.Instantiate(AttackCone, this.gameObject.transform.position, this.gameObject.transform.localRotation, this.gameObject.transform);
-			a_direct_attack = false;
+			m_attack_direct = false;
 		}
 	}
 }

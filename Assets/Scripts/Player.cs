@@ -8,13 +8,19 @@ public class Player : MonoBehaviour {
 	private bool dodgeTimer;
 	private Vector3 dodgeDirection;
 	private float dodgeStart;
-	private int groundCheckDistance;
+	private float groundCheckDistance = 0.3f;
 	private Vector3 dirVector;
+	private Vector3 lastDir;
 
 	public float MaxSpeed = 10;
 	public int ReduceAirMovementByFactorOf = 3;
 	public int JumpHeight = 3;
 	public int JumpDist = 20;
+
+	/// <summary>
+	/// Player Damage
+	/// Setter must do '+= value;'
+	/// </summary>
 
 	// Use this for initialization
 	void Start () {
@@ -45,21 +51,33 @@ public class Player : MonoBehaviour {
 		dirVector = this.gameObject.transform.rotation.eulerAngles;
 
 		// Rotate Player
-		if (rotX != 0.0f || rotZ != 0.0f)
-			dirVector = new Vector3(rotX*10, 0, rotZ*10);
+		if (rotX != 0.0f || rotZ != 0.0f) 
+		{
+			dirVector = new Vector3 (rotX * 10, 0, rotZ * 10);
+		} 
+		else 
+		{
+			dirVector = lastDir;
+		}
+
+		lastDir = dirVector;
 
 		transform.rotation = Quaternion.LookRotation( dirVector );
 
 		RaycastHit airborne;
-		Physics.Raycast (transform.position + (Vector3.down * 0.3f), Vector3.down, out airborne, groundCheckDistance);
+		bool notInAir = Physics.Raycast (transform.position, Vector3.down, out airborne, groundCheckDistance);
+		Debug.Log (notInAir);
+		Debug.Log (airborne);
+		Debug.DrawRay (transform.position, Vector3.down, Color.red, groundCheckDistance);
 		//Check if airborne
-		if (airborne.collider != null) 
+		if (notInAir)
 		{
-			HandleAirborneMovement (direction);
+			HandleGroundMovement (direction, dodge);
 		} 
 		else 
-		{
-			HandleGroundMovement (direction, dodge);	
+		{	
+			Debug.Log ("Airborne");
+			HandleAirborneMovement (direction);
 		}
 	}
 
@@ -75,7 +93,6 @@ public class Player : MonoBehaviour {
 			direction *= JumpDist;
 			if (direction != Vector3.zero)
 				direction += Vector3.up * JumpHeight * 2;
-			Debug.Log ("Dodge: " + direction);
 
 			dodging = true;
 			dodgeDirection = direction;
