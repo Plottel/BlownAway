@@ -19,7 +19,7 @@ public class MultiplayerController : MonoBehaviour {
 	private int[] SpawnTimer = new int[4];
 	public GameObject PauseMenuPrefab;
 	private GameObject PauseMenu;
-	public GameObject EventSystem;
+	public EventSystem ES;
 	private PlayerIcon[] PlayerIcons = new PlayerIcon[4];
 
 	public Vector3[] PlayerSpawnPos = new Vector3[4];
@@ -30,6 +30,8 @@ public class MultiplayerController : MonoBehaviour {
 	// Use this for initialization
 	public void StartManual()
 	{
+		ES = FindObjectOfType<EventSystem> ();
+
 		TutorialText = new Text[5];
 
 		for (int i = 0; i < 5; ++i)
@@ -136,7 +138,7 @@ public class MultiplayerController : MonoBehaviour {
 
 						PauseMenu.GetComponentInChildren<Button> ().Select();
 
-						StandaloneInputModule SIM = EventSystem.GetComponent<StandaloneInputModule> ();
+						StandaloneInputModule SIM = ES.GetComponent<StandaloneInputModule> ();
 						SIM.submitButton = ("P" + (p + 1) + "_Jump");
 						SIM.horizontalAxis = ("P" + (p + 1) + "_Horizontal");
 					} else if (Paused == p) {

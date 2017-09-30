@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour {
 
 	public GameObject Messages;
 
-	public GameObject EventSystem;
+	public EventSystem ES;
 
 	public int PlayerHoldingMenu = 0;
 
@@ -36,6 +36,11 @@ public class MainMenu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		B_Lives.GetComponentInChildren<Text> ().text = "" + Lives;
+		ES = FindObjectOfType<EventSystem> ();
+		ES.firstSelectedGameObject = B_Mode;
+		ToggleMode ();
+		ToggleArea ();
+		ToggleLives ();
 		//Testing = false;
 	}
 
@@ -170,7 +175,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	private void PassControl(int p) {
-		StandaloneInputModule SIM = EventSystem.GetComponent<StandaloneInputModule> ();
+		StandaloneInputModule SIM = ES.GetComponent<StandaloneInputModule> ();
 		SIM.submitButton = ("P" + (p + 1) + "_Jump");
 		SIM.horizontalAxis = ("P" + (p + 1) + "_Horizontal");
 		SIM.verticalAxis = ("P" + (p + 1) + "_Vertical");

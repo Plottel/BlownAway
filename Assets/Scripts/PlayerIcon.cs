@@ -31,7 +31,7 @@ public class PlayerIcon : MonoBehaviour {
 			if (UseName)
 				TextObject.text = Name + " " + Health + "%";
 			else
-				TextObject.text = "Player " + PlayerNumber + " - " + Health + "%";
+				TextObject.text = "P" + PlayerNumber + " - " + Health + "%";
 				
 		}
 	}
