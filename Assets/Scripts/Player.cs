@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
 	private float groundCheckDistance = 0.3f;
 	private Vector3 dirVector;
 	private Vector3 lastDir;
+	private bool usedJump;
 
 	public float MaxSpeed = 10;
 	public int ReduceAirMovementByFactorOf = 3;
@@ -66,8 +67,6 @@ public class Player : MonoBehaviour {
 
 		RaycastHit airborne;
 		bool notInAir = Physics.Raycast (transform.position, Vector3.down, out airborne, groundCheckDistance);
-		Debug.Log (notInAir);
-		Debug.Log (airborne);
 		Debug.DrawRay (transform.position, Vector3.down, Color.red, groundCheckDistance);
 		//Check if airborne
 		if (notInAir)
