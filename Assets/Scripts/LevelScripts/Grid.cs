@@ -50,6 +50,48 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public List<Cell> TopRow
+    {
+        get
+        {
+            var result = new List<Cell>();
+
+            for (int col = 0; col < Cols; ++col)
+                result.Add(this[col, 0]);
+
+            return result;
+        }
+    }
+
+    public List<Cell> BotRow
+    {
+        get
+        {
+            var result = new List<Cell>();
+
+            for (int col = 0; col < Cols; ++col)
+                result.Add(this[col, Rows - 1]);
+
+            return result;
+        }
+    }
+
+    public List<Cell> LeftCol
+    {
+        get
+        {
+            return _cells[0].items;
+        }
+    }
+
+    public List<Cell> RightCol
+    {
+        get
+        {
+            return _cells[Cols - 1].items;
+        }
+    }
+
     public List<Cell> Corners
     {
         get
@@ -262,6 +304,11 @@ public class Grid : MonoBehaviour
             }
         }
 	}
+
+    public List<Cell> GetQuadrant(Quadrant quadrant)
+    {
+        return GetQuadrants()[quadrant];
+    }
 
     public Dictionary<Quadrant, List<Cell>> GetQuadrants()
     {

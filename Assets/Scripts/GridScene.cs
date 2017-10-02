@@ -9,6 +9,10 @@ namespace UnityEngine
 
 public class GridScene
 {
+    public static float SPEED_SCALE = 1f;
+
+
+
     private Grid _grid;
     private Queue<GridMove> _moves;
     private Queue<float> _moveDelays;
