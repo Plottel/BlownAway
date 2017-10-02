@@ -12,8 +12,10 @@ public static class GridFactory
             return MakeTreeCellAt(pos);
         else if (type == TerrainType.SpikyBush)
             return MakeSpikyBushCellAt(pos);
-        else
+        else if (type == TerrainType.Piston)
             return MakePistonCellAt(pos);
+        else
+            return MakeIslandPieceCellAt(pos);
     }
 
     public static Cell MakeBallistaCellAt(Vector3 pos)

@@ -8,7 +8,8 @@ public enum TerrainType
     SpikyBush,
     Tree,
     Ballista,
-    Piston
+    Piston,
+    None
 }
 
 [CustomEditor(typeof(Cell))]

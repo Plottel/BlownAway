@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GridScene_Tutorial : GridScene
 {
-    public float MOVE_DELAY = 1f;
 	Text tutorialText;
 	private Queue<string> _helpTexts = new Queue<string>();
 
@@ -16,40 +15,40 @@ public class GridScene_Tutorial : GridScene
         // Cells can be swapped
 		_helpTexts.Enqueue("Island chunks can be swapped");
 		_helpTexts.Enqueue ("Island chunks can be swapped");
-        EnqueueMove(GridCon.SwapRandomCells, MOVE_DELAY);
-        EnqueueMove(GridCon.SwapRandomCells, MOVE_DELAY);
+        EnqueueMove(GridCon.SwapRandomCells, SPEED_SCALE);
+        EnqueueMove(GridCon.SwapRandomCells, SPEED_SCALE);
 
         // Cells can be dropped
 		_helpTexts.Enqueue("Island chunks can be dropped");
 		_helpTexts.Enqueue("Island chunks can be dropped");
-        EnqueueMove(GridCon.DropRandomCell, MOVE_DELAY);
-        EnqueueMove(GridCon.DropRandomCell, MOVE_DELAY);
+        EnqueueMove(GridCon.DropRandomCell, SPEED_SCALE);
+        EnqueueMove(GridCon.DropRandomCell, SPEED_SCALE);
 
         // Chunks of cells can be dropped - watch out!
 		_helpTexts.Enqueue("Large chunks can be dropped - watch out!");
-        EnqueueMove(GridCon.DropCellMultiple, MOVE_DELAY, grid.GetQuadrants()[Quadrant.TopLeft]);
+        EnqueueMove(GridCon.DropCellMultiple, SPEED_SCALE, grid.GetQuadrants()[Quadrant.TopLeft]);
 
         // They might be brought back - lucky!
 		_helpTexts.Enqueue("They might be brought back... if you're lucky!");
-        EnqueueMove(GridCon.RestoreEmptyCellMultiple, MOVE_DELAY, grid.GetQuadrants()[Quadrant.TopLeft]);
+        EnqueueMove(GridCon.RestoreEmptyCellMultiple, SPEED_SCALE, grid.GetQuadrants()[Quadrant.TopLeft]);
 
         // Terrain can be brought in from outside
 		_helpTexts.Enqueue("This is a tree. You can't walk through it");
 		_helpTexts.Enqueue ("This is a Spiky Bush. Walking into it hurts");
 		_helpTexts.Enqueue ("This is a Ballista. The closest player has control of it. Ballistas can rotate and shoot");
 		_helpTexts.Enqueue ("This is a piston. It will shove you");
-        EnqueueMove(GridCon.ChangeCellTerrain, MOVE_DELAY, grid.MidCell, TerrainType.Tree);
-        EnqueueMove(GridCon.ChangeCellTerrain, MOVE_DELAY, grid.MidCell, TerrainType.SpikyBush);
-        EnqueueMove(GridCon.ChangeCellTerrain, MOVE_DELAY, grid.MidCell, TerrainType.Ballista);
-		EnqueueMove (GridCon.ChangeCellTerrain, MOVE_DELAY, grid.MidCell, TerrainType.Piston);
+        EnqueueMove(GridCon.ChangeCellTerrain, SPEED_SCALE, grid.MidCell, TerrainType.Tree);
+        EnqueueMove(GridCon.ChangeCellTerrain, SPEED_SCALE, grid.MidCell, TerrainType.SpikyBush);
+        EnqueueMove(GridCon.ChangeCellTerrain, SPEED_SCALE, grid.MidCell, TerrainType.Ballista);
+		EnqueueMove (GridCon.ChangeCellTerrain, SPEED_SCALE, grid.MidCell, TerrainType.Piston);
 
         // The island won't always stay in one piece.
 		_helpTexts.Enqueue("The island won't always stay together in one piece");
-        EnqueueMove(GridCon.SplitGridIntoFour, MOVE_DELAY, grid);
+        EnqueueMove(GridCon.SplitGridIntoFour, SPEED_SCALE, grid);
 
         // But eventually it'll go back to normal.
 		_helpTexts.Enqueue("...but eventually it will reform");
-        EnqueueMove(GridCon.ReformGrid, MOVE_DELAY, grid);
+        EnqueueMove(GridCon.ReformGrid, SPEED_SCALE, grid);
     }
 
 
