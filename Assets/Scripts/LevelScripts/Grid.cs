@@ -130,6 +130,22 @@ public class Grid : MonoBehaviour
         throw new System.Exception("Cell not in Grid");
     }
 
+    public List<Cell> CellsWithLabel(string label)
+    {
+        var result = new List<Cell>();
+
+        for (int col = 0; col < Cols; ++col)
+        {
+            for (int row = 0; row < Rows; ++row)
+            {
+                if (_cells[col][row].label == label)
+                    result.Add(_cells[col][row]);
+            }
+        }
+
+        return result;
+    }
+
     public List<Cell> CellsAsList
     {
         get

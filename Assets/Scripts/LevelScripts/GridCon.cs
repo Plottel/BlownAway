@@ -11,7 +11,7 @@ namespace UnityEngine
     {
         private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
-        public static float ISLAND_SPEED = 20f;
+        public static float ISLAND_SPEED = 4f;
         public static float SPLIT_DIST = 4f;
 
         public static void CleanUpOffScreenPieces()
@@ -77,7 +77,6 @@ namespace UnityEngine
                     {
                         c.islandPiece.SetPath(c.transform.position + moveBy, ISLAND_SPEED, true);
                         ShakeCell(c, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
-
                     }
                 }
             }
@@ -326,6 +325,20 @@ namespace UnityEngine
 
             c1.islandPiece = c2.islandPiece;
             c2.islandPiece = temp;           
+
+            if (c1.islandPiece != null)
+                c1.islandPiece.transform.SetParent(c1.transform);
+            if (c2.islandPiece != null)
+                c2.islandPiece.transform.SetParent(c2.transform);
+        }
+
+        public static void SwapIslandOwnership(Cell c1, Cell c2)
+        {
+            // Swap island piece ownership
+            IslandPiece temp = c1.islandPiece;
+
+            c1.islandPiece = c2.islandPiece;
+            c2.islandPiece = temp;
 
             if (c1.islandPiece != null)
                 c1.islandPiece.transform.SetParent(c1.transform);
