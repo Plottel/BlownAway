@@ -9,7 +9,7 @@ namespace UnityEngine
 
 public class GridScene
 {
-    public static float SPEED_SCALE = 1f;
+    public static float SPEED_SCALE = 0.2f;
 
 
 

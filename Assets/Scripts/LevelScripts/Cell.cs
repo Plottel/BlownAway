@@ -18,6 +18,9 @@ public class Cell : MonoBehaviour
 
     public List<Cell> neighbours = new List<Cell>();
 
+    [SerializeField]
+    public string label = "";
+
     public Vector2 Pos2D
     {
         get
