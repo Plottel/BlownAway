@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: bff2ef5fb3fb3473aa8080c75cc8f2e3
+timeCreated: 1506859149
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Icosphere
+    100002: Icosphere_002
+    100004: Icosphere_003
+    100006: Icosphere_004
+    100008: Icosphere_005
+    100010: Icosphere_006
+    100012: Icosphere_007
+    100014: Icosphere_008
+    100016: Icosphere_009
+    100018: Icosphere_010
+    100020: Icosphere_011
+    100022: Icosphere_012
+    100024: Icosphere_013
+    100026: Icosphere_014
+    100028: Icosphere_015
+    100030: Icosphere_016
+    100032: //RootNode
+    100034: LavaBlack
+    100036: LavaOrange
+    100038: LavaRed
+    400000: Icosphere
+    400002: Icosphere_002
+    400004: Icosphere_003
+    400006: Icosphere_004
+    400008: Icosphere_005
+    400010: Icosphere_006
+    400012: Icosphere_007
+    400014: Icosphere_008
+    400016: Icosphere_009
+    400018: Icosphere_010
+    400020: Icosphere_011
+    400022: Icosphere_012
+    400024: Icosphere_013
+    400026: Icosphere_014
+    400028: Icosphere_015
+    400030: Icosphere_016
+    400032: //RootNode
+    400034: LavaBlack
+    400036: LavaOrange
+    400038: LavaRed
+    2300000: Icosphere
+    2300002: Icosphere_002
+    2300004: Icosphere_003
+    2300006: Icosphere_004
+    2300008: Icosphere_005
+    2300010: Icosphere_006
+    2300012: Icosphere_007
+    2300014: Icosphere_008
+    2300016: Icosphere_009
+    2300018: Icosphere_010
+    2300020: Icosphere_011
+    2300022: Icosphere_012
+    2300024: Icosphere_013
+    2300026: Icosphere_014
+    2300028: Icosphere_015
+    2300030: Icosphere_016
+    2300032: LavaBlack
+    2300034: LavaOrange
+    2300036: LavaRed
+    3300000: Icosphere
+    3300002: Icosphere_002
+    3300004: Icosphere_003
+    3300006: Icosphere_004
+    3300008: Icosphere_005
+    3300010: Icosphere_006
+    3300012: Icosphere_007
+    3300014: Icosphere_008
+    3300016: Icosphere_009
+    3300018: Icosphere_010
+    3300020: Icosphere_011
+    3300022: Icosphere_012
+    3300024: Icosphere_013
+    3300026: Icosphere_014
+    3300028: Icosphere_015
+    3300030: Icosphere_016
+    3300032: LavaBlack
+    3300034: LavaOrange
+    3300036: LavaRed
+    4300000: Icosphere_016
+    4300002: Icosphere_015
+    4300004: Icosphere_014
+    4300006: Icosphere_013
+    4300008: Icosphere_012
+    4300010: Icosphere_011
+    4300012: Icosphere_010
+    4300014: Icosphere_009
+    4300016: Icosphere_008
+    4300018: Icosphere_007
+    4300020: Icosphere_006
+    4300022: Icosphere_005
+    4300024: Icosphere_004
+    4300026: Icosphere_003
+    4300028: Icosphere_002
+    4300030: Icosphere
+    4300032: LavaBlack
+    4300034: LavaOrange
+    4300036: LavaRed
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
