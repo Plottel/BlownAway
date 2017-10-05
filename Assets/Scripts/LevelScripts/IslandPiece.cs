@@ -35,10 +35,10 @@ public class IslandPiece : MonoBehaviour
             terrainPrefab = Prefabs.Piston;
 
         // Instantiate, maintaining Prefab rotation
-        terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity); // terrainPrefab.transform.rotation);
+		terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity); // terrainPrefab.transform.rotation);
         terrain.transform.parent = this.transform;
-        terrain.transform.Translate(0, transform.lossyScale.y, 0);
-        terrain.transform.rotation = terrainPrefab.transform.rotation;
+//        terrain.transform.Translate(0, transform.lossyScale.y, 0);
+//        terrain.transform.rotation = terrainPrefab.transform.rotation;
 
         // Move terrain so it sits on top of island - parent it.
         //terrain.transform.Translate(0, terrainPrefab.transform.localScale.y, 0);
