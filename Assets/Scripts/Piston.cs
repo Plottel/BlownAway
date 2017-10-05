@@ -4,50 +4,57 @@ using UnityEngine;
 
 public class Piston : IslandTerrain 
 {
-	public Transform _pushBar;
 	public Transform _pushPlate;
 
-	private Vector3 _pushBarStart;
-	private Vector3 _pushBarStartScale;
-	private Vector3 _pushPlateStart;
-	private Vector3 _baseStart;
+	public Collider TriggerCollider;
 
 	private int _extensionCounter;
 	public int _extentionTime = 10; //Between Closed and Full Extension (in 30ths of a second)
-	private float _extensionDistance = 0.5f;
+	private float _extensionDistance = 0.3f;
 
-	public bool _startPush;
+	private bool _startPush;
 
-	// Use this for initialization
+	public int ExplosionForce = 400;
+	public int ExplosionRadius = 100;
+	public float Damage = 5f;
+
 	void Start () 
 	{
 		_extensionCounter = _extentionTime;
-
-		_pushPlate = GetComponentsInChildren<Transform> () [1];
-		_pushPlateStart = new Vector3 (0, 0, 0.4f);
-
-		_pushBar = GetComponentsInChildren<Transform> () [13];
-		_pushBarStart = new Vector3 (0, 0, 0.2f);
-
-		_baseStart = new Vector3 (0, 0, 0.2f);
-
+		if (_pushPlate == null)
+			_pushPlate = GetComponentsInChildren<Transform> () [1];
+		
+		Collider[] Cols = GetComponentsInChildren<Collider>();
+		foreach (Collider Col in Cols) {
+			if (Col.isTrigger == true) {
+				TriggerCollider = Col;
+				Debug.Log ("FOUND ONE!");
+			}
+			Debug.Log ("DIDN'T FOUND ONE!");
+		}
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
 		if (Input.GetKeyDown (KeyCode.P)) {
-			_startPush = true;
+			StartPush ();
 		}
 
 		Push ();
+	}
+
+
+	public override void Operate()
+	{
+		StartPush();
 	}
 
 	private void ExtendBy(float dist)
 	{
 		_pushPlate.Translate (0, 0, dist * transform.lossyScale.z);
 
-		_pushBar.Translate (0, 0, dist * transform.lossyScale.z);
+		//_pushBar.Translate (0, 0, dist * transform.lossyScale.z);
 		/*
 		_pushPlate.transform.localPosition += (new Vector3 (0, 0, dist));
 
@@ -75,7 +82,33 @@ public class Piston : IslandTerrain
 
 	}
 
-	public void PushFinished() {
+	public void StartPush() {
+		_startPush = true;
+		TriggerCollider.enabled = true;
+	}
 
+	public void PushFinished() {
+		TriggerCollider.enabled = false;
+	}
+
+	public void Hit(Player target)
+	{
+
+		float Multiplier = target.Health;
+		Multiplier = (Multiplier / 100f) + 1;
+		Multiplier = Multiplier * Multiplier; //Square for pistons (maybe too much);
+		target.Health += Damage;
+		target.GetComponent<Rigidbody>().AddExplosionForce (ExplosionForce, this.gameObject.transform.position, ExplosionRadius);
+
+	}
+
+	void OnTriggerEnter(Collider col)
+	{
+		Player P = col.GetComponent<Player> ();
+		if (P)
+		{
+			Debug.Log ("I hit someone ;)");
+			Hit (P);
+		}
 	}
 }

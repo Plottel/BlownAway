@@ -4,6 +4,11 @@ using UnityEngine;
 
 public abstract class IslandTerrain : MonoBehaviour 
 {
+	public virtual void Operate()
+	{
+	}
+
+
 	// Use this for initialization
 	void Start () 
 	{

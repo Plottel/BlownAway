@@ -26,6 +26,7 @@ public class PlayerIcon : MonoBehaviour {
 	void Update () {
 		Vector3 wantedPos = Camera.main.WorldToScreenPoint (Target.position);
 		transform.position = wantedPos;
+		SetHealth = Target.GetComponent<Player> ().Health;
 
 		if (ChangeText) {
 			if (UseName)

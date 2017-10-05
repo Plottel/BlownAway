@@ -56,8 +56,11 @@ public class MultiplayerController : MonoBehaviour {
 				break;
 			}
 		}
-		if (n)
+		if (n) {
 			ActivePlayers [3] = true;
+			ActivePlayers [2] = true;
+		}
+		
 
 		//Disable the tutorial text if not in tutorial mode.
 		if (MainMenu.Mode != "Tutorial") {			
@@ -103,15 +106,7 @@ public class MultiplayerController : MonoBehaviour {
 		//Create and gives lives to the players in this match, and create and setup their icon.
 		for (int i = 0; i <= 3; i++) {
 			if (ActivePlayers [i] == true) {
-				/*
-				PlayerIcons [i] = Instantiate (PlayerIconPrefab, transform).GetComponent<PlayerIcon> ();
-				PlayerIcons [i].PlayerNumber = i + 1;
-				PlayerIcons [i].SetHealth = 0;
-				PlayerIcons [i].UseName = false;
-				*/
-
 				Lives [i] = StartingLives;
-				//CreatePlayer (i);
 				StartSpawn(i);
 			}
 		}
@@ -188,6 +183,7 @@ public class MultiplayerController : MonoBehaviour {
 		PlayerIcons [PlayerNum].PlayerNumber = PlayerNum + 1;
 		PlayerIcons [PlayerNum].SetHealth = 0;
 		PlayerIcons [PlayerNum].UseName = false;
+		PlayerIcons [PlayerNum].StopAt100 = false;
 
 		PlayerIcons [PlayerNum].Target = P.transform;
 

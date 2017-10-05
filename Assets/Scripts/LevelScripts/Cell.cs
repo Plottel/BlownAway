@@ -58,6 +58,13 @@ public class Cell : MonoBehaviour
         islandPiece = null;
     }
 
+	public void Operate() {
+		if (islandPiece != null) {
+			if (islandPiece.terrain != null)
+				islandPiece.terrain.Operate ();
+		}
+	}
+
 	// Use this for initialization
 	void Start() 
 	{
