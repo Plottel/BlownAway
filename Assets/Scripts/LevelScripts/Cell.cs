@@ -48,7 +48,14 @@ public class Cell : MonoBehaviour
         if (islandPiece != null)
             DestroyImmediate(islandPiece.gameObject);
 
-        islandPiece = Instantiate(Prefabs.IslandPiece, transform.position, Prefabs.IslandPiece.transform.rotation);
+		if (Prefabs.IslandPiece == null)
+			Debug.Log ("PF null");
+		else
+			Debug.Log ("PF not null");
+
+		Debug.Log (Prefabs.IslandPiece.transform.rotation.ToString ());
+
+		islandPiece = Instantiate (Prefabs.IslandPiece, transform.position, Prefabs.IslandPiece.transform.rotation);
         islandPiece.transform.parent = this.transform;
     }
 
