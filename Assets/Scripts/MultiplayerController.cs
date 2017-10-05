@@ -198,7 +198,7 @@ public class MultiplayerController : MonoBehaviour {
 
 		SP [Player].Player = "P" + (Player + 1);
 
-		switch (Player) {
+		switch (Player + 1) {
 		case 1:
 			SP[Player].GetComponent<SpriteRenderer>().color = new Color (1, 0, 0);
 			break;

@@ -16,8 +16,8 @@ public class PressurePlate : IslandTerrain {
 		
 	}
 
-	void OnCollisionEnter(Collision col)
-	{
+	void OnTriggerEnter(Collider col)
+	{	
 		if (col.gameObject.GetComponent<Player> ())
 			SteppedOn ();
 				

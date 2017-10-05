@@ -26,11 +26,8 @@ public class Piston : IslandTerrain
 		
 		Collider[] Cols = GetComponentsInChildren<Collider>();
 		foreach (Collider Col in Cols) {
-			if (Col.isTrigger == true) {
+			if (Col.isTrigger == true)
 				TriggerCollider = Col;
-				Debug.Log ("FOUND ONE!");
-			}
-			Debug.Log ("DIDN'T FOUND ONE!");
 		}
 	}
 
@@ -45,10 +42,6 @@ public class Piston : IslandTerrain
 	}
 
 
-	public override void Operate()
-	{
-		StartPush();
-	}
 
 	private void ExtendBy(float dist)
 	{
@@ -90,21 +83,23 @@ public class Piston : IslandTerrain
 	public void PushFinished() {
 		TriggerCollider.enabled = false;
 	}
+		
+	public override void Operate()
+	{
+		StartPush();
+	}
 
 	public void Hit(Player target)
 	{
-
 		float Multiplier = target.Health;
 		Multiplier = (Multiplier / 100f) + 1;
 		Multiplier = Multiplier * Multiplier; //Square for pistons (maybe too much);
 		target.Health += Damage;
-		target.GetComponent<Rigidbody>().AddExplosionForce (ExplosionForce, this.gameObject.transform.position, ExplosionRadius);
-
+		target.GetComponent<Rigidbody>().AddExplosionForce (ExplosionForce * Multiplier, this.gameObject.transform.position, ExplosionRadius);
 	}
 
-	void OnTriggerEnter(Collider col)
-	{
-		Player P = col.GetComponent<Player> ();
+	public override void Triggered(Collider Col) {
+		Player P = Col.GetComponent<Player> ();
 		if (P)
 		{
 			Debug.Log ("I hit someone ;)");
