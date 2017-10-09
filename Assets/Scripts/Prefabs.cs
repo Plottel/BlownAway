@@ -14,4 +14,8 @@ public static class Prefabs
     public static Ballista Ballista = (Ballista)Resources.Load("Ballista", typeof(Ballista));
     public static BallistaBolt BallistaBolt = (BallistaBolt)Resources.Load("BallistaBolt", typeof(BallistaBolt));
     public static Piston Piston = (Piston)Resources.Load("Piston", typeof(Piston));
+    public static Fan Fan = (Fan)Resources.Load("Fan", typeof(Fan));
+    public static PressurePlate PressurePlate = (PressurePlate)Resources.Load("PressurePlate", typeof(PressurePlate));
+    public static Lava Lava = (Lava)Resources.Load("Lava", typeof(Lava));
+    public static LavaPipe LavaPipe = (LavaPipe)Resources.Load("LavaPipe", typeof(LavaPipe));
 }

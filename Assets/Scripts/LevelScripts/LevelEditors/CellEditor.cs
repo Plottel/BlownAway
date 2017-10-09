@@ -9,6 +9,10 @@ public enum TerrainType
     Tree,
     Ballista,
     Piston,
+    Fan,
+    PressurePlate,
+    Lava,
+    LavaPipe,
     None
 }
 
