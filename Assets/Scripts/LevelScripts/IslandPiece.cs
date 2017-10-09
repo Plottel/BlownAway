@@ -33,6 +33,14 @@ public class IslandPiece : MonoBehaviour
             terrainPrefab = Prefabs.Ballista;
         else if (type == TerrainType.Piston)
             terrainPrefab = Prefabs.Piston;
+        else if (type == TerrainType.Fan)
+            terrainPrefab = Prefabs.Fan;
+        else if (type == TerrainType.PressurePlate)
+            terrainPrefab = Prefabs.PressurePlate;
+        else if (type == TerrainType.Lava)
+            terrainPrefab = Prefabs.Lava;
+        else if (type == TerrainType.LavaPipe)
+            terrainPrefab = Prefabs.LavaPipe;
 
         // Instantiate, maintaining Prefab rotation
 		terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity); // terrainPrefab.transform.rotation);
