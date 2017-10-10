@@ -13,6 +13,7 @@ public enum TerrainType
     PressurePlate,
     Lava,
     LavaPipe,
+    Volcano,
     None
 }
 

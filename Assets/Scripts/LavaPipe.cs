@@ -5,12 +5,11 @@ using UnityEngine;
 public class LavaPipe : IslandTerrain {
 
 	// Use this for initialization
-	void Start () {
-		
+	void Start () {	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		 
 	}
 }
