@@ -18,6 +18,8 @@ public class Player : MonoBehaviour {
 	public int JumpHeight = 3;
 	public int JumpDist = 20;
 
+	public float Health;
+
 	/// <summary>
 	/// Player Damage
 	/// Setter must do '+= value;'

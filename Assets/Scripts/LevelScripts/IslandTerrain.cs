@@ -4,6 +4,14 @@ using UnityEngine;
 
 public abstract class IslandTerrain : MonoBehaviour 
 {
+	public virtual void Operate()
+	{
+	}
+
+	public virtual void Triggered(Collider Col)
+	{
+	}
+
 	// Use this for initialization
 	void Start () 
 	{

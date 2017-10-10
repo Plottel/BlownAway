@@ -6,6 +6,7 @@ public class DirectAttack : MonoBehaviour {
 
 	public int ExplosionForce = 400;
 	public int ExplosionRadius = 100;
+	public float Damage = 25f;
 
 	private float endTime;
 
@@ -24,20 +25,23 @@ public class DirectAttack : MonoBehaviour {
 		}
 	}
 
-	public void Hit(Rigidbody target)
+	public void Hit(Player target)
 	{
-		target.AddExplosionForce (ExplosionForce, this.gameObject.transform.position, ExplosionRadius);
-		//										^ Add * damage here
+		
+		float Multiplier = target.Health;
+		Multiplier = (Multiplier / 100f) + 1;
+		target.Health += Damage;
+		target.GetComponent<Rigidbody>().AddExplosionForce (ExplosionForce * Multiplier, this.gameObject.transform.position, ExplosionRadius);
+
 	}
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.gameObject.tag == "Player")
+		Player P = col.GetComponent<Player> ();
+		if (P)
 		{
-			Rigidbody EnemyBody = col.gameObject.GetComponent<Rigidbody>();
-			//Get it's damage property set + damage
-			Hit (EnemyBody);
-
+			Debug.Log ("I hit someone ;)");
+			Hit (P);
 		}
 	}
 }
