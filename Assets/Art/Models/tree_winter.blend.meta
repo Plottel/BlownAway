@@ -1,0 +1,159 @@
+fileFormatVersion: 2
+guid: 4b37d0d8bb523496095cc9645f8b783f
+timeCreated: 1507521948
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Leaves
+    100002: Leaves1
+    100004: Leaves1_001
+    100006: leaves2
+    100008: leaves2_001
+    100010: leaves3
+    100012: leaves3_001
+    100014: leaves4
+    100016: leaves4_001
+    100018: leaves5
+    100020: leaves5_001
+    100022: leaves6
+    100024: leaves6_001
+    100026: Leaves_001
+    100028: Tree
+    100030: Tree_001
+    100032: //RootNode
+    400000: Leaves
+    400002: Leaves1
+    400004: Leaves1_001
+    400006: leaves2
+    400008: leaves2_001
+    400010: leaves3
+    400012: leaves3_001
+    400014: leaves4
+    400016: leaves4_001
+    400018: leaves5
+    400020: leaves5_001
+    400022: leaves6
+    400024: leaves6_001
+    400026: Leaves_001
+    400028: Tree
+    400030: Tree_001
+    400032: //RootNode
+    2300000: Leaves
+    2300002: Leaves1
+    2300004: Leaves1_001
+    2300006: leaves2
+    2300008: leaves2_001
+    2300010: leaves3
+    2300012: leaves3_001
+    2300014: leaves4
+    2300016: leaves4_001
+    2300018: leaves5
+    2300020: leaves5_001
+    2300022: leaves6
+    2300024: leaves6_001
+    2300026: Leaves_001
+    2300028: Tree
+    2300030: Tree_001
+    3300000: Leaves
+    3300002: Leaves1
+    3300004: Leaves1_001
+    3300006: leaves2
+    3300008: leaves2_001
+    3300010: leaves3
+    3300012: leaves3_001
+    3300014: leaves4
+    3300016: leaves4_001
+    3300018: leaves5
+    3300020: leaves5_001
+    3300022: leaves6
+    3300024: leaves6_001
+    3300026: Leaves_001
+    3300028: Tree
+    3300030: Tree_001
+    4300000: Tree_001
+    4300002: Leaves1_001
+    4300004: Leaves_001
+    4300006: leaves2_001
+    4300008: leaves3_001
+    4300010: leaves4_001
+    4300012: leaves5_001
+    4300014: leaves6_001
+    4300016: leaves6
+    4300018: leaves5
+    4300020: leaves4
+    4300022: leaves3
+    4300024: leaves2
+    4300026: Leaves1
+    4300028: Leaves
+    4300030: Tree
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
