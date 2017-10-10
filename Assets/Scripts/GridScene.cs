@@ -11,9 +11,7 @@ public class GridScene
 {
     public static float SPEED_SCALE = 0.2f;
 
-
-
-    private Grid _grid;
+    public Grid _grid;
     private Queue<GridMove> _moves;
     private Queue<float> _moveDelays;
     private Queue<object[]> _args;
@@ -55,6 +53,9 @@ public class GridScene
 
     public virtual void Start()
     {
+        if (_isPlaying)
+            return;
+
         if (_moves.Count > 0)
         {
             _args.Enqueue(_args.Peek()); // Put first args to the back of the queue for looping. 
@@ -106,7 +107,7 @@ public class GridScene
         }
     }
 
-    public bool MoveIsComplete
+    public virtual bool MoveIsComplete
     {
         get
         {

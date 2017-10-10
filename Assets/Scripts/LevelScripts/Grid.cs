@@ -172,6 +172,20 @@ public class Grid : MonoBehaviour
         return result;
     }
 
+    public Cell CellWithLabel(string label)
+    {
+        for (int col = 0; col < Cols; ++col)
+        {
+            for (int row = 0; row < Rows; ++row)
+            {
+                if (_cells[col][row].label == label)
+                    return _cells[col][row];
+            }
+        }
+
+        return null;
+    }
+
     public List<Cell> CellsAsList
     {
         get

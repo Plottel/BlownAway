@@ -14,8 +14,8 @@ public class GridTest : MonoBehaviour
     {
         Debug.Log("START WAS CALLED");
         grid = FindObjectOfType<Grid>();
-        //_scene = new GridScene_Factory(grid);
-        _scene = new GridScene_Ballista_Arena(grid);
+        _scene = new GridScene_Factory(grid);
+        //_scene = new GridScene_Ballista_Arena(grid);
         //_scene = GridCon.CreateGridScene(grid, "Ballista", ContextualText);
 
         if (grid == null)
