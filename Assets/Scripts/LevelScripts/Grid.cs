@@ -106,6 +106,32 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public List<Cell> GetOutlineCellSquare(Vector2 startIndex, int thickness)
+    {
+        var result = new List<Cell>();
+
+        int sideThickness = (thickness - 1) / 2;
+
+        int minCol = (int)startIndex.x - sideThickness;
+        int minRow = (int)startIndex.y - sideThickness;
+        int maxCol = (int)startIndex.x + sideThickness;
+        int maxRow = (int)startIndex.y + sideThickness;
+
+        for (int col = minCol; col <= maxCol; ++col)
+        {
+            for (int row = minRow; row <= maxRow; ++row)
+            {
+                if (col == minCol || col == maxCol || row == minRow || row == maxRow)
+                {
+                    if (this[col, row] != null)
+                        result.Add(this[col, row]);
+                }                    
+            }
+        }
+
+        return result;
+    }
+
     public Cell this[int col, int row]
     {
         get
@@ -144,6 +170,20 @@ public class Grid : MonoBehaviour
         }
 
         return result;
+    }
+
+    public Cell CellWithLabel(string label)
+    {
+        for (int col = 0; col < Cols; ++col)
+        {
+            for (int row = 0; row < Rows; ++row)
+            {
+                if (_cells[col][row].label == label)
+                    return _cells[col][row];
+            }
+        }
+
+        return null;
     }
 
     public List<Cell> CellsAsList

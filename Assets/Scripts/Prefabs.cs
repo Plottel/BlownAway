@@ -18,4 +18,5 @@ public static class Prefabs
     public static PressurePlate PressurePlate = (PressurePlate)Resources.Load("PressurePlate", typeof(PressurePlate));
     public static Lava Lava = (Lava)Resources.Load("Lava", typeof(Lava));
     public static LavaPipe LavaPipe = (LavaPipe)Resources.Load("LavaPipe", typeof(LavaPipe));
+    public static Volcano Volcano = (Volcano)Resources.Load("Volcano", typeof(Volcano));
 }
