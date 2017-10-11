@@ -9,7 +9,7 @@ public class Volcano : IslandTerrain {
     private Vector2 cellIndex;
 
     [SerializeField]
-    public static float TicksPerSpread = 5;
+    public static float TicksPerSpread = 60;
 
     [SerializeField]
     private float _currentTick = 0;

@@ -9,7 +9,12 @@ public class LevelManager : MonoBehaviour
     public Grid grid;
     private GridScene _scene;
 
+    public GameObject ballistaGrid;
+    public GameObject factoryGrid;
+
     public static System.Random RNG = new System.Random();
+
+    private Vector3 gridSpawnPoint = new Vector3(-5.5f, -0.7f, -12.8f);
 
     public Text timeToNextGridMove;
 
@@ -18,14 +23,24 @@ public class LevelManager : MonoBehaviour
     // Use this for initialization
     void Start()
 	{
-		grid = FindObjectOfType<Grid>();
+        grid = FindObjectOfType<Grid>();
+        //ContextualText = GetComponentInChildren<MultiplayerController>().TutorialText[4];
+
+        //if (MainMenu.Area == "Insane")
+        //    grid = Instantiate(factoryGrid).GetComponent<Grid>();
+        //else if (MainMenu.Area == "Ballista")
+        //    grid = Instantiate(ballistaGrid).GetComponent<Grid>();
+
+        //grid.transform.position = gridSpawnPoint;
+
 		GetComponentInChildren<MultiplayerController> ().grid = grid;
 
 		GetComponentInChildren<MultiplayerController> ().StartManual ();
 
-		ContextualText = GetComponentInChildren<MultiplayerController>().TutorialText[4];
+        _scene = new GridScene_Factory(grid);
 
-		_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
+		//_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
+
 
 		if (_scene == null)
 			Debug.Log ("Scene null right after init");

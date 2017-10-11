@@ -464,9 +464,9 @@ namespace UnityEngine
         {
             Debug.Log("Name was: " + name);
             if (name == "Insane")
-                return new GridScene_Tutorial(grid, contextualText);
+                return new GridScene_Factory(grid);
             else if (name == "Ballista")
-                return new GridScene_Ballistas(grid);
+                return new GridScene_Ballista_Arena(grid);
 
             return null;
         }
