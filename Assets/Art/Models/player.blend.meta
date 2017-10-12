@@ -1,0 +1,136 @@
+fileFormatVersion: 2
+guid: 03821e1cfbb4f4653ade00b6f25103c1
+timeCreated: 1507707621
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Belt
+    100004: Body
+    100006: Buckle
+    100008: BuckleMiddle
+    100010: Cube
+    100012: Cube_001
+    100014: Eyes
+    100016: GoggleLense
+    100018: GoggleOuter
+    100020: GoggleStrap
+    100022: Pants
+    400000: //RootNode
+    400002: Belt
+    400004: Body
+    400006: Buckle
+    400008: BuckleMiddle
+    400010: Cube
+    400012: Cube_001
+    400014: Eyes
+    400016: GoggleLense
+    400018: GoggleOuter
+    400020: GoggleStrap
+    400022: Pants
+    2300000: //RootNode
+    2300002: Belt
+    2300004: Body
+    2300006: Buckle
+    2300008: BuckleMiddle
+    2300010: Cube
+    2300012: Cube_001
+    2300014: Eyes
+    2300016: GoggleLense
+    2300018: GoggleOuter
+    2300020: GoggleStrap
+    2300022: Pants
+    3300000: //RootNode
+    3300002: Belt
+    3300004: Body
+    3300006: Buckle
+    3300008: BuckleMiddle
+    3300010: Cube
+    3300012: Cube_001
+    3300014: Eyes
+    3300016: GoggleLense
+    3300018: GoggleOuter
+    3300020: GoggleStrap
+    3300022: Pants
+    4300000: Cube
+    4300002: Cube_001
+    4300004: GoggleStrap
+    4300006: BuckleMiddle
+    4300008: Buckle
+    4300010: Eyes
+    4300012: GoggleOuter
+    4300014: GoggleLense
+    4300016: Belt
+    4300018: Pants
+    4300020: Body
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
