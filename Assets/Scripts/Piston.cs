@@ -6,11 +6,14 @@ public class Piston : IslandTerrain
 {
 	public Transform _pushPlate;
 
+    public int PushFrequency = 80;
+    private int _ticksSinceLastPush;
+
 	public Collider TriggerCollider;
 
 	private int _extensionCounter;
 	public int _extentionTime = 10; //Between Closed and Full Extension (in 30ths of a second)
-	private float _extensionDistance = 0.3f;
+	private float _extensionDistance = 1.2f;
 
 	private bool _startPush;
 
@@ -20,6 +23,7 @@ public class Piston : IslandTerrain
 
 	void Start () 
 	{
+        _ticksSinceLastPush = Random.Range(0, PushFrequency);
 		_extensionCounter = _extentionTime;
 		if (_pushPlate == null)
 			_pushPlate = GetComponentsInChildren<Transform> () [1];
@@ -34,14 +38,15 @@ public class Piston : IslandTerrain
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
-		if (Input.GetKeyDown (KeyCode.P)) {
-			StartPush ();
-		}
+        ++_ticksSinceLastPush;
 
+        if (_ticksSinceLastPush == PushFrequency)
+        {
+            _ticksSinceLastPush = 0;
+            StartPush();
+        }
 		Push ();
 	}
-
-
 
 	private void ExtendBy(float dist)
 	{
