@@ -22,4 +22,6 @@ public static class Prefabs
     public static GameObject magicEarth = (GameObject)Resources.Load("magicEarth", typeof(GameObject));
     public static GameObject cannonBlast = (GameObject)Resources.Load("cannonBlast", typeof(GameObject));
     public static GameObject DeathPE = (GameObject)Resources.Load("DeathPE", typeof(GameObject));
+    public static GameObject TempAttack = (GameObject)Resources.Load("TempAttack", typeof(GameObject));
+    public static GameObject OnFirePE = (GameObject)Resources.Load("OnFirePE", typeof(GameObject));
 }

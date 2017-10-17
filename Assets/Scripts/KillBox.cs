@@ -11,7 +11,7 @@ public class KillBox : MonoBehaviour {
 		//Debug.Log ("Collision with: " + P.name);
 		if (P) {
             var PE = Instantiate(Prefabs.DeathPE, P.transform.position, Quaternion.Euler(new Vector3(-90, 0, 0)));
-
+            PE.GetComponent<ParticleSystem>().startColor = Player.ChooseColor(P.GetComponent<MovementControl>().PlayerName);
             Destroy(PE, 1f);
 
 			MultiplayerController.KillPlayerByString (P.PlayerName);

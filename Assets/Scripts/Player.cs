@@ -12,13 +12,13 @@ public class Player : MonoBehaviour {
 	private Vector3 dirVector;
 	private Vector3 lastDir;
 	private bool usedJump;
-    private bool notInAir = true;
+    private int numJumps = 1;
 
 
     public float MaxSpeed = 0.8f;
     public int IncreaseAirMovementByFactorOf = 5;
-	public float JumpHeight = 1.3f;
-	public int JumpDist = 20;
+	public float JumpHeight;
+	public float JumpDist;
 
     public int ticksPerLavaHit = 180;
     public int ticksSinceLastLavaHit = 0;
@@ -35,11 +35,6 @@ public class Player : MonoBehaviour {
 	void Start () {
 		dirVector = this.gameObject.transform.rotation.eulerAngles;
 	}
-
-    void FixedUpdate()
-    {
-        ++ticksSinceLastLavaHit;
-    }
 
 	// Update is called once per frame
 	void Update () 
@@ -119,7 +114,7 @@ public class Player : MonoBehaviour {
         
         Debug.DrawRay (transform.position, Vector3.down, Color.red, groundCheckDistance);
 		//Check if airborne
-		if (notInAir)
+		if (numJumps > 0)
 		{
 			HandleGroundMovement (direction, dodge);
 		} 
@@ -149,7 +144,7 @@ public class Player : MonoBehaviour {
 	void HandleGroundMovement(Vector3 direction, bool dodge)
 	{
 		if (dodge && !dodging) {
-            notInAir = false;
+            --numJumps;
 			direction = direction.normalized; 
 			direction *= JumpDist;
 
@@ -170,16 +165,20 @@ public class Player : MonoBehaviour {
     {
         if (col.GetComponent<Lava>())
         {
+            ticksSinceLastLavaHit += 1;
             if (ticksSinceLastLavaHit > ticksPerLavaHit)
             {
                 ticksSinceLastLavaHit = 0;
-                Debug.Log("Lava poked me");
-                GetComponent<Rigidbody>().AddForce(new Vector3(0, 60f, 0));
+                //Debug.Log("Lava poked me");
+                var PE = Instantiate(Prefabs.OnFirePE, transform);
+                Destroy(PE, 2f);
+                GetComponent<Rigidbody>().AddExplosionForce(2000f * ((Health / 100) + 1), transform.position, 100f);
             }
         }
         if (!col.GetComponent<Player>())
         {
-            notInAir = true;
+            int magicNum = 2;
+            numJumps = magicNum;
         }
     }
 }

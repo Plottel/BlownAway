@@ -12,8 +12,11 @@ public class MovementControl : MonoBehaviour {
 	private Vector3 m_Move;
 
 
-	private bool m_dodge;                    // the world-relative desired move direction, calculated from the camForward and user input.
-	private bool m_attack_direct;
+	private bool jump;                    // the world-relative desired move direction, calculated from the camForward and user input.
+    private int jumpCount;
+
+
+    private bool m_attack_direct;
     public int TicksPerAttack = 30;
     public int TicksSinceAttack = 0;
 	public string PlayerName = "P1";
@@ -42,9 +45,9 @@ public class MovementControl : MonoBehaviour {
 
 	private void Update()
 	{
-		if (!m_dodge) 
+		if (!jump) 
 		{
-			m_dodge = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
+			jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
 		}
 		if (!m_attack_direct) 
 		{
@@ -85,15 +88,19 @@ public class MovementControl : MonoBehaviour {
 		if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
 		#endif
 		// pass all parameters to the character control script
-		m_Character.Move(m_Move, rX, rZ, m_dodge);
-		m_dodge = false;
+		m_Character.Move(m_Move, rX, rZ, jump);
+		jump = false;
 
 		if (m_attack_direct) 
 		{
             if (TicksSinceAttack > TicksPerAttack)
             {
+
                 TicksSinceAttack = 0;
                 var attack = GameObject.Instantiate(AttackCone, this.gameObject.transform.position, this.gameObject.transform.localRotation, this.gameObject.transform);
+                var PE = Instantiate(Prefabs.TempAttack, attack.transform.position, attack.transform.rotation);
+                PE.GetComponent<ParticleSystem>().startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
+                Destroy(PE, 0.2f);
                 m_attack_direct = false;
             }
 			//Debug.Log ("AttaCKAKANFOWN");
