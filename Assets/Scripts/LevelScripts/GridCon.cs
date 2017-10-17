@@ -433,8 +433,7 @@ namespace UnityEngine
                 {
                     c.islandPiece.SetPath(adjustedTarget, ISLAND_SPEED, true);
                     ShakeCell(c, 10, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
-                }
-                    
+                }                    
             }
         }
 
@@ -442,6 +441,9 @@ namespace UnityEngine
         {
             if (c.islandPiece != null)
             {
+                var newParticle = GameObject.Instantiate(Prefabs.magicEarth, c.islandPiece.transform);
+                GameObject.Destroy(newParticle, 3f);
+
                 var shakeWaypoints = new List<Vector3>();
 
                 // FIX: HARDCODE SHAKE COUNT

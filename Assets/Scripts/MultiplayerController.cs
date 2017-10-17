@@ -56,8 +56,11 @@ public class MultiplayerController : MonoBehaviour {
 				break;
 			}
 		}
-		if (n) {
-			ActivePlayers [3] = true;
+		if (n)
+        {
+            ActivePlayers[0] = true;
+            ActivePlayers[1] = true;
+            ActivePlayers [3] = true;
 			ActivePlayers [2] = true;
 		}
 		
@@ -196,7 +199,7 @@ public class MultiplayerController : MonoBehaviour {
 
 
 
-		SP [Player].Player = "P" + (Player + 1);
+		SP [Player].PlayerNum = "P" + (Player + 1);
 
 		switch (Player + 1) {
 		case 1:

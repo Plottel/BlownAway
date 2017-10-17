@@ -6,16 +6,15 @@ using UnityStandardAssets.CrossPlatformInput;
 public class SpawnPointer : MonoBehaviour {
 
 	public bool OverTile = false;
-	public string Player = "P3";
-	
-	// Update is called once per frame
+	public string PlayerNum = "P3";
+    public float MovementSpeed = 0.5f;
 
 	public bool ManualUpdate () {
 
-		float h = CrossPlatformInputManager.GetAxis(Player + "_Horizontal");
-		float v = CrossPlatformInputManager.GetAxis(Player + "_Vertical");
+		float h = CrossPlatformInputManager.GetAxis(PlayerNum + "_Horizontal");
+		float v = CrossPlatformInputManager.GetAxis(PlayerNum + "_Vertical");
 
-		transform.position = new Vector3 (transform.position.x + (h*0.3f), transform.position.y, transform.position.z + (v*0.3f));
+        transform.position += new Vector3((h * 0.3f * MovementSpeed), 0, (v * 0.3f * MovementSpeed));
 
 		RaycastHit Hit;
 

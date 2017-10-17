@@ -19,4 +19,6 @@ public static class Prefabs
     public static Lava Lava = (Lava)Resources.Load("Lava", typeof(Lava));
     public static LavaPipe LavaPipe = (LavaPipe)Resources.Load("LavaPipe", typeof(LavaPipe));
     public static Volcano Volcano = (Volcano)Resources.Load("Volcano", typeof(Volcano));
+    public static GameObject magicEarth = (GameObject)Resources.Load("magicEarth", typeof(GameObject));
+    public static GameObject cannonBlast = (GameObject)Resources.Load("cannonBlast", typeof(GameObject));
 }

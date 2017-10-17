@@ -26,6 +26,7 @@ public class GridTest : MonoBehaviour
 
         Debug.Log("START WAS CALLED");
         grid = FindObjectOfType<Grid>();
+
         _scene = new GridScene_VolcanoRun(grid);
         //_scene = new GridScene_Ballista_Arena(grid);
         //_scene = GridCon.CreateGridScene(grid, "Ballista", ContextualText);
@@ -38,13 +39,13 @@ public class GridTest : MonoBehaviour
         else
             Debug.Log("Scene NOT null right after init");
 
-        GenerateAndApplyGridHeightMap(grid);   
+        //GenerateAndApplyGridHeightMap(grid);   
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateCameraZoomAndPosition();
+        //UpdateCameraZoomAndPosition();
 
         if (Input.GetKeyDown(KeyCode.F1))
             _scene.Start();
@@ -135,8 +136,6 @@ public class GridTest : MonoBehaviour
 
         var playerCenter = GetPlayerCenterPoint(_players);
         playerCenter.y = cam.transform.position.y; // Dont move camera Y from player center
-
-        Vector3 vecToPlayerCenter = playerCenter - cam.transform.position;
 
         cam.transform.position = playerCenter;      
     }

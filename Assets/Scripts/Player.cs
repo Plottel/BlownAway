@@ -12,13 +12,19 @@ public class Player : MonoBehaviour {
 	private Vector3 dirVector;
 	private Vector3 lastDir;
 	private bool usedJump;
+    private bool notInAir = true;
 
-	public float MaxSpeed = 10;
-	public int ReduceAirMovementByFactorOf = 3;
-	public int JumpHeight = 3;
+
+    public float MaxSpeed = 0.8f;
+    public int IncreaseAirMovementByFactorOf = 5;
+	public float JumpHeight = 1.3f;
 	public int JumpDist = 20;
 
-	public float Health;
+    public int ticksPerLavaHit = 180;
+    public int ticksSinceLastLavaHit = 0;
+
+
+    public float Health;
 
 	/// <summary>
 	/// Player Damage
@@ -30,9 +36,15 @@ public class Player : MonoBehaviour {
 		dirVector = this.gameObject.transform.rotation.eulerAngles;
 	}
 
+    void FixedUpdate()
+    {
+        ++ticksSinceLastLavaHit;
+    }
+
 	// Update is called once per frame
 	void Update () 
 	{
+        
 //		gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePositionX;
 //		gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePositionZ;
 		if (dodging) 
@@ -44,8 +56,6 @@ public class Player : MonoBehaviour {
 		if (Time.time - dodgeStart > 0.04f && dodgeTimer) 
 		{
 			dodgeTimer = false;
-			gameObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;
-			gameObject.GetComponent<Rigidbody> ().velocity += new Vector3 (0, -10, 0);
 		}
 	}
 
@@ -68,8 +78,9 @@ public class Player : MonoBehaviour {
 		transform.rotation = Quaternion.LookRotation( dirVector );
 
 		RaycastHit airborne;
-		bool notInAir = Physics.Raycast (transform.position, Vector3.down, out airborne, groundCheckDistance);
-		Debug.DrawRay (transform.position, Vector3.down, Color.red, groundCheckDistance);
+        //bool notInAir = Physics.Raycast (transform.position, Vector3.down, out airborne, groundCheckDistance);
+        
+        Debug.DrawRay (transform.position, Vector3.down, Color.red, groundCheckDistance);
 		//Check if airborne
 		if (notInAir)
 		{
@@ -82,18 +93,30 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void HandleAirborneMovement(Vector3 direction)
-	{
-		gameObject.GetComponent<Rigidbody> ().AddForce (direction/ReduceAirMovementByFactorOf);
-	}
+    void HandleAirborneMovement(Vector3 direction)
+    {
+        var proposedVel = gameObject.GetComponent<Rigidbody>().velocity + (IncreaseAirMovementByFactorOf * direction);
+        var vertV = proposedVel.y;
+        proposedVel.y = 0;
+
+        if (proposedVel.magnitude > MaxSpeed)
+        {
+            proposedVel = proposedVel.normalized * MaxSpeed;
+        }
+
+        proposedVel.y = vertV;
+
+        gameObject.GetComponent<Rigidbody>().velocity = proposedVel;
+    }
 
 	void HandleGroundMovement(Vector3 direction, bool dodge)
 	{
 		if (dodge && !dodging) {
+            notInAir = false;
 			direction = direction.normalized; 
 			direction *= JumpDist;
-			if (direction != Vector3.zero)
-				direction += Vector3.up * JumpHeight * 2;
+
+			direction += Vector3.up * JumpHeight * 2;
 
 			dodging = true;
 			dodgeDirection = direction;
@@ -105,4 +128,21 @@ public class Player : MonoBehaviour {
 
 		gameObject.GetComponent<Rigidbody> ().AddForce (direction*100); // Do not use dodgeDirection here. That persists after the initial dodge happens.
 	}
+    
+    void OnTriggerStay(Collider col)
+    {
+        if (col.GetComponent<Lava>())
+        {
+            if (ticksSinceLastLavaHit > ticksPerLavaHit)
+            {
+                ticksSinceLastLavaHit = 0;
+                Debug.Log("Lava poked me");
+                GetComponent<Rigidbody>().AddForce(new Vector3(0, 60f, 0));
+            }
+        }
+        if (!col.GetComponent<Player>())
+        {
+            notInAir = true;
+        }
+    }
 }

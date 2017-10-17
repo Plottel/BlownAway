@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     public Grid grid;
     private GridScene _scene;
+    public bool gameStarted = false;
 
     public GameObject ballistaGrid;
     public GameObject factoryGrid;
@@ -37,28 +38,28 @@ public class LevelManager : MonoBehaviour
 
 		GetComponentInChildren<MultiplayerController> ().StartManual ();
 
-        _scene = new GridScene_Factory(grid);
+        _scene = new GridScene_VolcanoRun(grid);
 
 		//_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
-
 
 		if (_scene == null)
 			Debug.Log ("Scene null right after init");
 
-        UpdateTimeToNextGridMove();
+        
+        _scene.Start();
+
+        //UpdateTimeToNextGridMove();
     }
 	
 	// Update is called once per frame
 	void Update () 
 	{
-        if (Input.GetKeyDown(KeyCode.F1))
-            _scene.Start();
 
 		if (_scene == null)
 			Debug.Log ("Scene is null");
 
         _scene.Play();
-        UpdateTimeToNextGridMove();
+       // UpdateTimeToNextGridMove();
     }
 
     void UpdateTimeToNextGridMove()
