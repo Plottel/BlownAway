@@ -16,6 +16,7 @@ public class MultiplayerController : MonoBehaviour {
 	private int Paused = -1;
 	public GameObject SpawnPointer;
 	private SpawnPointer[] SP = new SpawnPointer[4];
+    private bool[] InGame = new bool[4];
 	private int[] SpawnTimer = new int[4];
 	public GameObject PauseMenuPrefab;
 	private GameObject PauseMenu;
@@ -56,8 +57,11 @@ public class MultiplayerController : MonoBehaviour {
 				break;
 			}
 		}
-		if (n) {
-			ActivePlayers [3] = true;
+		if (n)
+        {
+            ActivePlayers[0] = true;
+            ActivePlayers[1] = true;
+            ActivePlayers [3] = true;
 			ActivePlayers [2] = true;
 		}
 		
@@ -176,7 +180,7 @@ public class MultiplayerController : MonoBehaviour {
 		Debug.Log ("Created: " + PlayerNum);
 
 		GameObject P = Instantiate (PlayerPrefab);
-		P.GetComponent<MovementControl> ().Player = "P" + (PlayerNum + 1);
+		P.GetComponent<MovementControl> ().PlayerName = "P" + (PlayerNum + 1);
 		P.GetComponent<Transform> ().position = SP [PlayerNum].transform.position + new Vector3(0, 5, 0);
 
 		PlayerIcons [PlayerNum] = Instantiate (PlayerIconPrefab, transform).GetComponent<PlayerIcon> ();
@@ -187,39 +191,32 @@ public class MultiplayerController : MonoBehaviour {
 
 		PlayerIcons [PlayerNum].Target = P.transform;
 
-		Destroy (SP [PlayerNum].gameObject);
+        //Destroy (SP [PlayerNum].gameObject);
+        SP[PlayerNum].Target = P.transform;
+        InGame[PlayerNum] = true;
 	}
 
-	private void StartSpawn(int Player) {
-		SP [Player] = Instantiate (SpawnPointer, grid.MidCell.transform.position, Quaternion.Euler(new Vector3(90, 0, 0))).GetComponent<SpawnPointer>();
-		//SP [Player].transform.rotation = ;
+
+    private void StartSpawn(int PlayerNum) {
+        if (SP[PlayerNum] == null) {
+        SP[PlayerNum] = Instantiate(SpawnPointer, grid.MidCell.transform.position, Quaternion.Euler(new Vector3(90, 0, 0))).GetComponent<SpawnPointer>();
+        //SP [Player].transform.rotation = ;
 
 
 
-		SP [Player].Player = "P" + (Player + 1);
+        SP[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
 
-		switch (Player + 1) {
-		case 1:
-			SP[Player].GetComponent<SpriteRenderer>().color = new Color (1, 0, 0);
-			break;
-		case 2:
-			SP[Player].GetComponent<SpriteRenderer>().color = new Color (0, 0, 1);
-			break;
-		case 3:
-			SP[Player].GetComponent<SpriteRenderer>().color = new Color (0, 1, 0);
-			break;
-		case 4:
-			SP[Player].GetComponent<SpriteRenderer>().color = new Color (1, 1, 0);
-			break;
-		}
+        SP[PlayerNum].GetComponent<SpriteRenderer>().color = Player.ChooseColor(PlayerNum);
+        }
 
-		SpawnTimer [Player] = 300;
+        SP[PlayerNum].Target = null;
+        SpawnTimer [PlayerNum] = 300;
 	}
 
 	private void ContinueSpawn() {
 
 		for (int p = 0; p < 4; p++) {
-			if (SP [p] != null) {
+			if (InGame [p] != true && SP[p] != null) {
 				if (SP [p].ManualUpdate ()) {
 					if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_AttackDirect")) {
 						CreatePlayer (p);
@@ -230,6 +227,11 @@ public class MultiplayerController : MonoBehaviour {
 				else
 					CreatePlayer (p);
 			}
+            else
+            {
+                if (SP[p] != null)
+                    SP[p].ManualUpdate();
+            }  
 		}
 	}
 
@@ -254,8 +256,13 @@ public class MultiplayerController : MonoBehaviour {
 			StartSpawn (PNumber);
 			//CreatePlayer (PNumber);
 			Debug.Log ("Created in Int");
-		}
-		Destroy (PlayerIcons [PNumber].gameObject);
+		} else
+        {
+            Destroy(SP[PNumber].gameObject, 1f);
+            SP[PNumber] = null;
+        }
+        Destroy(PlayerIcons[PNumber].gameObject);
+        InGame[PNumber] = false;
 		UpdateStockGraphics ();
 	}
 }

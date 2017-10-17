@@ -79,10 +79,8 @@ public class Volcano : IslandTerrain {
 
             open.Remove(current);
             closed.Add(current);
-
         }
-    }
-       
+    }       
 
     private void FixedUpdate()
     {

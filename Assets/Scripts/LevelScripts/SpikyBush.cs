@@ -7,12 +7,21 @@ public class SpikyBush : IslandTerrain
 {
     void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.tag == "Player")
+        if (c.gameObject.GetComponent<Player>())
         {
-            var rb = c.collider.GetComponent<Rigidbody>();
-            rb.AddExplosionForce(400, this.gameObject.transform.position, 100);
+            Hit(c.gameObject.GetComponent<Player>());
         }
     }
+
+    public void Hit(Player target)
+    {
+        float Multiplier = target.Health;
+        Multiplier = (Multiplier / 100f) + 1;
+        Multiplier = Multiplier * Multiplier; //Square for pistons (maybe too much);
+        target.Health += 10;
+        target.GetComponent<Rigidbody>().AddExplosionForce(50 * Multiplier, this.gameObject.transform.position, 1);
+    }
+
 
     // Use this for initialization
     void Start () 

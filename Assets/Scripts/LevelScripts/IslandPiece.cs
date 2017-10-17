@@ -69,6 +69,9 @@ public class IslandPiece : MonoBehaviour
     {
         _followPath = true;
 
+        for (int i = 0; i < path.Count; ++i)
+            path[i] = new Vector3(path[i].x, path[i].y + 0.5f, path[i].z);
+
         if (clearPath)
             _path = new Queue<Vector3>(path);
         else

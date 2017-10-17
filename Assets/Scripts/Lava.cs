@@ -6,7 +6,7 @@ public class Lava : IslandTerrain {
 	/// <summary>
 	/// Damage per second.
 	/// </summary>
-	public float Damage = 3f;
+	public float Damage = 50f;
 
 	void OnTriggerStay(Collider Col) {
 		Player P = Col.GetComponent<Player> ();

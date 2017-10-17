@@ -16,4 +16,12 @@ public class BallistaBolt : MonoBehaviour
 	void Update () {
 		
 	}
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.GetComponent<Player>())
+        {
+            col.gameObject.GetComponent<Rigidbody>().AddExplosionForce(300f, gameObject.transform.position, 5);
+        }
+    }
 }
