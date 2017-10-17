@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DirectAttack : MonoBehaviour {
 
-	public int ExplosionForce = 200;
+	public int ExplosionForce = 40;
 	public int ExplosionRadius = 50;
 	public float Damage = 25f;
 

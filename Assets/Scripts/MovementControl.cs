@@ -14,7 +14,9 @@ public class MovementControl : MonoBehaviour {
 
 	private bool m_dodge;                    // the world-relative desired move direction, calculated from the camForward and user input.
 	private bool m_attack_direct;
-	public string Player = "P1";
+    public int TicksPerAttack = 30;
+    public int TicksSinceAttack = 0;
+	public string PlayerName = "P1";
 	public DirectAttack AttackCone;
 
 	private void Start()
@@ -33,6 +35,8 @@ public class MovementControl : MonoBehaviour {
 
 		// get the third person character ( this should never be null due to require component )
 		m_Character = GetComponent<Player>();
+
+        GetComponentsInChildren<Renderer>()[1].material.color = Player.ChooseColor(PlayerName);
 	}
 
 
@@ -40,26 +44,28 @@ public class MovementControl : MonoBehaviour {
 	{
 		if (!m_dodge) 
 		{
-			m_dodge = CrossPlatformInputManager.GetButtonDown(Player + "_Jump");
+			m_dodge = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
 		}
 		if (!m_attack_direct) 
 		{
-			m_attack_direct = CrossPlatformInputManager.GetButtonDown (Player + "_AttackDirect");
+			m_attack_direct = CrossPlatformInputManager.GetButtonDown (PlayerName + "_AttackDirect");
 		}
 	}
 
 	// Fixed update is called in sync with physics
 	private void FixedUpdate()
 	{
+        TicksSinceAttack += 1;
+
 		// Read motion inputs
 
 		// Movement
-		float h = CrossPlatformInputManager.GetAxis(Player + "_Horizontal");
-		float v = CrossPlatformInputManager.GetAxis(Player + "_Vertical");
+		float h = CrossPlatformInputManager.GetAxis(PlayerName + "_Horizontal");
+		float v = CrossPlatformInputManager.GetAxis(PlayerName + "_Vertical");
 
 		// Rotation
-		float rX = CrossPlatformInputManager.GetAxis(Player + "_RotationX");
-		float rZ = CrossPlatformInputManager.GetAxis(Player + "_RotationZ");
+		float rX = CrossPlatformInputManager.GetAxis(PlayerName + "_RotationX");
+		float rZ = CrossPlatformInputManager.GetAxis(PlayerName + "_RotationZ");
 	
 
 		// calculate move direction to pass to character
@@ -84,9 +90,13 @@ public class MovementControl : MonoBehaviour {
 
 		if (m_attack_direct) 
 		{
-			Debug.Log ("AttaCKAKANFOWN");
-			var attack = GameObject.Instantiate(AttackCone, this.gameObject.transform.position, this.gameObject.transform.localRotation, this.gameObject.transform);
-			m_attack_direct = false;
+            if (TicksSinceAttack > TicksPerAttack)
+            {
+                TicksSinceAttack = 0;
+                var attack = GameObject.Instantiate(AttackCone, this.gameObject.transform.position, this.gameObject.transform.localRotation, this.gameObject.transform);
+                m_attack_direct = false;
+            }
+			//Debug.Log ("AttaCKAKANFOWN");
 		}
 	}
 }

@@ -59,7 +59,44 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void Move (Vector3 direction, float rotX, float rotZ, bool dodge) 
+
+    public static Color ChooseColor(int PlayerArrayNumber)
+    {
+        switch (PlayerArrayNumber + 1)
+        {
+            case 1:
+                return new Color(1, 0.1f, 0.072f); //Red
+            case 2:
+                return new Color(0.125f, 0.398f, 1); //Blue
+            case 3:
+                return new Color(0.665f, 0.152f, 1); //Purple
+            case 4:
+                return new Color(1, 0.875f, 0.214f); //Yellow
+        }
+
+
+        return new Color(1, 1, 1);
+    }
+
+    public static Color ChooseColor(string PlayerName)
+    {
+        switch (PlayerName)
+        {
+            case "P1":
+                return ChooseColor(0);
+            case "P2":
+                return ChooseColor(1);
+            case "P3":
+                return ChooseColor(2);
+            case "P4":
+                return ChooseColor(3);
+        }
+
+
+        return new Color(1, 1, 1);
+    }
+
+    public void Move (Vector3 direction, float rotX, float rotZ, bool dodge) 
 	{
 		dirVector = this.gameObject.transform.rotation.eulerAngles;
 

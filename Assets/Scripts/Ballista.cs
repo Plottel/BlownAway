@@ -71,7 +71,7 @@ public class Ballista : IslandTerrain
         if (AtLeastOnePlayerIsInRange)
         {
             Debug.Log("HEY IM IN RANGE HERE");
-            string playerName = ClosestPlayer.GetComponent<MovementControl>().Player;
+            string playerName = ClosestPlayer.GetComponent<MovementControl>().PlayerName;
 
             Vector3 toBallista = transform.position - ClosestPlayer.transform.position;
             Vector3 target = toBallista * 2; // Project past Ballista to look in opposite direction

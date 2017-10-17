@@ -6,35 +6,35 @@ using System.Linq;
 public class CameraController : MonoBehaviour 
 {
     public float maxDistX, maxDistY;
-    public int padding = 2;
+    public float padding = 0;
     public float camSpeed;
 
     private Vector3 initPos;
 
-    private List<Player> _players;
+    private List<SpawnPointer> _pointers;
 
 	// Use this for initialization
 	void Start () 
 	{
-        _players = new List<Player>();
+        _pointers = new List<SpawnPointer>();
         initPos = gameObject.transform.position;
 
         
 
-        foreach (var x in FindObjectsOfType<Player>())
-            _players.Add(x);
+        foreach (var x in FindObjectsOfType<SpawnPointer>())
+            _pointers.Add(x);
     }
 	
 	// Update is called once per frame
 	void Update () 
 	{
-        _players = new List<Player>();
-        foreach (var x in FindObjectsOfType<Player>())
-            _players.Add(x);
+        _pointers = new List<SpawnPointer>();
+        foreach (var x in FindObjectsOfType<SpawnPointer>())
+            _pointers.Add(x);
 
-        if (_players.Count > 0)
+        if (_pointers.Count > 0)
         {
-            Debug.Log("Players: " + _players.Count);
+            Debug.Log("Players: " + _pointers.Count);
             UpdateCameraZoomAndPosition();
         }
 	}
@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour
     {
         var newCamPos = new Vector3();
 
-        var playerCenter = GetPlayerCenterPoint(_players);
+        var playerCenter = GetPlayerCenterPoint(_pointers);
 
         Debug.DrawLine(playerCenter, playerCenter+Vector3.up*2,Color.magenta, 1f);
 
@@ -51,10 +51,10 @@ public class CameraController : MonoBehaviour
         //transform.position = initPos + new Vector3(xMove.x, 0, 0);
 
         //z Calculation
-        _players = _players.OrderBy(p => p.transform.position.x).ToList();
+        _pointers = _pointers.OrderBy(p => p.transform.position.x).ToList();
 
-        var minX = _players[0].transform.position.x;
-        var maxX = _players[_players.Count - 1].transform.position.x;
+        var minX = _pointers[0].transform.position.x;
+        var maxX = _pointers[_pointers.Count - 1].transform.position.x;
         var xDistance = Mathf.Abs(maxX - minX);
         xDistance += padding;
         float zPos = Mathf.Clamp(playerCenter.z - xDistance * 1.73f, -30, -2);//Pre-calculated constant for 60 degrees
@@ -68,7 +68,7 @@ public class CameraController : MonoBehaviour
 
     }
 
-    private Vector3 GetPlayerCenterPoint(List<Player> players)
+    private Vector3 GetPlayerCenterPoint(List<SpawnPointer> players)
     {
         var positions = new List<Vector3>();
         foreach (var p in players)

@@ -21,4 +21,5 @@ public static class Prefabs
     public static Volcano Volcano = (Volcano)Resources.Load("Volcano", typeof(Volcano));
     public static GameObject magicEarth = (GameObject)Resources.Load("magicEarth", typeof(GameObject));
     public static GameObject cannonBlast = (GameObject)Resources.Load("cannonBlast", typeof(GameObject));
+    public static GameObject DeathPE = (GameObject)Resources.Load("DeathPE", typeof(GameObject));
 }
