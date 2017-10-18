@@ -18,10 +18,14 @@ public class Piston : IslandTerrain
 	private bool _startPush;
 
 	public int ExplosionForce = 400;
-	public int ExplosionRadius = 100;
-	public float Damage = 5f;
+    public int ExplosionRadius = 100;
 
-	void Start () 
+    public static float Force = 800f;
+    public static float Damage = 40f;
+
+
+
+    void Start () 
 	{
         _ticksSinceLastPush = Random.Range(0, PushFrequency);
 		_extensionCounter = _extentionTime;
@@ -107,8 +111,7 @@ public class Piston : IslandTerrain
 		Player P = Col.GetComponent<Player> ();
 		if (P)
 		{
-			Debug.Log ("I hit someone ;)");
-			Hit (P);
+            P.HitMe(Force, transform.position, Damage);
 		}
 	}
 }

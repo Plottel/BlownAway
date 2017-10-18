@@ -75,7 +75,7 @@ public class Ballista : IslandTerrain
 
             Vector3 toBallista = transform.position - ClosestPlayer.transform.position;
             Vector3 target = toBallista * 2; // Project past Ballista to look in opposite direction
-            target.y = 0; // Assume player always same height as Ballista.
+            target.y = 0.2f; // Assume player always same height as Ballista.
 
             // Change rotation.
             transform.LookAt(target);

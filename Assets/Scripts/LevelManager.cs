@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
         //Time.timeScale = 0.3f;
         grid = FindObjectOfType<Grid>();
         grid.isWinterSkin = false;
-
+        #region NormalizeGridDetails
         // Normalize the terrain height
         for (int col = 0; col < grid.Cols; ++col)
         {
@@ -120,6 +120,7 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
+        #endregion NormalizeGridDetails
 
         //ContextualText = GetComponentInChildren<MultiplayerController>().TutorialText[4];
 
@@ -130,11 +131,11 @@ public class LevelManager : MonoBehaviour
 
         //grid.transform.position = gridSpawnPoint;
 
-		GetComponentInChildren<MultiplayerController> ().grid = grid;
+        GetComponentInChildren<MultiplayerController> ().grid = grid;
 
 		GetComponentInChildren<MultiplayerController> ().StartManual ();
 
-        //_scene = new GridScene_VolcanoRun(grid);
+        //_scene = new GridScene_Ballista_Arena(grid);
 
 		//_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BallistaBolt : MonoBehaviour
 {
+    public static float Force = 560f;
+    public static float Damage = 50f;
 
 	// Use this for initialization
 	void Start ()
@@ -17,11 +19,11 @@ public class BallistaBolt : MonoBehaviour
 		
 	}
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter(Collision c)
     {
-        if(col.gameObject.GetComponent<Player>())
-        {
-            col.gameObject.GetComponent<Rigidbody>().AddExplosionForce(300f, gameObject.transform.position, 5);
-        }
+        var player = c.gameObject.GetComponent<Player>();
+
+        if (player != null)
+            player.HitMe(Force, transform.position, Damage);
     }
 }

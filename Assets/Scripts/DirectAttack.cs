@@ -6,7 +6,9 @@ public class DirectAttack : MonoBehaviour {
 
 	public int ExplosionForce = 40;
 	public int ExplosionRadius = 50;
-	public float Damage = 25f;
+
+    public static float Force = 240f;
+    public static float Damage = 25f;
 
 	private float endTime;
 
@@ -35,13 +37,12 @@ public class DirectAttack : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter(Collider col)
+    void OnTriggerEnter(Collider col)
 	{
 		Player P = col.GetComponent<Player> ();
-		if (P)
+		if (P != null)
 		{
-			Debug.Log ("I hit someone ;)");
-			Hit (P);
+            P.HitMe(Force, transform.position, Damage);
 		}
 	}
 }

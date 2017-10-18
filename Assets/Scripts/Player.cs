@@ -13,7 +13,6 @@ public class Player : MonoBehaviour {
 	private Vector3 lastDir;
 	private bool usedJump;
     private int numJumps = 1;
-	private Animator anim;
 
 
     public float MaxSpeed = 0.8f;
@@ -27,6 +26,12 @@ public class Player : MonoBehaviour {
 
     public float Health;
 
+    public void HitMe(float force, Vector3 position, float addThisMuchDamage)
+    {
+        Health += addThisMuchDamage;
+        GetComponent<Rigidbody>().AddExplosionForce((force * ((Health / 100) + 1)), position, 100f);
+    }
+
 	/// <summary>
 	/// Player Damage
 	/// Setter must do '+= value;'
@@ -35,8 +40,6 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		dirVector = this.gameObject.transform.rotation.eulerAngles;
-		anim = gameObject.GetComponent<Animator> ();
-		//anim.Play ();
 	}
 
 	// Update is called once per frame
