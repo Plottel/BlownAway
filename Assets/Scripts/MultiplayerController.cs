@@ -209,6 +209,7 @@ public class MultiplayerController : MonoBehaviour {
         SP[PlayerNum].GetComponent<SpriteRenderer>().color = Player.ChooseColor(PlayerNum);
         }
 
+        SP[PlayerNum].transform.position = grid.MidCell.transform.position;
         SP[PlayerNum].Target = null;
         SpawnTimer [PlayerNum] = 300;
 	}

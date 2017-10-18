@@ -19,7 +19,7 @@ public class SpikyBush : IslandTerrain
         Multiplier = (Multiplier / 100f) + 1;
         Multiplier = Multiplier * Multiplier; //Square for pistons (maybe too much);
         target.Health += 10;
-        target.GetComponent<Rigidbody>().AddExplosionForce(50 * Multiplier, this.gameObject.transform.position, 1);
+        target.GetComponent<Rigidbody>().AddExplosionForce(330 * Multiplier, this.gameObject.transform.position, 1);
     }
 
 
