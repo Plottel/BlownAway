@@ -10,6 +10,7 @@ public class MovementControl : MonoBehaviour {
 	private Transform m_Cam;                		// A reference to the main camera in the scene
 	private Vector3 m_CamForward;           		// The current forward direction of the camera
 	private Vector3 m_Move;
+	private Animator anim;
 
 
 	private bool jump;                    // the world-relative desired move direction, calculated from the camForward and user input.
@@ -38,6 +39,7 @@ public class MovementControl : MonoBehaviour {
 
 		// get the third person character ( this should never be null due to require component )
 		m_Character = GetComponent<Player>();
+		anim = GetComponentInChildren<Animator> ();
 
         GetComponentsInChildren<Renderer>()[1].material.color = Player.ChooseColor(PlayerName);
 	}
@@ -48,10 +50,12 @@ public class MovementControl : MonoBehaviour {
 		if (!jump) 
 		{
 			jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
+			anim.SetBool ("isJumping", jump);
 		}
 		if (!m_attack_direct) 
 		{
 			m_attack_direct = CrossPlatformInputManager.GetButtonDown (PlayerName + "_AttackDirect");
+			anim.SetBool ("isAttacking", m_attack_direct);
 		}
 	}
 
