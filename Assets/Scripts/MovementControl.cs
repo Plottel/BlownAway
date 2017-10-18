@@ -95,7 +95,11 @@ public class MovementControl : MonoBehaviour {
                 TicksSinceAttack = 0;
                 var attack = GameObject.Instantiate(AttackCone, this.gameObject.transform.position, this.gameObject.transform.localRotation, this.gameObject.transform);
                 var PE = Instantiate(Prefabs.TempAttack, attack.transform.position, attack.transform.rotation);
-                PE.GetComponent<ParticleSystem>().startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
+                var partSystem = PE.GetComponent<ParticleSystem>();
+                var main = partSystem.main;
+                main.startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
+
+
                 Destroy(PE, 0.2f);
             }
 			//Debug.Log ("AttaCKAKANFOWN");
