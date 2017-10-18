@@ -329,19 +329,19 @@ public class Grid : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
 
-        for (int col = 0; col < Cols; ++col)
-        {
-            for (int row = 0; row < Rows; ++row)
-            {
-                Cell c = _cells[col][row];
-                Gizmos.DrawWireCube(c.transform.position, c.transform.localScale);
-            }
-        }
-    }
+    //    for (int col = 0; col < Cols; ++col)
+    //    {
+    //        for (int row = 0; row < Rows; ++row)
+    //        {
+    //            Cell c = _cells[col][row];
+    //            Gizmos.DrawWireCube(c.transform.position, c.transform.localScale);
+    //        }
+    //    }
+    //}
 
     // Use this for initialization
     void Start ()

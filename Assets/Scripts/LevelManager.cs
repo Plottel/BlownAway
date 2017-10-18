@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
     // Use this for initialization
     void Start()
 	{
+        //Time.timeScale = 0.3f;
         grid = FindObjectOfType<Grid>();
         grid.isWinterSkin = false;
 
@@ -95,6 +96,8 @@ public class LevelManager : MonoBehaviour
                             terrainType = TerrainType.Piston;
                         else if (terrain.GetComponent<PressurePlate>())
                             terrainType = TerrainType.PressurePlate;
+                        else if (terrain.GetComponent<Wall>())
+                            terrainType = TerrainType.Wall;
 
                         // Figure out which type was removed and reinstantiate 
                         // with appropriate prefab.

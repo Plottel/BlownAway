@@ -17,6 +17,7 @@ public static class Prefabs
     public static Fan Fan = (Fan)Resources.Load("Fan", typeof(Fan));
     public static PressurePlate PressurePlate = (PressurePlate)Resources.Load("PressurePlate", typeof(PressurePlate));
     public static Lava Lava = (Lava)Resources.Load("Lava", typeof(Lava));
+    public static Wall Wall = (Wall)Resources.Load("Wall", typeof(Wall));
     public static LavaPipe LavaPipe = (LavaPipe)Resources.Load("LavaPipe", typeof(LavaPipe));
     public static Volcano Volcano = (Volcano)Resources.Load("Volcano", typeof(Volcano));
     public static GameObject magicEarth = (GameObject)Resources.Load("magicEarth", typeof(GameObject));
@@ -32,6 +33,6 @@ public static class Prefabs
     public static GameObject WinterPiston = (GameObject)Resources.Load("WinterPiston", typeof(GameObject));
     public static GameObject WinterSpikyBush = (GameObject)Resources.Load("WinterSpikyBush", typeof(GameObject));
     public static GameObject WinterLavaPipe = (GameObject)Resources.Load("WinterLavaPipe", typeof(GameObject));
+    public static GameObject WinterWall = (GameObject)Resources.Load("WinterWall", typeof(GameObject));
     public static GameObject WinterPressurePlate = (GameObject)Resources.Load("winterPressurePlate", typeof(GameObject));
-
 }

@@ -59,6 +59,8 @@ public class IslandPiece : MonoBehaviour
                     terrainPrefab = Prefabs.LavaPipe;
                 else if (type == TerrainType.Volcano)
                     terrainPrefab = Prefabs.Volcano;
+                else if (type == TerrainType.Wall)
+                    terrainPrefab = Prefabs.Wall;
 
                 terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity);
                 //terrain = Instantiate(winterTerrainPrefab, transform.position, Quaternion.identity).GetComponent<IslandTerrain>(); // terrainPrefab.transform.rotation);
@@ -93,6 +95,8 @@ public class IslandPiece : MonoBehaviour
                 terrainPrefab = Prefabs.LavaPipe;
             else if (type == TerrainType.Volcano)
                 terrainPrefab = Prefabs.Volcano;
+            else if (type == TerrainType.Wall)
+                terrainPrefab = Prefabs.Wall;
 
             // Instantiate normal
             terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity); // terrainPrefab.transform.rotation);

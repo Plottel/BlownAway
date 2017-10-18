@@ -42,22 +42,18 @@ public class MovementControl : MonoBehaviour {
         GetComponentsInChildren<Renderer>()[1].material.color = Player.ChooseColor(PlayerName);
 	}
 
-
 	private void Update()
 	{
 		if (!jump) 
 		{
 			jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
-		}
-		if (!m_attack_direct) 
-		{
-			m_attack_direct = CrossPlatformInputManager.GetButtonDown (PlayerName + "_AttackDirect");
-		}
+		}			
 	}
 
 	// Fixed update is called in sync with physics
 	private void FixedUpdate()
 	{
+        m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
         TicksSinceAttack += 1;
 
 		// Read motion inputs
@@ -101,7 +97,6 @@ public class MovementControl : MonoBehaviour {
                 var PE = Instantiate(Prefabs.TempAttack, attack.transform.position, attack.transform.rotation);
                 PE.GetComponent<ParticleSystem>().startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
                 Destroy(PE, 0.2f);
-                m_attack_direct = false;
             }
 			//Debug.Log ("AttaCKAKANFOWN");
 		}

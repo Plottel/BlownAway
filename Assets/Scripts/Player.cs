@@ -36,7 +36,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		dirVector = this.gameObject.transform.rotation.eulerAngles;
 		anim = gameObject.GetComponent<Animator> ();
-		anim.Play ();
+		//anim.Play ();
 	}
 
 	// Update is called once per frame
