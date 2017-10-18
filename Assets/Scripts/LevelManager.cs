@@ -25,9 +25,10 @@ public class LevelManager : MonoBehaviour
     // Use this for initialization
     void Start()
 	{
+        //Time.timeScale = 0.3f;
         grid = FindObjectOfType<Grid>();
         grid.isWinterSkin = false;
-
+        #region NormalizeGridDetails
         // Normalize the terrain height
         for (int col = 0; col < grid.Cols; ++col)
         {
@@ -95,6 +96,8 @@ public class LevelManager : MonoBehaviour
                             terrainType = TerrainType.Piston;
                         else if (terrain.GetComponent<PressurePlate>())
                             terrainType = TerrainType.PressurePlate;
+                        else if (terrain.GetComponent<Wall>())
+                            terrainType = TerrainType.Wall;
 
                         // Figure out which type was removed and reinstantiate 
                         // with appropriate prefab.
@@ -117,6 +120,7 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
+        #endregion NormalizeGridDetails
 
         //ContextualText = GetComponentInChildren<MultiplayerController>().TutorialText[4];
 
@@ -127,11 +131,11 @@ public class LevelManager : MonoBehaviour
 
         //grid.transform.position = gridSpawnPoint;
 
-		GetComponentInChildren<MultiplayerController> ().grid = grid;
+        GetComponentInChildren<MultiplayerController> ().grid = grid;
 
 		GetComponentInChildren<MultiplayerController> ().StartManual ();
 
-        //_scene = new GridScene_VolcanoRun(grid);
+        //_scene = new GridScene_Ballista_Arena(grid);
 
 		//_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
 

@@ -14,6 +14,7 @@ public enum TerrainType
     Lava,
     LavaPipe,
     Volcano,
+    Wall,
     None
 }
 

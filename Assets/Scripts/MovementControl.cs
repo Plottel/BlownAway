@@ -44,24 +44,18 @@ public class MovementControl : MonoBehaviour {
         GetComponentsInChildren<Renderer>()[1].material.color = Player.ChooseColor(PlayerName);
 	}
 
-
 	private void Update()
 	{
 		if (!jump) 
 		{
 			jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
-			anim.SetBool ("isJumping", jump);
-		}
-		if (!m_attack_direct) 
-		{
-			m_attack_direct = CrossPlatformInputManager.GetButtonDown (PlayerName + "_AttackDirect");
-			anim.SetBool ("isAttacking", m_attack_direct);
 		}
 	}
 
 	// Fixed update is called in sync with physics
 	private void FixedUpdate()
 	{
+        m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
         TicksSinceAttack += 1;
 
 		// Read motion inputs
@@ -93,19 +87,25 @@ public class MovementControl : MonoBehaviour {
 		#endif
 		// pass all parameters to the character control script
 		m_Character.Move(m_Move, rX, rZ, jump);
+		anim.SetBool("isJumping", jump);
 		jump = false;
 
 		if (m_attack_direct) 
 		{
             if (TicksSinceAttack > TicksPerAttack)
             {
+            	anim.SetBool ("isAttacking", true);
+
 
                 TicksSinceAttack = 0;
                 var attack = GameObject.Instantiate(AttackCone, this.gameObject.transform.position, this.gameObject.transform.localRotation, this.gameObject.transform);
                 var PE = Instantiate(Prefabs.TempAttack, attack.transform.position, attack.transform.rotation);
-                PE.GetComponent<ParticleSystem>().startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
+                var partSystem = PE.GetComponent<ParticleSystem>();
+                var main = partSystem.main;
+                main.startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
+
+
                 Destroy(PE, 0.2f);
-                m_attack_direct = false;
             }
 			//Debug.Log ("AttaCKAKANFOWN");
 		}

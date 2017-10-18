@@ -26,6 +26,12 @@ public class Player : MonoBehaviour {
 
     public float Health;
 
+    public void HitMe(float force, Vector3 position, float addThisMuchDamage)
+    {
+        Health += addThisMuchDamage;
+        GetComponent<Rigidbody>().AddExplosionForce((force * ((Health / 100) + 1)), position, 100f);
+    }
+
 	/// <summary>
 	/// Player Damage
 	/// Setter must do '+= value;'
