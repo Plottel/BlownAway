@@ -43,12 +43,16 @@ public class Cell : MonoBehaviour
         }
     }
 
-    public void AddIslandPiece()
+    public void AddIslandPiece(bool winterSkin=false)
     {
         if (islandPiece != null)
             DestroyImmediate(islandPiece.gameObject);
 
-		islandPiece = Instantiate (Prefabs.IslandPiece, transform.position + new Vector3(0,0.5f,0), Prefabs.IslandPiece.transform.rotation);
+        if (!winterSkin)
+            islandPiece = Instantiate(Prefabs.IslandPiece, transform.position + new Vector3(0, 0.5f, 0), Prefabs.IslandPiece.transform.rotation);
+        else
+            islandPiece = Instantiate(Prefabs.WinterIsland, transform.position + new Vector3(0, 0.5f, 0), Prefabs.WinterIsland.transform.rotation).GetComponent<IslandPiece>();
+
         islandPiece.transform.parent = this.transform;
     }
 

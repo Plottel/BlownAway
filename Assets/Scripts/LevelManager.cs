@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField]
     public Grid grid;
+
     private GridScene _scene;
     public bool gameStarted = false;
 
@@ -24,9 +25,8 @@ public class LevelManager : MonoBehaviour
     // Use this for initialization
     void Start()
 	{
-
-
         grid = FindObjectOfType<Grid>();
+        grid.isWinterSkin = false;
 
         // Normalize the terrain height
         for (int col = 0; col < grid.Cols; ++col)
@@ -49,18 +49,33 @@ public class LevelManager : MonoBehaviour
 
                 if (c.islandPiece != null)
                 {
+                    // Remember terrain
+                    // Rember island
+                    // Remove terrain
+                    // Remove island
+                    // Add island
+                    // Add terrain
+                    
                     var ip = c.islandPiece;
-                    // Stuff here about reinstantiating island piece prefab.
+                    var terrain = ip.terrain;
+
+                    var islandPos = ip.transform.position;
+                    var islandRotation = ip.transform.rotation;
+                    var terrainPos = Vector3.zero;
+                    var terrainRotation = Quaternion.identity;
+                    var terrainType = TerrainType.None;
+
+                    if (terrain != null)
+                    {
+                        terrainPos = terrain.transform.position;
+                        terrainRotation = terrain.transform.rotation;
+                    }
+
                     // TODO: Needed for winter reskinning.
 
-                    if (ip.terrain != null)
+                    if (terrain != null)
                     {
-                        var terrain = ip.terrain;
-                        // Stuff here about reinstantiating island terrain prefab.
-                        var pos = terrain.transform.position;
-                        var rotation = terrain.transform.rotation;
-
-                        TerrainType terrainType = TerrainType.None;
+                        // Stuff here about reinstantiating island terrain prefab.            
 
                         if (terrain.GetComponent<Ballista>())
                             terrainType = TerrainType.Ballista;
@@ -80,25 +95,28 @@ public class LevelManager : MonoBehaviour
                             terrainType = TerrainType.Piston;
                         else if (terrain.GetComponent<PressurePlate>())
                             terrainType = TerrainType.PressurePlate;
-                        
-                        // Reinstantiate new prefab
-                        ip.RemoveTerrain();
-                        ip.AddTerrain(terrainType);
-                        ip.terrain.transform.position = pos;
-                        ip.terrain.transform.rotation = rotation;
-
 
                         // Figure out which type was removed and reinstantiate 
                         // with appropriate prefab.
                     }
 
+                    // Scope after terrain ns island piece details have been recorded
+                    ip.RemoveTerrain();
+                    c.RemoveIslandPiece();
+                    c.AddIslandPiece(grid.isWinterSkin);
+
+                    ip = c.islandPiece;
+
+                    if (terrainType != TerrainType.None)
+                    {
+                        ip.AddTerrain(terrainType, grid.isWinterSkin);
+                        ip.terrain.transform.position = terrainPos;
+                        ip.terrain.transform.rotation = terrainRotation;
+                    }
+                    
                 }
             }
         }
-
-
-
-
 
         //ContextualText = GetComponentInChildren<MultiplayerController>().TutorialText[4];
 
@@ -113,15 +131,15 @@ public class LevelManager : MonoBehaviour
 
 		GetComponentInChildren<MultiplayerController> ().StartManual ();
 
-        _scene = new GridScene_VolcanoRun(grid);
+        //_scene = new GridScene_VolcanoRun(grid);
 
 		//_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
 
-		if (_scene == null)
-			Debug.Log ("Scene null right after init");
+		//if (_scene == null)
+		//	Debug.Log ("Scene null right after init");
 
         
-        _scene.Start();
+        //_scene.Start();
 
         //UpdateTimeToNextGridMove();
     }
@@ -130,17 +148,17 @@ public class LevelManager : MonoBehaviour
 	void Update () 
 	{
 
-		if (_scene == null)
-			Debug.Log ("Scene is null");
+		//if (_scene == null)
+			//Debug.Log ("Scene is null");
 
-        _scene.Play();
+        //_scene.Play();
        // UpdateTimeToNextGridMove();
     }
 
     void UpdateTimeToNextGridMove()
     {
-		Debug.Log ("Scene? " + _scene);
-        timeToNextGridMove.text = "Grid Move In: " + _scene.TimeToNextMove.ToString();  // + Get some value from GridScene here
+		//Debug.Log ("Scene? " + _scene);
+        //timeToNextGridMove.text = "Grid Move In: " + _scene.TimeToNextMove.ToString();  // + Get some value from GridScene here
     }
 }
  

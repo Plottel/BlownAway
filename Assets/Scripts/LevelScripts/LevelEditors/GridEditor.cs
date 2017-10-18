@@ -18,8 +18,8 @@ public class GridEditor : Editor
         DrawDefaultInspector();
 
         // Update slider values for desired Cols and Rows.
-        Cols = EditorGUILayout.IntSlider("Cols", Cols, 0, 30);
-        Rows = EditorGUILayout.IntSlider("Rows", Rows, 0, 30);
+        Cols = EditorGUILayout.IntSlider("Cols", Cols, 0, 100);
+        Rows = EditorGUILayout.IntSlider("Rows", Rows, 0, 100);
 
         // Store target object to work with.
         Grid grid = (Grid)target;
