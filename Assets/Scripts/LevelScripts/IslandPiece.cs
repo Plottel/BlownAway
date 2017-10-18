@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class IslandPiece : MonoBehaviour 
 {
+    public GameObject winterTerrainPrefab;
     public IslandTerrain terrainPrefab;
     public IslandTerrain terrain;
 
@@ -19,34 +20,88 @@ public class IslandPiece : MonoBehaviour
         get { return _followPath == false && _path.Count == 0; }
     }
 
-    public void AddTerrain(TerrainType type)
+    public void AddTerrain(TerrainType type, bool isWinterSkin=false)
     {
         if (terrain != null)
             DestroyImmediate(terrain.gameObject);
 
-        // Figure out which prefab it is
-        if (type == TerrainType.SpikyBush)
-            terrainPrefab = Prefabs.SpikyBush;
-        else if (type == TerrainType.Tree)
-            terrainPrefab = Prefabs.Tree;
-        else if (type == TerrainType.Ballista)
-            terrainPrefab = Prefabs.Ballista;
-        else if (type == TerrainType.Piston)
-            terrainPrefab = Prefabs.Piston;
-        else if (type == TerrainType.Fan)
-            terrainPrefab = Prefabs.Fan;
-        else if (type == TerrainType.PressurePlate)
-            terrainPrefab = Prefabs.PressurePlate;
-        else if (type == TerrainType.Lava)
-            terrainPrefab = Prefabs.Lava;
-        else if (type == TerrainType.LavaPipe)
-            terrainPrefab = Prefabs.LavaPipe;
-        else if (type == TerrainType.Volcano)
-            terrainPrefab = Prefabs.Volcano;
+        // Instantiate a winter skin.
+        if (isWinterSkin)
+        {
+            if (type == TerrainType.Tree)
+                winterTerrainPrefab = Prefabs.WinterTree;
+            else if (type == TerrainType.Fan)
+                winterTerrainPrefab = Prefabs.WinterFan;
+            else if (type == TerrainType.Piston)
+                winterTerrainPrefab = Prefabs.WinterPiston;
+            else if (type == TerrainType.SpikyBush)
+                winterTerrainPrefab = Prefabs.WinterSpikyBush;
+            else if (type == TerrainType.PressurePlate)
+                winterTerrainPrefab = Prefabs.WinterPressurePlate;
+            else
+            {
+                // Don't have a winter skin for it, get the non-winter version.
+                if (type == TerrainType.SpikyBush)
+                    terrainPrefab = Prefabs.SpikyBush;
+                else if (type == TerrainType.Tree)
+                    terrainPrefab = Prefabs.WinterTree.GetComponent<Tree>();
+                else if (type == TerrainType.Ballista)
+                    terrainPrefab = Prefabs.Ballista;
+                else if (type == TerrainType.Piston)
+                    terrainPrefab = Prefabs.Piston;
+                else if (type == TerrainType.Fan)
+                    terrainPrefab = Prefabs.Fan;
+                else if (type == TerrainType.PressurePlate)
+                    terrainPrefab = Prefabs.PressurePlate;
+                else if (type == TerrainType.Lava)
+                    terrainPrefab = Prefabs.Lava;
+                else if (type == TerrainType.LavaPipe)
+                    terrainPrefab = Prefabs.LavaPipe;
+                else if (type == TerrainType.Volcano)
+                    terrainPrefab = Prefabs.Volcano;
+
+                terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity);
+                //terrain = Instantiate(winterTerrainPrefab, transform.position, Quaternion.identity).GetComponent<IslandTerrain>(); // terrainPrefab.transform.rotation);
+                terrain.transform.parent = this.transform;
+                return;
+
+            }
+            
+            // Instantiate valid winter prefab
+            terrain = Instantiate(winterTerrainPrefab, transform.position, Quaternion.identity).GetComponent<IslandTerrain>();
+            //terrain = Instantiate(winterTerrainPrefab, transform.position, Quaternion.identity).GetComponent<IslandTerrain>(); // terrainPrefab.transform.rotation);
+            terrain.transform.parent = this.transform;
+        }
+        else // Not winter skin, just fetch normal
+        {
+            // Instantiate a not winter skin.
+            if (type == TerrainType.SpikyBush)
+                terrainPrefab = Prefabs.SpikyBush;
+            else if (type == TerrainType.Tree)
+                terrainPrefab = Prefabs.Tree;
+            else if (type == TerrainType.Ballista)
+                terrainPrefab = Prefabs.Ballista;
+            else if (type == TerrainType.Piston)
+                terrainPrefab = Prefabs.Piston;
+            else if (type == TerrainType.Fan)
+                terrainPrefab = Prefabs.Fan;
+            else if (type == TerrainType.PressurePlate)
+                terrainPrefab = Prefabs.PressurePlate;
+            else if (type == TerrainType.Lava)
+                terrainPrefab = Prefabs.Lava;
+            else if (type == TerrainType.LavaPipe)
+                terrainPrefab = Prefabs.LavaPipe;
+            else if (type == TerrainType.Volcano)
+                terrainPrefab = Prefabs.Volcano;
+
+            // Instantiate normal
+            terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity); // terrainPrefab.transform.rotation);
+            terrain.transform.parent = this.transform;
+        }
+        
 
         // Instantiate, maintaining Prefab rotation
-		terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity); // terrainPrefab.transform.rotation);
-        terrain.transform.parent = this.transform;
+		
 //        terrain.transform.Translate(0, transform.lossyScale.y, 0);
 //        terrain.transform.rotation = terrainPrefab.transform.rotation;
 
@@ -56,6 +111,8 @@ public class IslandPiece : MonoBehaviour
 
     public void RemoveTerrain()
     {
+        if (terrain == null)
+            return;
         DestroyImmediate(terrain.gameObject);
         terrain = null;
     }
@@ -189,14 +246,14 @@ public class IslandPiece : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.GetComponent<Player>())
             collision.gameObject.transform.parent = this.transform;
     }
 
     private void OnCollisionExit(Collision collision)
     {
         // TODO: Maybe need to set parent back to "Map"
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.GetComponent<Player>())
             collision.gameObject.transform.parent = null;
     }
 }

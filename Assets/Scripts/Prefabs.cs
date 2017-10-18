@@ -24,4 +24,14 @@ public static class Prefabs
     public static GameObject DeathPE = (GameObject)Resources.Load("DeathPE", typeof(GameObject));
     public static GameObject TempAttack = (GameObject)Resources.Load("TempAttack", typeof(GameObject));
     public static GameObject OnFirePE = (GameObject)Resources.Load("OnFirePE", typeof(GameObject));
+
+    // Winter assets
+    public static GameObject WinterIsland = (GameObject)Resources.Load("WinterIsland", typeof(GameObject));
+    public static GameObject WinterTree = (GameObject)Resources.Load("WinterTree", typeof(GameObject));
+    public static GameObject WinterFan = (GameObject)Resources.Load("WinterFan", typeof(GameObject));
+    public static GameObject WinterPiston = (GameObject)Resources.Load("WinterPiston", typeof(GameObject));
+    public static GameObject WinterSpikyBush = (GameObject)Resources.Load("WinterSpikyBush", typeof(GameObject));
+    public static GameObject WinterLavaPipe = (GameObject)Resources.Load("WinterLavaPipe", typeof(GameObject));
+    public static GameObject WinterPressurePlate = (GameObject)Resources.Load("winterPressurePlate", typeof(GameObject));
+
 }
