@@ -17,6 +17,33 @@ ModelImporter:
     100018: GoggleOuter
     100020: GoggleStrap
     100022: Pants
+    100024: Armature
+    100026: Bone
+    100028: Bone_001
+    100030: Bone_002
+    100032: Bone_003
+    100034: Bone_004
+    100036: Bone_005
+    100038: Bone_008
+    100040: Bone_009
+    100042: Bone_010
+    100044: Bone_011
+    100046: Bone_012
+    100048: Bone_013
+    100050: Bone_014
+    100052: Bone_015
+    100054: Bone_016
+    100056: Bone_017
+    100058: Bone_018
+    100060: Bone_019
+    100062: Bone_020
+    100064: Bone_021
+    100066: Bone_022
+    100068: Bone_023
+    100070: Bone_024
+    100072: Bone_025
+    100074: Bone_026
+    100076: Bone_027
     400000: //RootNode
     400002: Belt
     400004: Body
@@ -29,6 +56,33 @@ ModelImporter:
     400018: GoggleOuter
     400020: GoggleStrap
     400022: Pants
+    400024: Armature
+    400026: Bone
+    400028: Bone_001
+    400030: Bone_002
+    400032: Bone_003
+    400034: Bone_004
+    400036: Bone_005
+    400038: Bone_008
+    400040: Bone_009
+    400042: Bone_010
+    400044: Bone_011
+    400046: Bone_012
+    400048: Bone_013
+    400050: Bone_014
+    400052: Bone_015
+    400054: Bone_016
+    400056: Bone_017
+    400058: Bone_018
+    400060: Bone_019
+    400062: Bone_020
+    400064: Bone_021
+    400066: Bone_022
+    400068: Bone_023
+    400070: Bone_024
+    400072: Bone_025
+    400074: Bone_026
+    400076: Bone_027
     2300000: //RootNode
     2300002: Belt
     2300004: Body
@@ -65,7 +119,21 @@ ModelImporter:
     4300018: Pants
     4300020: Body
     7400000: Default Take
+    7400002: Attack
+    7400004: Flying
+    7400006: Jump
     9500000: //RootNode
+    13700000: Belt
+    13700002: Body
+    13700004: Buckle
+    13700006: BuckleMiddle
+    13700008: Cube
+    13700010: Cube_001
+    13700012: Eyes
+    13700014: GoggleLense
+    13700016: GoggleOuter
+    13700018: GoggleStrap
+    13700020: Pants
   materials:
     importMaterials: 1
     materialName: 0
