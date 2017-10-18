@@ -1,0 +1,190 @@
+fileFormatVersion: 2
+guid: c4ddc93b2c0314727a7ea0930865331f
+timeCreated: 1508294785
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Belt
+    100004: Body
+    100006: Bone
+    100008: Bone.001
+    100010: Bone.002
+    100012: Bone.003
+    100014: Bone.004
+    100016: Bone.005
+    100018: Bone.005_end
+    100020: Bone.008
+    100022: Bone.009
+    100024: Bone.010
+    100026: Bone.011
+    100028: Bone.012
+    100030: Bone.013
+    100032: Bone.014
+    100034: Bone.015
+    100036: Bone.016
+    100038: Bone.017
+    100040: Bone.018
+    100042: Bone.019
+    100044: Bone.020
+    100046: Bone.021
+    100048: Bone.022
+    100050: Bone.023
+    100052: Bone.024
+    100054: Bone.024_end
+    100056: Bone.025
+    100058: Bone.025_end
+    100060: Bone.026
+    100062: Bone.026_end
+    100064: Bone.027
+    100066: Bone.027_end
+    100068: Buckle
+    100070: BuckleMiddle
+    100072: Cube
+    100074: Cube.001
+    100076: Eyes
+    100078: GoggleLense
+    100080: GoggleOuter
+    100082: GoggleStrap
+    100084: Pants
+    100086: //RootNode
+    400000: Armature
+    400002: Belt
+    400004: Body
+    400006: Bone
+    400008: Bone.001
+    400010: Bone.002
+    400012: Bone.003
+    400014: Bone.004
+    400016: Bone.005
+    400018: Bone.005_end
+    400020: Bone.008
+    400022: Bone.009
+    400024: Bone.010
+    400026: Bone.011
+    400028: Bone.012
+    400030: Bone.013
+    400032: Bone.014
+    400034: Bone.015
+    400036: Bone.016
+    400038: Bone.017
+    400040: Bone.018
+    400042: Bone.019
+    400044: Bone.020
+    400046: Bone.021
+    400048: Bone.022
+    400050: Bone.023
+    400052: Bone.024
+    400054: Bone.024_end
+    400056: Bone.025
+    400058: Bone.025_end
+    400060: Bone.026
+    400062: Bone.026_end
+    400064: Bone.027
+    400066: Bone.027_end
+    400068: Buckle
+    400070: BuckleMiddle
+    400072: Cube
+    400074: Cube.001
+    400076: Eyes
+    400078: GoggleLense
+    400080: GoggleOuter
+    400082: GoggleStrap
+    400084: Pants
+    400086: //RootNode
+    4300000: Cube.001
+    4300002: Cube
+    4300004: GoggleStrap
+    4300006: BuckleMiddle
+    4300008: Buckle
+    4300010: Eyes
+    4300012: GoggleOuter
+    4300014: GoggleLense
+    4300016: Belt
+    4300018: Pants
+    4300020: Body
+    7400000: Armature|Attack
+    7400002: Armature|Flying
+    7400004: Armature|Jump
+    7400006: Body|Jump
+    9500000: //RootNode
+    13700000: Belt
+    13700002: Body
+    13700004: Buckle
+    13700006: BuckleMiddle
+    13700008: Cube
+    13700010: Cube.001
+    13700012: Eyes
+    13700014: GoggleLense
+    13700016: GoggleOuter
+    13700018: GoggleStrap
+    13700020: Pants
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
