@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class MultiplayerController : MonoBehaviour {
 	public Grid grid;
 	public GameObject PlayerPrefab;
+	public GameObject EggPrefab;
 	public GameObject PlayerIconPrefab;
 	private bool[] ActivePlayers = new bool[4];
 	public int StartingLives = 4;
@@ -15,8 +16,9 @@ public class MultiplayerController : MonoBehaviour {
 	private int[] Lives = new int[4];
 	private int Paused = -1;
 	public GameObject SpawnPointer;
+	private Egg[] Eggs = new Egg[4];
 	private SpawnPointer[] SP = new SpawnPointer[4];
-    private bool[] InGame = new bool[4];
+    private bool[] InGame = new bool[4]; //true from when the egg is falling until the player is dead.
 	private int[] SpawnTimer = new int[4];
 	public GameObject PauseMenuPrefab;
 	private GameObject PauseMenu;
@@ -175,13 +177,29 @@ public class MultiplayerController : MonoBehaviour {
 		}
 	}
 
-	//CHANGE THE SPAWN POSITION OF PLAYERS HERE (for now).
+	//Starts the egg falling, (starts checking it hit the ground?).
+	public void DropEgg(int PlayerNum) {
+		Eggs [PlayerNum].GetComponent<Rigidbody> ().useGravity = true;
+		//Eggs [PlayerNum].gameObject.GetComponent<Collider> ().isTrigger = false;
+		Eggs [PlayerNum].FallingMode = true;
+		InGame [PlayerNum] = true;
+	}
+
+	//The egg tells the MC that it has broken, so the pointers etc should be attatched to the player now not it.
+	public void EggBroke(string PlayerName) {
+		if (Eggs [PNameToNumber (PlayerName)] != null) {
+			CreatePlayer (PNameToNumber (PlayerName));
+			Eggs [PNameToNumber (PlayerName)] = null;
+		}
+	}
+
+	//The actual creation of the bird-man, ie from the egg.
+	//Called (triggered) by the egg, and creates a player at (just above) the eggs position.
 	private void CreatePlayer(int PlayerNum) {
-		Debug.Log ("Created: " + PlayerNum);
 
 		GameObject P = Instantiate (PlayerPrefab);
 		P.GetComponent<MovementControl> ().PlayerName = "P" + (PlayerNum + 1);
-		P.GetComponent<Transform> ().position = SP [PlayerNum].transform.position + new Vector3(0, 5, 0);
+		P.GetComponent<Transform> ().position = SP [PlayerNum].transform.position + new Vector3(0, 0, 0);
 
 		PlayerIcons [PlayerNum] = Instantiate (PlayerIconPrefab, transform).GetComponent<PlayerIcon> ();
 		PlayerIcons [PlayerNum].PlayerNumber = PlayerNum + 1;
@@ -196,37 +214,48 @@ public class MultiplayerController : MonoBehaviour {
         InGame[PlayerNum] = true;
 	}
 
-
+	//Resets spawn timers, and manages the spawnpointers (or eggs).
+				//CREATE EGG
     private void StartSpawn(int PlayerNum) {
         if (SP[PlayerNum] == null) {
         SP[PlayerNum] = Instantiate(SpawnPointer, grid.MidCell.transform.position, Quaternion.Euler(new Vector3(90, 0, 0))).GetComponent<SpawnPointer>();
         //SP [Player].transform.rotation = ;
-
-
-
+		
+		
+		
         SP[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
 
         SP[PlayerNum].GetComponent<SpriteRenderer>().color = Player.ChooseColor(PlayerNum);
         }
 
+		//Create a floating egg as well (to replace the 'spawnpointer').
+		GameObject EP = Instantiate(EggPrefab, grid.MidCell.transform.position + new Vector3(0, 4, 0), Quaternion.Euler(new Vector3(90, 0, 0)));
+		Eggs[PlayerNum] = EP.GetComponent<Egg> ();
+		Eggs[PlayerNum].FallingMode = false;
+		Eggs[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
+		Eggs[PlayerNum].GetComponent<MeshRenderer>().materials[1].color = Player.ChooseColor(PlayerNum);
+
+
         SP[PlayerNum].transform.position = grid.MidCell.transform.position;
-        SP[PlayerNum].Target = null;
+		SP[PlayerNum].Target = EP.transform;
         SpawnTimer [PlayerNum] = 300;
 	}
 
+	//Check if the spawnpointer should change into the player (or egg), either from a button-press or the timer.
+	//Also updates the shadow-circles (still spawnpointers atm), and SHOULD check if the pointer is above an island or the killbox
 	private void ContinueSpawn() {
-
+		
 		for (int p = 0; p < 4; p++) {
 			if (InGame [p] != true && SP[p] != null) {
 				if (SP [p].ManualUpdate ()) {
-					if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_AttackDirect")) {
-						CreatePlayer (p);
-					}
+					if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_AttackDirect"))
+						DropEgg(p);
 				}
+				Eggs [p].ManualUpdate ();
 				if (SpawnTimer [p] > 0)
 					SpawnTimer [p] -= 1;
 				else
-					CreatePlayer (p);
+					DropEgg (p);
 			}
             else
             {
@@ -234,6 +263,7 @@ public class MultiplayerController : MonoBehaviour {
                     SP[p].ManualUpdate();
             }  
 		}
+
 	}
 
 	public void KillPlayerByString (string PName) {
@@ -262,8 +292,27 @@ public class MultiplayerController : MonoBehaviour {
             Destroy(SP[PNumber].gameObject, 1f);
             SP[PNumber] = null;
         }
-        Destroy(PlayerIcons[PNumber].gameObject);
+		if (PlayerIcons[PNumber] != null)
+        	Destroy(PlayerIcons[PNumber].gameObject);
         InGame[PNumber] = false;
 		UpdateStockGraphics ();
+	}
+
+	public static int PNameToNumber (string PName) {
+		int PNumber = 0;
+		if (PName == "P1") {
+			PNumber = 0;
+		} else if (PName == "P2") {
+			PNumber = 1;
+		} else if (PName == "P3") {
+			PNumber = 2;
+		} else if (PName == "P4") {
+			PNumber = 3;
+		}
+		return PNumber;
+	}
+
+	public static string PNumToName (int PNumber) {
+		return "P" + (PNumber + 1);
 	}
 }
