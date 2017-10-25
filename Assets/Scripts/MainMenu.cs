@@ -49,7 +49,6 @@ public class MainMenu : MonoBehaviour {
 		for (int i = 0; i < 4; ++i) {
 			GetComponentsInChildren<Image> () [i].color = Player.ChooseColor (i);
 		}
-		Time.timeScale = 0;
 		//Testing = false;
 	}
 

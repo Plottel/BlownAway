@@ -21,9 +21,12 @@ public class MultiplayerController : MonoBehaviour {
     private bool[] InGame = new bool[4]; //true from when the egg is falling until the player is dead.
 	private int[] SpawnTimer = new int[4];
 	public GameObject PauseMenuPrefab;
+	public GameObject VictoryPrefab;
 	private GameObject PauseMenu;
 	public EventSystem ES;
 	private PlayerIcon[] PlayerIcons = new PlayerIcon[4];
+	private int[] DeathCounters = new int[4];
+	public Vector3[] TutorialSpawnPositions = new Vector3[4];
 
 	public Vector3[] PlayerSpawnPos = new Vector3[4];
 	public Text[] TutorialText = new Text[5];
@@ -235,11 +238,14 @@ public class MultiplayerController : MonoBehaviour {
 		Eggs[PlayerNum].FallingMode = false;
 		Eggs[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
 		Eggs[PlayerNum].GetComponent<MeshRenderer>().materials[1].color = Player.ChooseColor(PlayerNum);
-
+		if (MainMenu.Area == "Tutorial") {
+			EP.transform.position += TutorialSpawnPositions [PlayerNum];
+			SpawnTimer [PlayerNum] = 0;
+		} else
+			SpawnTimer [PlayerNum] = 300;
 
         SP[PlayerNum].transform.position = grid.MidCell.transform.position;
 		SP[PlayerNum].Target = EP.transform;
-        SpawnTimer [PlayerNum] = 300;
 	}
 
 	//Check if the spawnpointer should change into the player (or egg), either from a button-press or the timer.
@@ -267,6 +273,23 @@ public class MultiplayerController : MonoBehaviour {
 
 	}
 
+	public void CheckAndEndGame() {
+		int DeadPlayers = 0;
+		int NotDead = 0;
+		for (int i = 0; i < 4; ++i) {
+			if (Lives [i] == 0) {
+				DeadPlayers += 1;
+			} else {
+				NotDead = i;
+			}
+		}
+		if (DeadPlayers >= 3) {
+			Debug.Log ("VICTORY!");
+			GameObject V = Instantiate (VictoryPrefab, transform.parent);
+			V.GetComponent<Text> ().color = Player.ChooseColor (NotDead);
+		}
+	}
+
 	public void KillPlayerByString (string PName) {
 		int PNumber = 0;
 		if (PName == "P1") {
@@ -289,6 +312,7 @@ public class MultiplayerController : MonoBehaviour {
 			//Debug.Log ("Created in Int");
 		} else
         {
+			CheckAndEndGame ();
             Destroy(SP[PNumber].gameObject, 1f);
             SP[PNumber] = null;
         }
