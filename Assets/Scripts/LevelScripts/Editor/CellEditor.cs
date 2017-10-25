@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public enum TerrainType
-{
-    SpikyBush,
-    Tree,
-    Ballista,
-    Piston,
-    Fan,
-    PressurePlate,
-    Lava,
-    LavaPipe,
-    Volcano,
-    Wall,
-    None
-}
+//public enum TerrainType
+//{
+//    SpikyBush,
+//    Tree,
+//    Ballista,
+//    Piston,
+//    Fan,
+//    PressurePlate,
+//    Lava,
+//    LavaPipe,
+//    Volcano,
+//    Wall,
+//    None
+//}
 
 [CustomEditor(typeof(Cell))]
 [CanEditMultipleObjects]
