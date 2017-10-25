@@ -69,7 +69,7 @@ public class MultiplayerController : MonoBehaviour {
 		
 
 		//Disable the tutorial text if not in tutorial mode.
-		if (MainMenu.Mode != "Tutorial") {			
+		if (MainMenu.Area != "Tutorial") {
 			TutorialText[0].enabled = false;
 			TutorialText[1].enabled = false;
 			TutorialText[2].enabled = false;
@@ -77,9 +77,11 @@ public class MultiplayerController : MonoBehaviour {
 			TutorialText[4].enabled = false;
 		}
 
+		/*
 		if (MainMenu.Mode != "Normal") {
 			StartingLives = -1;
 		}
+		*/
 
 		if (StartingLives > MaxLives) {
 			StartingLives = MaxLives;
@@ -150,7 +152,7 @@ public class MultiplayerController : MonoBehaviour {
 				}
 			}
 
-			if (MainMenu.Mode == "Tutorial") {
+			if (MainMenu.Area == "Tutorial") {
 				if (CrossPlatformInputManager.GetAxis("P" + (p + 1) + "_Horizontal") != 0)
 					TutorialText[0].enabled = false;
 				if (CrossPlatformInputManager.GetAxis("P" + (p + 1) + "_RotationX") != 0)
@@ -187,6 +189,7 @@ public class MultiplayerController : MonoBehaviour {
 
 	//The egg tells the MC that it has broken, so the pointers etc should be attatched to the player now not it.
 	public void EggBroke(string PlayerName) {
+		Debug.Log ("AN EGG BROke YOu MORON");
 		if (Eggs [PNameToNumber (PlayerName)] != null) {
 			CreatePlayer (PNameToNumber (PlayerName));
 			Eggs [PNameToNumber (PlayerName)] = null;
@@ -220,8 +223,6 @@ public class MultiplayerController : MonoBehaviour {
         if (SP[PlayerNum] == null) {
         SP[PlayerNum] = Instantiate(SpawnPointer, grid.MidCell.transform.position, Quaternion.Euler(new Vector3(90, 0, 0))).GetComponent<SpawnPointer>();
         //SP [Player].transform.rotation = ;
-		
-		
 		
         SP[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
 
@@ -285,8 +286,7 @@ public class MultiplayerController : MonoBehaviour {
 		Lives [PNumber] -= 1;
 		if (Lives [PNumber] != 0) {
 			StartSpawn (PNumber);
-			//CreatePlayer (PNumber);
-			Debug.Log ("Created in Int");
+			//Debug.Log ("Created in Int");
 		} else
         {
             Destroy(SP[PNumber].gameObject, 1f);
