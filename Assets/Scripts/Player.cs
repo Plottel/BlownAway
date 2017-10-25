@@ -73,6 +73,8 @@ public class Player : MonoBehaviour {
                 return new Color(0.665f, 0.152f, 1); //Purple
             case 4:
                 return new Color(1, 0.875f, 0.214f); //Yellow
+			case 5:
+				return new Color(1, 1, 1); //White (For menu)
         }
 
 
@@ -91,6 +93,8 @@ public class Player : MonoBehaviour {
                 return ChooseColor(2);
             case "P4":
                 return ChooseColor(3);
+			case "titlePlayer":
+				return ChooseColor(4);
         }
 
 

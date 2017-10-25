@@ -1,59 +1,34 @@
 fileFormatVersion: 2
-guid: edb88a5589e4b48b7b52c484f026592b
-timeCreated: 1508907923
+guid: 95464a423c477415b8a35d753960c6d7
+timeCreated: 1508912115
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Icosphere
-    100004: Icosphere_001
-    100006: Icosphere_002
-    100008: Icosphere_003
-    100010: Icosphere_004
-    100012: Icosphere_005
-    100014: Icosphere_006
-    100016: Icosphere_007
-    100018: Icosphere_008
-    400000: //RootNode
-    400002: Icosphere
-    400004: Icosphere_001
-    400006: Icosphere_002
-    400008: Icosphere_003
-    400010: Icosphere_004
-    400012: Icosphere_005
-    400014: Icosphere_006
-    400016: Icosphere_007
-    400018: Icosphere_008
-    2300000: Icosphere
-    2300002: Icosphere_001
-    2300004: Icosphere_002
-    2300006: Icosphere_003
-    2300008: Icosphere_004
-    2300010: Icosphere_005
-    2300012: Icosphere_006
-    2300014: Icosphere_007
-    2300016: Icosphere_008
-    3300000: Icosphere
-    3300002: Icosphere_001
-    3300004: Icosphere_002
-    3300006: Icosphere_003
-    3300008: Icosphere_004
-    3300010: Icosphere_005
-    3300012: Icosphere_006
-    3300014: Icosphere_007
-    3300016: Icosphere_008
-    4300000: Icosphere_008
-    4300002: Icosphere_007
-    4300004: Icosphere_006
-    4300006: Icosphere_005
-    4300008: Icosphere_004
-    4300010: Icosphere_003
-    4300012: Icosphere_002
-    4300014: Icosphere_001
-    4300016: Icosphere
-    7400000: Default Take
-    9500000: //RootNode
+    100000: Moon
+    100002: Moon 1
+    100004: //RootNode
+    100006: Stars
+    100008: Sun
+    100010: Sun 1
+    400000: Moon
+    400002: Moon 1
+    400004: //RootNode
+    400006: Stars
+    400008: Sun
+    400010: Sun 1
+    2300000: Moon 1
+    2300002: //RootNode
+    2300004: Stars
+    2300006: Sun 1
+    3300000: Moon 1
+    3300002: //RootNode
+    3300004: Stars
+    3300006: Sun 1
+    4300000: Skydome
+    4300002: Stars
+    4300004: Sun
+    4300006: Moon
   materials:
     importMaterials: 1
     materialName: 0
@@ -64,11 +39,6 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-<<<<<<< HEAD
-=======
-    rigImportErrors: 
-    rigImportWarnings: 
->>>>>>> origin/master
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -121,7 +91,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

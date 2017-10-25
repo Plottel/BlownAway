@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 97f55bff562fb09418e88dc6c056272c
-timeCreated: 1508915164
-licenseType: Free
+guid: cf7b7bdd0fdf446c8a96efb9ed427cae
+timeCreated: 1508907922
+licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -79,8 +79,11 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+<<<<<<< HEAD
+=======
     rigImportErrors: 
     rigImportWarnings: 
+>>>>>>> origin/master
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
