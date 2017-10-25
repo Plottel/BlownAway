@@ -10,7 +10,6 @@ public class MovementControl : MonoBehaviour {
 	private Transform m_Cam;                		// A reference to the main camera in the scene
 	private Vector3 m_CamForward;           		// The current forward direction of the camera
 	private Vector3 m_Move;
-	private Animator anim;
 
 
 	private bool jump;                    // the world-relative desired move direction, calculated from the camForward and user input.
@@ -39,10 +38,10 @@ public class MovementControl : MonoBehaviour {
 
 		// get the third person character ( this should never be null due to require component )
 		m_Character = GetComponent<Player>();
-		anim = GetComponentInChildren<Animator> ();
 
         GetComponentsInChildren<Renderer>()[1].material.color = Player.ChooseColor(PlayerName);
 	}
+
 
 	private void Update()
 	{
@@ -50,12 +49,15 @@ public class MovementControl : MonoBehaviour {
 		{
 			jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
 		}
+		if (!m_attack_direct) 
+		{
+			m_attack_direct = CrossPlatformInputManager.GetButtonDown (PlayerName + "_AttackDirect");
+		}
 	}
 
 	// Fixed update is called in sync with physics
 	private void FixedUpdate()
 	{
-        m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
         TicksSinceAttack += 1;
 
 		// Read motion inputs
@@ -87,25 +89,19 @@ public class MovementControl : MonoBehaviour {
 		#endif
 		// pass all parameters to the character control script
 		m_Character.Move(m_Move, rX, rZ, jump);
-		anim.SetBool("isJumping", jump);
 		jump = false;
 
 		if (m_attack_direct) 
 		{
             if (TicksSinceAttack > TicksPerAttack)
             {
-            	anim.SetBool ("isAttacking", true);
-
 
                 TicksSinceAttack = 0;
                 var attack = GameObject.Instantiate(AttackCone, this.gameObject.transform.position, this.gameObject.transform.localRotation, this.gameObject.transform);
                 var PE = Instantiate(Prefabs.TempAttack, attack.transform.position, attack.transform.rotation);
-                var partSystem = PE.GetComponent<ParticleSystem>();
-                var main = partSystem.main;
-                main.startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
-
-
+                PE.GetComponent<ParticleSystem>().startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
                 Destroy(PE, 0.2f);
+                m_attack_direct = false;
             }
 			//Debug.Log ("AttaCKAKANFOWN");
 		}

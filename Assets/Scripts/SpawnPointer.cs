@@ -18,32 +18,38 @@ public class SpawnPointer : MonoBehaviour {
 
 	public bool ManualUpdate () {
 
-        if (Target != null) //Error prevention and legacy support.
-        {
-            //FOLLOWING PLAYER.
-            var S = (float)Target.GetComponent<MovementControl>().TicksSinceAttack / (float)Target.GetComponent<MovementControl>().TicksPerAttack;
-            if (S > 1)
-                S = 1;
+		if (Target != null) { //Error prevention and legacy support.
+			MovementControl M = Target.GetComponent<MovementControl> ();
+			if (M != null) {
+				//FOLLOWING PLAYER.
+				var S = (float)M.TicksSinceAttack / (float)M.TicksPerAttack;
+				if (S > 1)
+					S = 1;
 
-            transform.localScale = new Vector3(S, S, S);
+				transform.localScale = new Vector3 (S, S, S);
+			} else {
+				
+			}
 
-            transform.position = new Vector3(Target.position.x, grid.transform.position.y, Target.position.z);
+			if (grid == null)
+				grid = FindObjectOfType<Grid> ();
+			
+			transform.position = new Vector3 (Target.position.x, grid.transform.position.y, Target.position.z);
 
-            RaycastHit Hit;
-            Vector3 RayStart = Target.position;
+			RaycastHit Hit;
+			Vector3 RayStart = Target.position;
 
-            if (Physics.Raycast(RayStart, Vector3.down * 35, out Hit, 35))
-            {
-                if (Hit.collider.GetComponent<KillBox>())
-                    return false;
-                GetComponent<SpriteRenderer>().color = Player.ChooseColor(PlayerNum);
-                //Debug.DrawRay (RayStart, Vector3.down * 6, Color.red);
-                transform.position = Hit.point;
-                return true;
-            }
+			if (Physics.Raycast (RayStart, Vector3.down * 35, out Hit, 35)) {
+				if (Hit.collider.GetComponent<KillBox> ())
+					return false;
+				GetComponent<SpriteRenderer> ().color = Player.ChooseColor (PlayerNum);
+				//Debug.DrawRay (RayStart, Vector3.down * 6, Color.red);
+				transform.position = Hit.point;
+				return true;
+			}
 
-            return false;
-        }
+			return false;
+		}
         else
         {
             float h = CrossPlatformInputManager.GetAxis(PlayerNum + "_Horizontal");
