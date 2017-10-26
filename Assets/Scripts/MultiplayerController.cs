@@ -21,9 +21,12 @@ public class MultiplayerController : MonoBehaviour {
     private bool[] InGame = new bool[4]; //true from when the egg is falling until the player is dead.
 	private int[] SpawnTimer = new int[4];
 	public GameObject PauseMenuPrefab;
+	public GameObject VictoryPrefab;
 	private GameObject PauseMenu;
 	public EventSystem ES;
 	private PlayerIcon[] PlayerIcons = new PlayerIcon[4];
+	private int[] DeathCounters = new int[4];
+	public Vector3[] TutorialSpawnPositions = new Vector3[4];
 
 	public Vector3[] PlayerSpawnPos = new Vector3[4];
 	public Text[] TutorialText = new Text[5];
@@ -69,7 +72,7 @@ public class MultiplayerController : MonoBehaviour {
 		
 
 		//Disable the tutorial text if not in tutorial mode.
-		if (MainMenu.Mode != "Tutorial") {			
+		if (MainMenu.Area != "Tutorial") {
 			TutorialText[0].enabled = false;
 			TutorialText[1].enabled = false;
 			TutorialText[2].enabled = false;
@@ -77,9 +80,11 @@ public class MultiplayerController : MonoBehaviour {
 			TutorialText[4].enabled = false;
 		}
 
+		/*
 		if (MainMenu.Mode != "Normal") {
 			StartingLives = -1;
 		}
+		*/
 
 		if (StartingLives > MaxLives) {
 			StartingLives = MaxLives;
@@ -150,7 +155,7 @@ public class MultiplayerController : MonoBehaviour {
 				}
 			}
 
-			if (MainMenu.Mode == "Tutorial") {
+			if (MainMenu.Area == "Tutorial") {
 				if (CrossPlatformInputManager.GetAxis("P" + (p + 1) + "_Horizontal") != 0)
 					TutorialText[0].enabled = false;
 				if (CrossPlatformInputManager.GetAxis("P" + (p + 1) + "_RotationX") != 0)
@@ -187,6 +192,7 @@ public class MultiplayerController : MonoBehaviour {
 
 	//The egg tells the MC that it has broken, so the pointers etc should be attatched to the player now not it.
 	public void EggBroke(string PlayerName) {
+		Debug.Log ("AN EGG BROke YOu MORON");
 		if (Eggs [PNameToNumber (PlayerName)] != null) {
 			CreatePlayer (PNameToNumber (PlayerName));
 			Eggs [PNameToNumber (PlayerName)] = null;
@@ -221,8 +227,6 @@ public class MultiplayerController : MonoBehaviour {
         SP[PlayerNum] = Instantiate(SpawnPointer, grid.MidCell.transform.position, Quaternion.Euler(new Vector3(90, 0, 0))).GetComponent<SpawnPointer>();
         //SP [Player].transform.rotation = ;
 		
-		
-		
         SP[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
 
         SP[PlayerNum].GetComponent<SpriteRenderer>().color = Player.ChooseColor(PlayerNum);
@@ -234,11 +238,14 @@ public class MultiplayerController : MonoBehaviour {
 		Eggs[PlayerNum].FallingMode = false;
 		Eggs[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
 		Eggs[PlayerNum].GetComponent<MeshRenderer>().materials[1].color = Player.ChooseColor(PlayerNum);
-
+		if (MainMenu.Area == "Tutorial") {
+			EP.transform.position += TutorialSpawnPositions [PlayerNum];
+			SpawnTimer [PlayerNum] = 0;
+		} else
+			SpawnTimer [PlayerNum] = 300;
 
         SP[PlayerNum].transform.position = grid.MidCell.transform.position;
 		SP[PlayerNum].Target = EP.transform;
-        SpawnTimer [PlayerNum] = 300;
 	}
 
 	//Check if the spawnpointer should change into the player (or egg), either from a button-press or the timer.
@@ -266,6 +273,23 @@ public class MultiplayerController : MonoBehaviour {
 
 	}
 
+	public void CheckAndEndGame() {
+		int DeadPlayers = 0;
+		int NotDead = 0;
+		for (int i = 0; i < 4; ++i) {
+			if (Lives [i] == 0) {
+				DeadPlayers += 1;
+			} else {
+				NotDead = i;
+			}
+		}
+		if (DeadPlayers >= 3) {
+			Debug.Log ("VICTORY!");
+			GameObject V = Instantiate (VictoryPrefab, transform.parent);
+			V.GetComponent<Text> ().color = Player.ChooseColor (NotDead);
+		}
+	}
+
 	public void KillPlayerByString (string PName) {
 		int PNumber = 0;
 		if (PName == "P1") {
@@ -285,10 +309,10 @@ public class MultiplayerController : MonoBehaviour {
 		Lives [PNumber] -= 1;
 		if (Lives [PNumber] != 0) {
 			StartSpawn (PNumber);
-			//CreatePlayer (PNumber);
-			Debug.Log ("Created in Int");
+			//Debug.Log ("Created in Int");
 		} else
         {
+			CheckAndEndGame ();
             Destroy(SP[PNumber].gameObject, 1f);
             SP[PNumber] = null;
         }

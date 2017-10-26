@@ -12,7 +12,12 @@ public class MainMenu : MonoBehaviour {
 	public string[] Areas = new string[2];
 	public static string Area = "Ballista";
 	private int AreaN = 0;
-	public static string Mode = "Freeplay";
+	public Sprite BirdSprite;
+	public Sprite EggSprite;
+	public GameObject LevelHolder;
+	public float GridSpacing = 35;
+	private Vector3 DesiredPos;
+	//public static string Mode = "Freeplay";
 	/*
 	public string[] Modes = new string[2];
 	public int ModeN = 0;
@@ -22,8 +27,9 @@ public class MainMenu : MonoBehaviour {
 
 	public int MaxLives = 4;
 
-	public GameObject B_Mode;
+	//public GameObject B_Mode;
 	public GameObject B_Area;
+	//public GameObject B_Level;
 	public GameObject B_Lives;
 
 	public GameObject Messages;
@@ -37,10 +43,12 @@ public class MainMenu : MonoBehaviour {
 	void Start () {
 		B_Lives.GetComponentInChildren<Text> ().text = "" + Lives;
 		ES = FindObjectOfType<EventSystem> ();
-		ES.firstSelectedGameObject = B_Mode;
-		ToggleMode ();
+		ES.firstSelectedGameObject = B_Area;
 		ToggleArea ();
 		ToggleLives ();
+		for (int i = 0; i < 4; ++i) {
+			GetComponentsInChildren<Image> () [i].color = Player.ChooseColor (i);
+		}
 		//Testing = false;
 	}
 
@@ -54,7 +62,8 @@ public class MainMenu : MonoBehaviour {
 
 					Debug.Log ("Added " + p + " in Update");
 
-					GetComponentsInChildren<Image> () [p].enabled = false;
+					//GetComponentsInChildren<Image> () [p].enabled = false;
+					GetComponentsInChildren<Image> () [p].sprite = BirdSprite;
 
 					ActivePlayers [p] = true;
 
@@ -67,7 +76,8 @@ public class MainMenu : MonoBehaviour {
 				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Back")) {
 					Debug.Log ("Removed " + p + " in Update");
 
-					GetComponentsInChildren<Image> () [p].enabled = true;
+					//GetComponentsInChildren<Image> () [p].enabled = true;
+					GetComponentsInChildren<Image> () [p].sprite = EggSprite;
 
 					ActivePlayers [p] = false;
 
@@ -77,8 +87,13 @@ public class MainMenu : MonoBehaviour {
 				}
 			}
 		}
+
 	}
 
+	void FixedUpdate() {
+		LevelHolder.transform.position = Vector3.MoveTowards (LevelHolder.transform.position, DesiredPos, 0.5f); //+ ((DesiredPos.x-LevelHolder.transform.position.x) / 100));
+	}
+	/*
 	public void ToggleMode() {
 
 		if (Mode == "Normal") {
@@ -94,44 +109,38 @@ public class MainMenu : MonoBehaviour {
 
 		B_Mode.GetComponentInChildren<Text> ().text = Mode;
 	}
+	*/
 
 	public void ToggleArea() {
 		
-		if (AreaN >= Areas.Length-1)
+		if (AreaN >= Areas.Length - 1) {
 			AreaN = 0;
-		else
+			DesiredPos = new Vector3(0, 0, 0);
+		} else {
 			AreaN += 1;
+			DesiredPos += new Vector3(GridSpacing, 0, 0);
+		}
 
 		Area = Areas [AreaN];
 
-		/*
-		if (Area == "Normal") {
-			Area = "Insane";
-		} else if (Area == "Insane") {
-			Area = "Ballista";
-		} else if (Area == "Ballista") {
-			Area = "Random";
-		} else {
-			Area = "Normal";
-		}
-		*/
-
 		B_Area.GetComponentInChildren<Text> ().text = Area;
+
+
 	}
 
 	public void ToggleLives() {
 
-		if (Mode == "Normal") {
+		//if (Mode == "Normal") {
 			
 			if (Lives == MaxLives) {
-				Lives = 1;
+				Lives = 0;
 			} else  {
 				Lives += 1;
 			}
 
 			B_Lives.GetComponentInChildren<Text> ().text = "" + Lives;
 
-		}
+		//}
 	}
 
 	public void StartGame() {

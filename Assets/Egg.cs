@@ -23,7 +23,7 @@ public class Egg : MonoBehaviour
 		RaycastHit Hit;
 
 		Vector3 RayStart = new Vector3(transform.position.x, transform.position.y + 30, transform.position.z);
-
+		/*
 		if (Physics.Raycast(RayStart, Vector3.down * 35, out Hit, 35, 12))
 		{
 			if (Hit.collider.GetComponent<KillBox>())
@@ -34,6 +34,7 @@ public class Egg : MonoBehaviour
 			transform.position = Hit.point;
 			return true;
 		}
+		*/
 		return false;
 	}
 
