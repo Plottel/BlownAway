@@ -23,13 +23,18 @@ public class Player : MonoBehaviour {
     public int ticksPerLavaHit = 180;
     public int ticksSinceLastLavaHit = 0;
 
+    private float _forceTweaker = 0.2f;
+
 
     public float Health;
 
     public void HitMe(float force, Vector3 position, float addThisMuchDamage)
     {
         Health += addThisMuchDamage;
-        GetComponent<Rigidbody>().AddExplosionForce((force * ((Health / 100) + 1)), position, 100f);
+        var forceToApply = (force * ((Health / 100) + 1));
+        forceToApply *= _forceTweaker;
+
+        GetComponent<Rigidbody>().AddExplosionForce(forceToApply, position, 100f);
     }
 
 	/// <summary>

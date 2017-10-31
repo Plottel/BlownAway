@@ -4,14 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StartScreen : MonoBehaviour {
-
-	public Sprite Kick;
-	
+public class StartScreen : MonoBehaviour {	
 	// Update is called once per frame
 	void Update () {
 		if (Input.anyKey) {
-			GetComponentInChildren<Image> ().sprite = Kick;
+            SceneManager.LoadScene("Menu");
 		}
 	}
 }

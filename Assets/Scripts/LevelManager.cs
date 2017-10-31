@@ -16,8 +16,7 @@ public class LevelManager : MonoBehaviour
 
     public static System.Random RNG = new System.Random();
 
-    private Vector3 gridSpawnPoint = new Vector3(-5.5f, -0.7f, -12.8f);
-
+    private Vector3 gridSpawnPoint = new Vector3(-6.2f, 0.16f, -21.6f);
     public Text timeToNextGridMove;
 
 	public Text ContextualText;
@@ -26,8 +25,22 @@ public class LevelManager : MonoBehaviour
     void Start()
 	{
         //Time.timeScale = 0.3f;
-        grid = FindObjectOfType<Grid>();
+        grid = GridCon.CreateGrid(MainMenu.Area, gridSpawnPoint);
         grid.isWinterSkin = false;
+
+
+        CameraController theCamera = FindObjectOfType<CameraController>();
+        theCamera.transform.position = (grid.transform.position + new Vector3(7.98f, 7.41f, -4.53f));
+
+//        Camera Pos = 3.88, 9.41, -27.33
+//Grid Pos = -4.1, 2, -22.8
+
+
+
+
+
+//CameraPos = Grid Pos + new Vector3(7.98, 7.41, -4.53)
+
         #region NormalizeGridDetails
         // Normalize the terrain height
         for (int col = 0; col < grid.Cols; ++col)
@@ -135,15 +148,13 @@ public class LevelManager : MonoBehaviour
 
 		GetComponentInChildren<MultiplayerController> ().StartManual ();
 
-        //_scene = new GridScene_Ballista_Arena(grid);
-
-		//_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
+		_scene = GridCon.CreateGridScene (grid, MainMenu.Area, ContextualText);
 
 		//if (_scene == null)
 		//	Debug.Log ("Scene null right after init");
 
-        
-        //_scene.Start();
+        if (_scene != null)
+            _scene.Start();
 
         //UpdateTimeToNextGridMove();
     }
@@ -155,7 +166,8 @@ public class LevelManager : MonoBehaviour
 		//if (_scene == null)
 			//Debug.Log ("Scene is null");
 
-        //_scene.Play();
+        if (_scene != null)
+            _scene.Play();
        // UpdateTimeToNextGridMove();
     }
 

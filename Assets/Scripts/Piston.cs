@@ -20,7 +20,7 @@ public class Piston : IslandTerrain
 	public int ExplosionForce = 400;
     public int ExplosionRadius = 100;
 
-    public static float Force = 800f;
+    public static float Force = 600f;
     public static float Damage = 40f;
 
 

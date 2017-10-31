@@ -116,7 +116,8 @@ public class MainMenu : MonoBehaviour {
 		if (AreaN >= Areas.Length - 1) {
 			AreaN = 0;
 			DesiredPos = new Vector3(0, 0, 0);
-		} else {
+            LevelHolder.transform.position = new Vector3(0, 0, 0);
+        } else {
 			AreaN += 1;
 			DesiredPos += new Vector3(GridSpacing, 0, 0);
 		}

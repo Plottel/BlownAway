@@ -11,7 +11,7 @@ namespace UnityEngine
     {
         private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
-        public static float ISLAND_SPEED = 1.5f;
+        public static float ISLAND_SPEED = 2.5f;
         public static float SPLIT_DIST = 4f;
 
         public static void CleanUpOffScreenPieces()
@@ -262,7 +262,7 @@ namespace UnityEngine
         public static void SwapTwoCells(Grid grid, params object[] args)
         {
             int RAISE_DIST = 3;
-            int SPLIT_DIST = 1;
+            float SPLIT_DIST = 0.05f;
 
             if (args.Length != 2)
                 Debug.LogError(args.Length + " arguments passed instead of 2 to SwapTwoPieces");
@@ -273,9 +273,15 @@ namespace UnityEngine
             var c1Waypoints = new List<Vector3>();
             var c2Waypoints = new List<Vector3>();
 
-            // Waypoint 1 - go straight up
-            c1Waypoints.Add(c1.transform.position + new Vector3(0, RAISE_DIST, 0));
-            c2Waypoints.Add(c2.transform.position + new Vector3(0, RAISE_DIST, 0));
+            if (c1.islandPiece == null)
+                c1Waypoints.Add(c1.transform.position + new Vector3(0, RAISE_DIST, 0));
+            else
+                c1Waypoints.Add(c1.islandPiece.transform.position + new Vector3(0, RAISE_DIST, 0));
+
+            if (c2.islandPiece == null)
+                c2Waypoints.Add(c2.transform.position + new Vector3(0, RAISE_DIST, 0));
+            else
+                c2Waypoints.Add(c2.islandPiece.transform.position + new Vector3(0, RAISE_DIST, 0));
 
             // Waypoint 2 - split 90 degrees
             //Vector3 from1To2Raised = c2.transform.position - c1.transform.position;
@@ -302,9 +308,8 @@ namespace UnityEngine
             c2Waypoints.Add(c1Waypoints[0]);
 
             // Waypoint 5 - Back to original cell position, but swapped.
-            c1Waypoints.Add(c2Waypoints[0] - new Vector3(0, RAISE_DIST, 0));
-            c2Waypoints.Add(c1Waypoints[0] - new Vector3(0, RAISE_DIST, 0));
-
+            c1Waypoints.Add(c2Waypoints[0] - new Vector3(0, RAISE_DIST + 0.5f, 0));
+            c2Waypoints.Add(c1Waypoints[0] - new Vector3(0, RAISE_DIST + 0.5f, 0));
 
             // Set path for two cells
             if (c1.islandPiece != null)
@@ -462,13 +467,32 @@ namespace UnityEngine
             }           
         }
 
+        public static Grid CreateGrid(string name, Vector3 spawnPoint)
+        {
+            if (name == "Tutorial")
+                return (Grid)GameObject.Instantiate(Prefabs.Grid_Tutorial, spawnPoint, Prefabs.Grid_Tutorial.transform.rotation);
+            else if (name == "Factory")
+                return (Grid)GameObject.Instantiate(Prefabs.Grid_Factory, spawnPoint, Prefabs.Grid_Factory.transform.rotation);
+            else if (name == "Ballista")
+                return (Grid)GameObject.Instantiate(Prefabs.Grid_Ballista, spawnPoint, Prefabs.Grid_Ballista.transform.rotation);
+            else if (name == "Volcano Run")
+                return (Grid)GameObject.Instantiate(Prefabs.Grid_VolcanoRun, spawnPoint, Prefabs.Grid_VolcanoRun.transform.rotation);
+            else
+                return (Grid)GameObject.Instantiate(Prefabs.Grid_TerrainPark, spawnPoint, Prefabs.Grid_TerrainPark.transform.rotation);
+        }
+
         public static GridScene CreateGridScene(Grid grid, string name, Text contextualText)
         {
-            Debug.Log("Name was: " + name);
-            if (name == "Insane")
+            if (name == "Tutorial")
+                return new GridScene_Tutorial(grid);
+            else if (name == "Factory")
                 return new GridScene_Factory(grid);
             else if (name == "Ballista")
                 return new GridScene_Ballista_Arena(grid);
+            else if (name == "Volcano Run")
+                return new GridScene_VolcanoRun(grid);
+            else if (name == "Terrain Park")
+                return null;
 
             return null;
         }

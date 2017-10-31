@@ -238,10 +238,10 @@ public class MultiplayerController : MonoBehaviour {
 		Eggs[PlayerNum].FallingMode = false;
 		Eggs[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
 		Eggs[PlayerNum].GetComponent<MeshRenderer>().materials[1].color = Player.ChooseColor(PlayerNum);
-		if (MainMenu.Area == "Tutorial") {
-			EP.transform.position += TutorialSpawnPositions [PlayerNum];
-			SpawnTimer [PlayerNum] = 0;
-		} else
+		//if (MainMenu.Area == "Tutorial") {
+		//	EP.transform.position += TutorialSpawnPositions [PlayerNum];
+		//	SpawnTimer [PlayerNum] = 0;
+		//} else
 			SpawnTimer [PlayerNum] = 300;
 
         SP[PlayerNum].transform.position = grid.MidCell.transform.position;

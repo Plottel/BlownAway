@@ -17,8 +17,8 @@ namespace UnityEngine
 [System.Serializable]
 public class Grid : MonoBehaviour
 {
-    public static float SHAKE_DISTANCE = 0.1f;
-    public static float SHAKE_SPEED = 0.01f;
+    public static float SHAKE_DISTANCE = 0.05f;
+    public static float SHAKE_SPEED = 0.05f;
     public static int SHAKE_COUNT = 20;
 
     public bool isWinterSkin = false;

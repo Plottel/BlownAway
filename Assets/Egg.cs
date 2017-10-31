@@ -13,14 +13,26 @@ public class Egg : MonoBehaviour
 	public bool FallingMode = false;
 	public GameObject EggBrokenPrefab;
 
+    private Camera cam;
+    private float scaleFactor = 0.3f;
+
+    public void Start ()
+    {
+        cam = FindObjectOfType<Camera>();
+    }
+
 	public bool ManualUpdate()
 	{
 		float h = CrossPlatformInputManager.GetAxis(PlayerNum + "_Horizontal");
 		float v = CrossPlatformInputManager.GetAxis(PlayerNum + "_Vertical");
+        Vector3 camForward = cam.gameObject.transform.forward;
+        Vector3 camRight = cam.gameObject.transform.right;
+        Vector3 movement = v * camForward + h * camRight;
 
-		transform.position += new Vector3((h * 0.3f * MovementSpeed), 0, (v * 0.3f * MovementSpeed));
+        //transform.position += new Vector3((h * 0.3f * MovementSpeed), 0, (v * 0.3f * MovementSpeed));
+        transform.position += movement * scaleFactor * MovementSpeed;
 
-		RaycastHit Hit;
+        RaycastHit Hit;
 
 		Vector3 RayStart = new Vector3(transform.position.x, transform.position.y + 30, transform.position.z);
 		/*
