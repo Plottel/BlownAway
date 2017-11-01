@@ -16,12 +16,13 @@ public class MovementControl : MonoBehaviour {
 	private bool jump;                    // the world-relative desired move direction, calculated from the camForward and user input.
     private int jumpCount;
 
-
+	private bool m_attack_ultimate;
     private bool m_attack_direct;
     public int TicksPerAttack = 30;
     public int TicksSinceAttack = 0;
 	public string PlayerName = "P1";
 	public DirectAttack AttackCone;
+	public Ultimate Ultimate;
 
 	private void Start()
 	{
@@ -56,6 +57,8 @@ public class MovementControl : MonoBehaviour {
 	private void FixedUpdate()
 	{
         m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
+		m_attack_ultimate = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Ultimate");
+
         TicksSinceAttack += 1;
 
 		// Read motion inputs
@@ -105,9 +108,19 @@ public class MovementControl : MonoBehaviour {
                 main.startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
 
 
-                Destroy(PE, 0.8f);
+                Destroy(PE, 0.2f);
             }
-			//Debug.Log ("AttaCKAKANFOWN");
+		}
+
+		if (m_attack_ultimate) 
+		{
+			if (m_Character.UltimateCharge >= 100) 
+			{
+				var attack = GameObject.Instantiate (Ultimate, gameObject.transform.position, gameObject.transform.localRotation, gameObject.transform);
+				var PE = Instantiate (Prefabs.cannonBlast, attack.transform.position, attack.transform.rotation);
+
+				Destroy (PE, 0.2f);
+			}
 		}
 	}
 }
