@@ -6,7 +6,6 @@ using System.Linq;
 public class CameraController : MonoBehaviour 
 {
     public float maxDistX, maxDistY;
-    public float padding = 0;
     public float camSpeed;
 
     private Vector3 initPos;
@@ -56,8 +55,7 @@ public class CameraController : MonoBehaviour
         var minX = _pointers[0].transform.position.x;
         var maxX = _pointers[_pointers.Count - 1].transform.position.x;
         var xDistance = Mathf.Abs(maxX - minX);
-        xDistance += padding;
-        float zPos = Mathf.Clamp(playerCenter.z - xDistance * 1.73f, -30, -2);//Pre-calculated constant for 60 degrees
+		float zPos = Mathf.Clamp(playerCenter.z - xDistance, -30, -2); //xDistance * 1.73f, -30, -2);//Pre-calculated constant for 60 degrees
         
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x,transform.position.y,zPos), camSpeed*Time.fixedDeltaTime*150);
 
