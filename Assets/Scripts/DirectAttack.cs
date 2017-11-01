@@ -7,7 +7,7 @@ public class DirectAttack : MonoBehaviour {
 	public int ExplosionForce = 40;
 	public int ExplosionRadius = 50;
 
-    public static float Force = 400f;
+    public static float Force = 500f;
     public static float Damage = 25f;
 
 	private float endTime;
