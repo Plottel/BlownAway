@@ -43,6 +43,19 @@ public class GridEditor : Editor
         if (GUILayout.Button("Make Populated 10x10 Island"))
             grid.MakePopulated1010();
 
+        if (GUILayout.Button("Kill Cube in Cell Prefabs"))
+        {
+            for (int col = 0; col < grid.Cols; ++col)
+            {
+                for (int row = 0; row < grid.Rows; ++row)
+                {
+                    Cell c = grid[col, row];
+                    var cube = c.transform.Find("Cube").gameObject;
+                    DestroyImmediate(cube);
+                }
+            }
+        }
+
     }
 
     public void UpdateGridSize(Grid grid)
