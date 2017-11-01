@@ -28,7 +28,9 @@ public class Fan : IslandTerrain {
             // force * delta * distMulti
             float DistMulti = Vector3.Distance(P.transform.position, transform.position) * 4;
 
-            P.HitMe(Force * Time.deltaTime * DistMulti, transform.position, Damage);
+            var forceToApply = Force * Time.deltaTime * DistMulti;
+
+            P.HitMe(forceToApply, transform.position, Damage, true);
 		}
 	}
 
