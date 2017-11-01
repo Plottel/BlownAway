@@ -49,6 +49,11 @@ public class MainMenu : MonoBehaviour {
 		for (int i = 0; i < 4; ++i) {
 			GetComponentsInChildren<Image> () [i].color = Player.ChooseColor (i);
 		}
+
+		for (int j = 0; j < 4; ++j) {
+			if (ActivePlayers[j])
+				GetComponentsInChildren<Image> () [j].sprite = BirdSprite;
+		}
 		//Testing = false;
 	}
 
