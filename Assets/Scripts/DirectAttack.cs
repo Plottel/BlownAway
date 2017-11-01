@@ -12,6 +12,8 @@ public class DirectAttack : MonoBehaviour {
 
 	private float endTime;
 
+    private bool[] playerHit = new bool[4];
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -40,9 +42,14 @@ public class DirectAttack : MonoBehaviour {
     void OnTriggerEnter(Collider col)
 	{
 		Player P = col.GetComponent<Player> ();
-		if (P != null)
-		{
+
+        if (P == null)
+            return;
+
+        if (!playerHit[MultiplayerController.PNameToNumber(P.name)])
+        {
+            playerHit[MultiplayerController.PNameToNumber(P.name)] = true;
             P.HitMe(Force, transform.position, Damage);
-		}
+        }           
 	}
 }

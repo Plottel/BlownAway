@@ -85,6 +85,7 @@ public class MultiplayerController : MonoBehaviour {
 			TutorialText[2].enabled = false;
 			TutorialText[3].enabled = false;
 			TutorialText[4].enabled = false;
+            StartingLives = -1;
 		}
 
 		/*
