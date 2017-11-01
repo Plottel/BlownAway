@@ -51,6 +51,13 @@ public class MultiplayerController : MonoBehaviour {
 			PlayerSpawnPos[0] = new Vector3 (0, 5, -0);
 		}
 
+        // Setup tutorial spawn positions
+        TutorialSpawnPositions[0] = new Vector3(-5.82f, 5, -23.07f);
+        TutorialSpawnPositions[1] = new Vector3(-5.82f, 5, -6.63f);
+        TutorialSpawnPositions[2] = new Vector3(7.9f, 5, -6.82f);
+        TutorialSpawnPositions[3] = new Vector3(8.33f, 5, -22.88f);
+
+
 		//Get the settings chosen in the main menu.
 		ActivePlayers = MainMenu.ActivePlayers;
 		StartingLives = MainMenu.Lives;
@@ -238,10 +245,10 @@ public class MultiplayerController : MonoBehaviour {
 		Eggs[PlayerNum].FallingMode = false;
 		Eggs[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
 		Eggs[PlayerNum].GetComponent<MeshRenderer>().materials[1].color = Player.ChooseColor(PlayerNum);
-		//if (MainMenu.Area == "Tutorial") {
-		//	EP.transform.position += TutorialSpawnPositions [PlayerNum];
-		//	SpawnTimer [PlayerNum] = 0;
-		//} else
+		if (MainMenu.Area == "Tutorial") {
+			EP.transform.position = TutorialSpawnPositions [PlayerNum];
+			SpawnTimer [PlayerNum] = 0;
+		} else
 			SpawnTimer [PlayerNum] = 300;
 
         SP[PlayerNum].transform.position = grid.MidCell.transform.position;
