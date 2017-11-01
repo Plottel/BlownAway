@@ -23,12 +23,16 @@ public class Egg : MonoBehaviour
 
 	public bool ManualUpdate()
 	{
-		float y = transform.position.y;
+        if (cam == null)
+            return false;
+
+        float y = transform.position.y;
 		float h = CrossPlatformInputManager.GetAxis(PlayerNum + "_Horizontal");
 		float v = CrossPlatformInputManager.GetAxis(PlayerNum + "_Vertical");
         Vector3 camForward = cam.gameObject.transform.forward;
         Vector3 camRight = cam.gameObject.transform.right;
         Vector3 movement = v * camForward + h * camRight;
+        
 
         //transform.position += new Vector3((h * 0.3f * MovementSpeed), 0, (v * 0.3f * MovementSpeed));
         transform.position += movement * scaleFactor * MovementSpeed;
