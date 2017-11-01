@@ -11,11 +11,9 @@ public class GridScene_Factory : GridScene
     private List<Cell> _neLift;
     private List<Cell> _seLift;
     private List<Cell> _allLifts;
-    private GridScene _liftScene;
 
     public GridScene_Factory(Grid grid) : base(grid)
     {
-        _liftScene = new GridScene(grid);
         _nwLift = grid.CellsWithLabel("nwlift");
         _swLift = grid.CellsWithLabel("swlift");
         _neLift = grid.CellsWithLabel("nelift");
@@ -25,20 +23,6 @@ public class GridScene_Factory : GridScene
         _allLifts.AddRange(_swLift);
         _allLifts.AddRange(_neLift);
         _allLifts.AddRange(_seLift);
-
-        Debug.Log("NW: " + _nwLift.Count);
-        Debug.Log("NE: " + _neLift.Count);
-        Debug.Log("SW: " + _swLift.Count);
-        Debug.Log("SE: " + _seLift.Count);
-
-        grid.CellWithLabel("sepressureplate").GetComponentInChildren<PressurePlate>().Linked = grid.CellWithLabel("sepiston");
-        grid.CellWithLabel("swpressureplate").GetComponentInChildren<PressurePlate>().Linked = grid.CellWithLabel("swfan");
-        grid.CellWithLabel("nepressureplate").GetComponentInChildren<PressurePlate>().Linked = grid.CellWithLabel("nefan");
-        grid.CellWithLabel("nwpressureplate").GetComponentInChildren<PressurePlate>().Linked = grid.CellWithLabel("nepiston");
-        grid.CellWithLabel("nwinnerpressureplate").GetComponentInChildren<PressurePlate>().Linked = grid.CellWithLabel("neinnerpiston");
-        grid.CellWithLabel("neinnerpressureplate").GetComponentInChildren<PressurePlate>().Linked = grid.CellWithLabel("neinnerpiston");
-        grid.CellWithLabel("swinnerpressureplate").GetComponentInChildren<PressurePlate>().Linked = grid.CellWithLabel("swinnerpiston");
-        grid.CellWithLabel("seinnerpressureplate").GetComponentInChildren<PressurePlate>().Linked = grid.CellWithLabel("seinnerpiston");
 
         _patrolFanCells = grid.CellsWithLabel("patrolfan");
 
