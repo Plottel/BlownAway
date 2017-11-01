@@ -34,7 +34,10 @@ public class SpawnPointer : MonoBehaviour {
 			if (grid == null)
 				grid = FindObjectOfType<Grid> ();
 
+			//Set my position and rotation to that of the player, with the height of the grid.
 			transform.position = new Vector3 (Target.position.x, grid.transform.position.y, Target.position.z);
+			transform.eulerAngles = new Vector3(270, 0, Target.eulerAngles.y - 180);
+
 
 			RaycastHit Hit;
 			Vector3 RayStart = Target.position;
