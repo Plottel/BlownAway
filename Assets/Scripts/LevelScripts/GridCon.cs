@@ -261,7 +261,7 @@ namespace UnityEngine
         /// </summary>
         public static void SwapTwoCells(Grid grid, params object[] args)
         {
-            int RAISE_DIST = 3;
+            int RAISE_DIST = 0;
             float SPLIT_DIST = 0.05f;
 
             if (args.Length != 2)
@@ -457,11 +457,13 @@ namespace UnityEngine
                 for (int i = 0; i < shakeCount; ++i)
                 {
                     Vector3 pos = c.islandPiece.transform.position;
-                    Vector3 shake = new Vector3(0, shakeDistance, 0);
+                    Vector3 shake = new Vector3(shakeDistance, 0, 0);
 
                     shakeWaypoints.Add(pos + shake);
                     shakeWaypoints.Add(pos - shake);
                 }
+
+                shakeWaypoints.Add(c.islandPiece.transform.position);
 
                 c.islandPiece.SetPath(shakeWaypoints, ISLAND_SPEED, false);
             }           

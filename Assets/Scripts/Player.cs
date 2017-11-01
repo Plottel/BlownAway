@@ -203,6 +203,18 @@ public class Player : MonoBehaviour {
 
 		gameObject.GetComponent<Rigidbody> ().AddForce (direction*100); // Do not use dodgeDirection here. That persists after the initial dodge happens.
 	}
+
+    void OnCollisionStay(Collision col)
+    {
+        if (col.gameObject.GetComponent<IslandPiece>())
+        {
+            // Move player to not be stuck inside island piece.
+            if (col.gameObject.GetComponent<BoxCollider>().bounds.Contains(transform.position))
+            {
+                transform.position += new Vector3(0, .2f, 0);
+            }
+        }
+    }
     
     void OnTriggerStay(Collider col)
     {
