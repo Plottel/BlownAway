@@ -105,7 +105,7 @@ public class MovementControl : MonoBehaviour {
                 main.startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
 
 
-                Destroy(PE, 0.2f);
+                Destroy(PE, 0.8f);
             }
 			//Debug.Log ("AttaCKAKANFOWN");
 		}
