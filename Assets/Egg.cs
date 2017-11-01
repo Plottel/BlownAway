@@ -23,6 +23,7 @@ public class Egg : MonoBehaviour
 
 	public bool ManualUpdate()
 	{
+		float y = transform.position.y;
 		float h = CrossPlatformInputManager.GetAxis(PlayerNum + "_Horizontal");
 		float v = CrossPlatformInputManager.GetAxis(PlayerNum + "_Vertical");
         Vector3 camForward = cam.gameObject.transform.forward;
@@ -31,6 +32,7 @@ public class Egg : MonoBehaviour
 
         //transform.position += new Vector3((h * 0.3f * MovementSpeed), 0, (v * 0.3f * MovementSpeed));
         transform.position += movement * scaleFactor * MovementSpeed;
+		transform.position = new Vector3 (transform.position.x, y, transform.position.z);
 
         RaycastHit Hit;
 
@@ -55,6 +57,10 @@ public class Egg : MonoBehaviour
 		if (!K) {
 			FindObjectOfType<MultiplayerController> ().EggBroke (PlayerNum);
 			GameObject E = Instantiate (EggBrokenPrefab, transform.position + new Vector3 (0, -0.3f, 0), new Quaternion ());
+			Renderer[] Renderers = E.GetComponentsInChildren<Renderer> ();
+			foreach (Renderer R in Renderers) {
+				R.materials[1].color = Player.ChooseColor (PlayerNum);
+			}
 			GetComponent<Collider> ().isTrigger = true;
 			Destroy (gameObject);
 		}
