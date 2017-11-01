@@ -109,8 +109,9 @@ public class Piston : IslandTerrain
 
 	public override void Triggered(Collider Col) {
 		Player P = Col.GetComponent<Player> ();
-		if (P)
+		if (P && P.ticksSinceLastPistonHit > P.ticksPerPistonHit)
 		{
+            P.ticksSinceLastPistonHit = 0;
             P.HitMe(Force, transform.position, Damage);
 		}
 	}

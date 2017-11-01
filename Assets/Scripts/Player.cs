@@ -14,7 +14,6 @@ public class Player : MonoBehaviour {
 	private bool usedJump;
     private int numJumps = 1;
 
-
     public float MaxSpeed = 0.8f;
     public int IncreaseAirMovementByFactorOf = 5;
 	public float JumpHeight;
@@ -23,16 +22,31 @@ public class Player : MonoBehaviour {
     public int ticksPerLavaHit = 180;
     public int ticksSinceLastLavaHit = 0;
 
-    private float _forceTweaker = 0.2f;
+    public int ticksPerPistonHit = 10;
+    public int ticksSinceLastPistonHit = 0;
 
+    public int ticksPerFanHit = 3;
+    public int ticksSinceLastFanHit = 0;
 
+    private float _forceTweaker = 0.18f;
     public float Health;
 
-    public void HitMe(float force, Vector3 position, float addThisMuchDamage)
+
+
+    public void HitMe(float force, Vector3 position, float addThisMuchDamage, bool isFan=false)
     {
         Health += addThisMuchDamage;
-        var forceToApply = (force * ((Health / 100) + 1));
-        forceToApply *= _forceTweaker;
+
+        var exponent = ((Health/100) * (Health/100)) * _forceTweaker;
+
+        float forceToApply;
+
+        if (isFan)
+            forceToApply = 10 + force * exponent;
+        else
+            forceToApply = 100 + force * exponent;
+        //var forceToApply = (force * ((Health / 100) + 1));
+        //forceToApply = (forceToApply * forceToApply) * _forceTweaker;
 
         GetComponent<Rigidbody>().AddExplosionForce(forceToApply, position, 100f);
     }
@@ -46,6 +60,12 @@ public class Player : MonoBehaviour {
 	void Start () {
 		dirVector = this.gameObject.transform.rotation.eulerAngles;
 	}
+
+    void FixedUpdate()
+    {
+        ++ticksSinceLastPistonHit;
+        ++ticksSinceLastFanHit;
+    }
 
 	// Update is called once per frame
 	void Update () 
@@ -142,18 +162,26 @@ public class Player : MonoBehaviour {
 
     void HandleAirborneMovement(Vector3 direction)
     {
-        var proposedVel = gameObject.GetComponent<Rigidbody>().velocity + (IncreaseAirMovementByFactorOf * direction);
-        var vertV = proposedVel.y;
-        proposedVel.y = 0;
+        //var proposedVel = gameObject.GetComponent<Rigidbody>().velocity + (IncreaseAirMovementByFactorOf * direction);
+        //var vertV = proposedVel.y;
+        //proposedVel.y = 0;
 
-        if (proposedVel.magnitude > MaxSpeed)
-        {
-            proposedVel = proposedVel.normalized * MaxSpeed;
-        }
+        //if (proposedVel.magnitude > MaxSpeed)
+        //{
+        //    proposedVel = proposedVel.normalized * MaxSpeed;
+        //}
 
-        proposedVel.y = vertV;
+        //proposedVel.y = vertV;
 
-        gameObject.GetComponent<Rigidbody>().velocity = proposedVel;
+        //gameObject.GetComponent<Rigidbody>().velocity = proposedVel;
+
+        direction = direction.normalized;
+        direction *= JumpDist;
+
+        if (gameObject.GetComponent<Rigidbody>().velocity.magnitude > MaxSpeed)
+            return;
+
+        gameObject.GetComponent<Rigidbody>().AddForce(direction * 100);
     }
 
 	void HandleGroundMovement(Vector3 direction, bool dodge)
@@ -187,7 +215,7 @@ public class Player : MonoBehaviour {
                 //Debug.Log("Lava poked me");
                 var PE = Instantiate(Prefabs.OnFirePE, transform);
                 Destroy(PE, 2f);
-                GetComponent<Rigidbody>().AddExplosionForce(2000f * ((Health / 100) + 1), transform.position, 100f);
+                GetComponent<Rigidbody>().AddExplosionForce(6000f, transform.position, 100f);
             }
         }
         if (!col.GetComponent<Player>())
