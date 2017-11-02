@@ -31,5 +31,10 @@ public class KillBox : MonoBehaviour {
 		if (B) {
 			Destroy (B.gameObject);
 		}
+
+		Ultimate U = col.gameObject.GetComponent<Ultimate> ();
+		if (U) {
+			Destroy (U.gameObject);
+		}
 	}
 }

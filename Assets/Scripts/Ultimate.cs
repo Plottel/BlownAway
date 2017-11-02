@@ -7,7 +7,7 @@ public class Ultimate : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Destroy(this.gameObject, 0.5f);
-        gameObject.GetComponent<Rigidbody>().velocity += new Vector3(1, 0, 1);
+        gameObject.GetComponent<Rigidbody>().velocity += new Vector3(0, -1, 0);
 	}
 	
 	void OnTriggerEnter (Collider col)
