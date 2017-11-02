@@ -16,12 +16,17 @@ public class MovementControl : MonoBehaviour {
 	private bool jump;                    // the world-relative desired move direction, calculated from the camForward and user input.
     private int jumpCount;
 
-
+	private bool m_attack_ultimate;
     private bool m_attack_direct;
     public int TicksPerAttack = 30;
     public int TicksSinceAttack = 0;
 	public string PlayerName = "P1";
 	public DirectAttack AttackCone;
+	public Ultimate Ultimate;
+	public float UltiCharge = 0.0f;
+
+
+    bool m_ulti_requested = false;
 
 	private void Start()
 	{
@@ -46,16 +51,52 @@ public class MovementControl : MonoBehaviour {
 
 	private void Update()
 	{
-		if (!jump) 
-		{
-			jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
+        m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
+        jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
+
+        bool atk_down = CrossPlatformInputManager.GetButton(PlayerName + "_AttackDirect");
+        bool jump_down = CrossPlatformInputManager.GetButton(PlayerName + "_Jump");
+
+        m_attack_ultimate = false;
+
+
+
+        if (atk_down && jump_down)
+        {
+            UltiCharge += 50 * Time.deltaTime;
+            Debug.Log("Ult REQUESTED: Charge = " + UltiCharge);
+			if (UltiCharge >= 100) 
+			{
+                Debug.Log("We have enough ulti charge");
+                m_attack_direct = false;
+                jump = false;
+
+				UltiCharge = 0;
+				m_attack_ultimate = true;
+			}
 		}
-	}
+
+        if (m_attack_ultimate)
+        {
+            Debug.Log("Ultimate attack requested");
+            if (m_Character.UltimateCharge >= 100)
+            {
+				m_attack_ultimate = false;
+                m_Character.UltimateCharge = 0;
+                Debug.Log("Ultimate successfully attacked");
+				var attack = GameObject.Instantiate(Ultimate, gameObject.transform.position + new Vector3(0,10,0), gameObject.transform.localRotation);
+                attack.GetComponent<Rigidbody>().velocity += transform.forward * 3;
+
+                var PE = Instantiate(Prefabs.cannonBlast, attack.transform.position, attack.transform.rotation);
+
+                Destroy(PE, 0.2f);
+            }
+        }
+    }
 
 	// Fixed update is called in sync with physics
 	private void FixedUpdate()
 	{
-        m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
         TicksSinceAttack += 1;
 
 		// Read motion inputs
@@ -105,9 +146,8 @@ public class MovementControl : MonoBehaviour {
                 main.startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
 
 
-                Destroy(PE, 0.8f);
+                Destroy(PE, 0.2f);
             }
-			//Debug.Log ("AttaCKAKANFOWN");
 		}
 	}
 }

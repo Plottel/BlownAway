@@ -30,6 +30,7 @@ public class Player : MonoBehaviour {
 
     private float _forceTweaker = 0.18f;
     public float Health;
+	public float UltimateCharge = 100;
 
 
 
@@ -50,6 +51,11 @@ public class Player : MonoBehaviour {
 
         GetComponent<Rigidbody>().AddExplosionForce(forceToApply, position, 100f);
     }
+
+	public void AddUltiCharge(int charge)
+	{
+		UltimateCharge += charge;
+	}
 
 	/// <summary>
 	/// Player Damage
@@ -215,9 +221,10 @@ public class Player : MonoBehaviour {
             }
         }
     }
-    
+
     void OnTriggerStay(Collider col)
     {
+
         if (col.GetComponent<Lava>())
         {
             ticksSinceLastLavaHit += 1;

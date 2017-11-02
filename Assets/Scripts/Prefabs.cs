@@ -30,6 +30,8 @@ public static class Prefabs
     public static GameObject DeathPE = (GameObject)Resources.Load("DeathPE", typeof(GameObject));
     public static GameObject TempAttack = (GameObject)Resources.Load("TempAttack", typeof(GameObject));
     public static GameObject OnFirePE = (GameObject)Resources.Load("OnFirePE", typeof(GameObject));
+    public static Ultimate Ultimate = (Ultimate)Resources.Load("Ultimate", typeof(Ultimate));
+
 
     // Winter assets
     public static GameObject WinterIsland = (GameObject)Resources.Load("WinterIsland", typeof(GameObject));

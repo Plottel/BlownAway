@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour 
 {
+    private static LevelManager _instance;
+
+    public static LevelManager Instance
+    {
+        get { return _instance; }
+    }
+
+
+
     [SerializeField]
     public Grid grid;
 
@@ -24,6 +33,10 @@ public class LevelManager : MonoBehaviour
     // Use this for initialization
     void Start()
 	{
+        if (_instance == null)
+            _instance = this;
+
+
         //Time.timeScale = 0.3f;
         grid = GridCon.CreateGrid(MainMenu.Area, gridSpawnPoint);
         grid.isWinterSkin = false;
