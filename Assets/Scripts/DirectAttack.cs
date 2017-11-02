@@ -50,6 +50,7 @@ public class DirectAttack : MonoBehaviour {
 
         if (!playerHit[MultiplayerController.PNameToNumber(P.name)])
         {
+            transform.parent.GetComponent<Player>().AddUltiCharge(50);
             playerHit[MultiplayerController.PNameToNumber(P.name)] = true;
             P.HitMe(Force, transform.position, Damage);
         }           
