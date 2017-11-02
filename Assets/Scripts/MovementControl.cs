@@ -52,20 +52,28 @@ public class MovementControl : MonoBehaviour {
 	private void Update()
 	{
         m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
+        jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
+
+        bool atk_down = CrossPlatformInputManager.GetButton(PlayerName + "_AttackDirect");
+        bool jump_down = CrossPlatformInputManager.GetButton(PlayerName + "_Jump");
+
         m_attack_ultimate = false;
 
-		if (CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect") && CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump"))
-		{
-			UltiCharge += 50 * Time.deltaTime;
+
+
+        if (atk_down && jump_down)
+        {
+            UltiCharge += 50 * Time.deltaTime;
+            Debug.Log("Ult REQUESTED: Charge = " + UltiCharge);
 			if (UltiCharge >= 100) 
 			{
+                Debug.Log("We have enough ulti charge");
+                m_attack_direct = false;
+                jump = false;
+
 				UltiCharge = 0;
 				m_attack_ultimate = true;
 			}
-		}
-        else
-		{
-			jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
 		}
 
         if (m_attack_ultimate)
@@ -77,6 +85,8 @@ public class MovementControl : MonoBehaviour {
                 m_Character.UltimateCharge = 0;
                 Debug.Log("Ultimate successfully attacked");
 				var attack = GameObject.Instantiate(Ultimate, gameObject.transform.position + new Vector3(0,10,0), gameObject.transform.localRotation);
+                attack.GetComponent<Rigidbody>().velocity += transform.forward * 3;
+
                 var PE = Instantiate(Prefabs.cannonBlast, attack.transform.position, attack.transform.rotation);
 
                 Destroy(PE, 0.2f);
@@ -87,8 +97,6 @@ public class MovementControl : MonoBehaviour {
 	// Fixed update is called in sync with physics
 	private void FixedUpdate()
 	{
-        Debug.Log(CrossPlatformInputManager.GetAxis(PlayerName + "_Ultimate"));
-
         TicksSinceAttack += 1;
 
 		// Read motion inputs
