@@ -60,7 +60,6 @@ public class MovementControl : MonoBehaviour {
         m_attack_ultimate = false;
 
 
-
         if (atk_down && jump_down)
         {
             UltiCharge += 50 * Time.deltaTime;

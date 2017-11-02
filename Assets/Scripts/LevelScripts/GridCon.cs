@@ -11,7 +11,7 @@ namespace UnityEngine
     {
         private static List<Cell> _offScreenPiecesToDelete = new List<Cell>();
 
-        public static float ISLAND_SPEED = 2.5f;
+        public static float ISLAND_SPEED = 2f;
         public static float SPLIT_DIST = 4f;
 
         public static void CleanUpOffScreenPieces()
@@ -134,7 +134,8 @@ namespace UnityEngine
             Cell oldCell = (Cell)args[0];
             TerrainType newTerrainType = (TerrainType)args[1];
 
-            Vector3 spawnPos = GetOffScreenPosFor(grid, oldCell);
+            //Vector3 spawnPos = GetOffScreenPosFor(grid, oldCell);
+            Vector3 spawnPos = oldCell.transform.position + new Vector3(0, 15, 0);
             Cell newCell = GridFactory.MakeTerrainCellAt(spawnPos, newTerrainType);
 
             ReplaceWithOffScreenPiece(grid, oldCell, newCell);
@@ -456,14 +457,15 @@ namespace UnityEngine
 
                 for (int i = 0; i < shakeCount; ++i)
                 {
-                    Vector3 pos = c.islandPiece.transform.position;
+                    Vector3 pos = c.transform.position;
                     Vector3 shake = new Vector3(shakeDistance, 0, 0);
 
                     shakeWaypoints.Add(pos + shake);
                     shakeWaypoints.Add(pos - shake);
                 }
 
-                shakeWaypoints.Add(c.islandPiece.transform.position);
+                // Add extra waypoint to put it back to neutral position.
+                shakeWaypoints.Add(c.transform.position);
 
                 c.islandPiece.SetPath(shakeWaypoints, ISLAND_SPEED, false);
             }           

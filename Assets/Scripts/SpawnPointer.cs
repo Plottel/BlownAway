@@ -10,6 +10,7 @@ public class SpawnPointer : MonoBehaviour {
 	public float MovementSpeed = 0.5f;
 	public Transform Target = null;
 	public Grid grid;
+    public bool isPartOfUltimate = false;
 
 	void Start()
 	{
@@ -45,7 +46,8 @@ public class SpawnPointer : MonoBehaviour {
 			if (Physics.Raycast (RayStart, Vector3.down * 35, out Hit, 35)) {
 				if (Hit.collider.GetComponent<KillBox> ())
 					return false;
-				GetComponent<SpriteRenderer> ().color = Player.ChooseColor (PlayerNum);
+                if (!isPartOfUltimate)
+				    GetComponent<SpriteRenderer> ().color = Player.ChooseColor (PlayerNum);
 				//Debug.DrawRay (RayStart, Vector3.down * 6, Color.red);
 				transform.position = Hit.point;
 				return true;
