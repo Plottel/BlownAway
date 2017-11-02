@@ -19,7 +19,7 @@ public class PlayerIcon : MonoBehaviour {
 
 	void Start() {
 		TextObject = GetComponent<Text> ();
-		SetColour (PlayerNumber);
+		TextObject.color = Player.ChooseColor (PlayerNumber - 1);
 	}
 
 	// Update is called once per frame
@@ -53,6 +53,7 @@ public class PlayerIcon : MonoBehaviour {
 		}
 	}
 
+	/*
 	public void SetColour(int PlayerNumber) {
 		switch (PlayerNumber) {
 		case 1:
@@ -69,4 +70,5 @@ public class PlayerIcon : MonoBehaviour {
 			break;
 		}
 	}
+	*/
 }

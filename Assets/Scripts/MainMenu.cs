@@ -17,26 +17,25 @@ public class MainMenu : MonoBehaviour {
 	public GameObject LevelHolder;
 	public float GridSpacing = 35;
 	private Vector3 DesiredPos;
-	//public static string Mode = "Freeplay";
-	/*
-	public string[] Modes = new string[2];
-	public int ModeN = 0;
-	*/
-	//public static bool Testing = true;
+
+	private int[] KillsByPlayer = new int[4];
+
+	private Image[] PlayerJoinedIcons = new Image[4];
+
+	private GameObject MenuOwnerImage;
+	private Vector3 RelativePosition = new Vector3();
+
+	public int PlayerHoldingMenu = 0;
 	public static int Lives = 2;
 
 	public int MaxLives = 4;
 
-	//public GameObject B_Mode;
 	public GameObject B_Area;
-	//public GameObject B_Level;
 	public GameObject B_Lives;
 
 	public GameObject Messages;
 
 	public EventSystem ES;
-
-	public int PlayerHoldingMenu = 0;
 
 
 	// Use this for initialization
@@ -46,15 +45,26 @@ public class MainMenu : MonoBehaviour {
 		ES.firstSelectedGameObject = B_Area;
 		ToggleArea ();
 		ToggleLives ();
+
+		//Get the eggs which show if a player has joined.
 		for (int i = 0; i < 4; ++i) {
-			GetComponentsInChildren<Image> () [i].color = Player.ChooseColor (i);
+			PlayerJoinedIcons[i] = GetComponentsInChildren<Image> () [i];
 		}
 
-		for (int j = 0; j < 4; ++j) {
-			if (ActivePlayers[j])
-				GetComponentsInChildren<Image> () [j].sprite = BirdSprite;
+		//Change the eggs colour to the player colours.
+		for (int i = 0; i < 4; ++i) {
+			PlayerJoinedIcons[i].color = Player.ChooseColor (i);
 		}
-		//Testing = false;
+
+		//If a player is already active make their egg into a bird (for returning to the menu from a game).
+		for (int i = 0; i < 4; ++i) {
+			if (ActivePlayers[i])
+				PlayerJoinedIcons[i].sprite = BirdSprite;
+		}
+
+		MenuOwnerImage = GetComponentsInChildren<Image> () [4].gameObject;
+		RelativePosition = MenuOwnerImage.transform.localPosition;
+		MoveStar ();
 	}
 
 	// Update is called once per frame
@@ -67,8 +77,7 @@ public class MainMenu : MonoBehaviour {
 
 					Debug.Log ("Added " + p + " in Update");
 
-					//GetComponentsInChildren<Image> () [p].enabled = false;
-					GetComponentsInChildren<Image> () [p].sprite = BirdSprite;
+					PlayerJoinedIcons[p].sprite = BirdSprite;
 
 					ActivePlayers [p] = true;
 
@@ -81,8 +90,7 @@ public class MainMenu : MonoBehaviour {
 				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Back")) {
 					Debug.Log ("Removed " + p + " in Update");
 
-					//GetComponentsInChildren<Image> () [p].enabled = true;
-					GetComponentsInChildren<Image> () [p].sprite = EggSprite;
+					PlayerJoinedIcons[p].sprite = EggSprite;
 
 					ActivePlayers [p] = false;
 
@@ -187,6 +195,8 @@ public class MainMenu : MonoBehaviour {
 				}
 			}
 		}
+			
+		MoveStar ();
 	}
 
 	private void PassControl(int p) {
@@ -195,5 +205,10 @@ public class MainMenu : MonoBehaviour {
 		SIM.horizontalAxis = ("P" + (p + 1) + "_Horizontal");
 		SIM.verticalAxis = ("P" + (p + 1) + "_Vertical");
 		PlayerHoldingMenu = p;
+	}
+
+	private void MoveStar() {
+		MenuOwnerImage.transform.SetParent (PlayerJoinedIcons [PlayerHoldingMenu].transform);
+		MenuOwnerImage.transform.localPosition = RelativePosition;
 	}
 }
