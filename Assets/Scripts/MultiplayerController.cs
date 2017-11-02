@@ -27,6 +27,7 @@ public class MultiplayerController : MonoBehaviour {
 	private PlayerIcon[] PlayerIcons = new PlayerIcon[4];
 	private int[] DeathCounters = new int[4];
 	public Vector3[] TutorialSpawnPositions = new Vector3[4];
+	public Corner[] Corners = new Corner[4];
 
 	public Vector3[] PlayerSpawnPos = new Vector3[4];
 	public Text[] TutorialText = new Text[5];
@@ -99,6 +100,7 @@ public class MultiplayerController : MonoBehaviour {
 		}
 
 		//Put all the stocks in a list and change their visibility depending on which players are present.
+		/*
 		int k = 4;
 		for (int i = 0; i <= 3; i++) {
 			int j = 0;
@@ -119,7 +121,7 @@ public class MultiplayerController : MonoBehaviour {
 			j += 1;
 			k += 1;
 		}
-
+		*/
 
 
 		//Create and gives lives to the players in this match, and create and setup their icon.
@@ -127,6 +129,17 @@ public class MultiplayerController : MonoBehaviour {
 			if (ActivePlayers [i] == true) {
 				Lives [i] = StartingLives;
 				StartSpawn(i);
+			}
+		}
+
+		//NEW lives and health system.
+		for (int i = 0; i <= 3; i++) {
+			Corners [i] = GetComponentsInChildren<Corner> () [i];
+			Corners [i].ManualStart();
+			Corners [i].SetColours (i);
+
+			if (!ActivePlayers [i]) {
+				Corners [i].GetComponent<Image> ().enabled = false;
 			}
 		}
 
@@ -161,6 +174,7 @@ public class MultiplayerController : MonoBehaviour {
 						Destroy (PauseMenu);
 					}
 				}
+
 			}
 
 			if (MainMenu.Area == "Tutorial") {
@@ -178,7 +192,15 @@ public class MultiplayerController : MonoBehaviour {
 
 	//Show or hide stocks based on the number of lives the player has.
 	private void UpdateStockGraphics() {
+
+		//Update Corner info.
+
+
 		for (int p = 0; p <= 3; p++) {
+			if (ActivePlayers[p])
+				Corners[p].SetLives(Lives[p]);
+		}
+		/*
 			if (ActivePlayers[p]) {
 				for (int i = 0; i <= 3; i++) {
 					Stocks [p, i].enabled = false;
@@ -188,6 +210,7 @@ public class MultiplayerController : MonoBehaviour {
 				}
 			}
 		}
+		*/
 	}
 
 	//Starts the egg falling, (starts checking it hit the ground?).
@@ -223,6 +246,10 @@ public class MultiplayerController : MonoBehaviour {
 
 		PlayerIcons [PlayerNum].Target = P.transform;
 
+		//Give the corner panel the player so it can get its health and ulticharge.
+		Corners [PlayerNum].TargetPlayer = P.GetComponent<Player>();
+		Corners [PlayerNum].SetColours (PlayerNum);
+
         //Destroy (SP [PlayerNum].gameObject);
         SP[PlayerNum].Target = P.transform;
         InGame[PlayerNum] = true;
@@ -232,12 +259,12 @@ public class MultiplayerController : MonoBehaviour {
 				//CREATE EGG
     private void StartSpawn(int PlayerNum) {
         if (SP[PlayerNum] == null) {
-        SP[PlayerNum] = Instantiate(SpawnPointer, grid.MidCell.transform.position, Quaternion.Euler(new Vector3(90, 0, 0))).GetComponent<SpawnPointer>();
-        //SP [Player].transform.rotation = ;
-		
-        SP[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
+	        SP[PlayerNum] = Instantiate(SpawnPointer, grid.MidCell.transform.position, Quaternion.Euler(new Vector3(90, 0, 0))).GetComponent<SpawnPointer>();
+	        //SP [Player].transform.rotation = ;
+			
+	        SP[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);
 
-        SP[PlayerNum].GetComponent<SpriteRenderer>().color = Player.ChooseColor(PlayerNum);
+	        SP[PlayerNum].GetComponent<SpriteRenderer>().color = Player.ChooseColor(PlayerNum);
         }
 
 		//Create a floating egg as well (to replace the 'spawnpointer').
@@ -295,6 +322,7 @@ public class MultiplayerController : MonoBehaviour {
 			Debug.Log ("VICTORY!");
 			GameObject V = Instantiate (VictoryPrefab, transform.parent);
 			V.GetComponent<Text> ().color = Player.ChooseColor (NotDead);
+			V.GetComponentInChildren<Button> ().Select();
 		}
 	}
 
