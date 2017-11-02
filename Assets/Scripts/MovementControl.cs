@@ -23,6 +23,7 @@ public class MovementControl : MonoBehaviour {
 	public string PlayerName = "P1";
 	public DirectAttack AttackCone;
 	public Ultimate Ultimate;
+	public float UltiCharge = 0.0f;
 
 
     bool m_ulti_requested = false;
@@ -53,22 +54,16 @@ public class MovementControl : MonoBehaviour {
         m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
         m_attack_ultimate = false;
 
-        if (CrossPlatformInputManager.GetAxisRaw(PlayerName + "_Ultimate") > 0)
-        {
-            if (!m_ulti_requested)
-            {
-                m_attack_ultimate = true;
-                m_ulti_requested = true;
-            }
-        }
-
-        if (CrossPlatformInputManager.GetAxisRaw(PlayerName + "_Ultimate") == 0)
-        {
-            m_ulti_requested = false;
-        }
-
-
-        if (!jump) 
+		if (CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect") && CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump"))
+		{
+			UltiCharge += 50 * Time.deltaTime;
+			if (UltiCharge >= 100) 
+			{
+				UltiCharge = 0;
+				m_attack_ultimate = true;
+			}
+		}
+        else
 		{
 			jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
 		}
@@ -78,9 +73,10 @@ public class MovementControl : MonoBehaviour {
             Debug.Log("Ultimate attack requested");
             if (m_Character.UltimateCharge >= 100)
             {
-                //m_Character.UltimateCharge = 0;
+				m_attack_ultimate = false;
+                m_Character.UltimateCharge = 0;
                 Debug.Log("Ultimate successfully attacked");
-                var attack = GameObject.Instantiate(Ultimate, gameObject.transform.position, gameObject.transform.localRotation);
+				var attack = GameObject.Instantiate(Ultimate, gameObject.transform.position + new Vector3(0,10,0), gameObject.transform.localRotation);
                 var PE = Instantiate(Prefabs.cannonBlast, attack.transform.position, attack.transform.rotation);
 
                 Destroy(PE, 0.2f);
