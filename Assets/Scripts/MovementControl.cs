@@ -24,6 +24,9 @@ public class MovementControl : MonoBehaviour {
 	public DirectAttack AttackCone;
 	public Ultimate Ultimate;
 
+
+    bool m_ulti_requested = false;
+
 	private void Start()
 	{
 		// get the transform of the main camera
@@ -47,17 +50,48 @@ public class MovementControl : MonoBehaviour {
 
 	private void Update()
 	{
-		if (!jump) 
+        m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
+        m_attack_ultimate = false;
+
+        if (CrossPlatformInputManager.GetAxisRaw(PlayerName + "_Ultimate") > 0)
+        {
+            if (!m_ulti_requested)
+            {
+                m_attack_ultimate = true;
+                m_ulti_requested = true;
+            }
+        }
+
+        if (CrossPlatformInputManager.GetAxisRaw(PlayerName + "_Ultimate") == 0)
+        {
+            m_ulti_requested = false;
+        }
+
+
+        if (!jump) 
 		{
 			jump = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Jump");
 		}
-	}
+
+        if (m_attack_ultimate)
+        {
+            Debug.Log("Ultimate attack requested");
+            if (m_Character.UltimateCharge >= 100)
+            {
+                //m_Character.UltimateCharge = 0;
+                Debug.Log("Ultimate successfully attacked");
+                var attack = GameObject.Instantiate(Ultimate, gameObject.transform.position, gameObject.transform.localRotation);
+                var PE = Instantiate(Prefabs.cannonBlast, attack.transform.position, attack.transform.rotation);
+
+                Destroy(PE, 0.2f);
+            }
+        }
+    }
 
 	// Fixed update is called in sync with physics
 	private void FixedUpdate()
 	{
-        m_attack_direct = CrossPlatformInputManager.GetButtonDown(PlayerName + "_AttackDirect");
-		m_attack_ultimate = CrossPlatformInputManager.GetButtonDown(PlayerName + "_Ultimate");
+        Debug.Log(CrossPlatformInputManager.GetAxis(PlayerName + "_Ultimate"));
 
         TicksSinceAttack += 1;
 
@@ -110,17 +144,6 @@ public class MovementControl : MonoBehaviour {
 
                 Destroy(PE, 0.2f);
             }
-		}
-
-		if (m_attack_ultimate) 
-		{
-			if (m_Character.UltimateCharge >= 100) 
-			{
-				var attack = GameObject.Instantiate (Ultimate, gameObject.transform.position, gameObject.transform.localRotation, gameObject.transform);
-				var PE = Instantiate (Prefabs.cannonBlast, attack.transform.position, attack.transform.rotation);
-
-				Destroy (PE, 0.2f);
-			}
 		}
 	}
 }

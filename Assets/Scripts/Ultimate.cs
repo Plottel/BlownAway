@@ -6,18 +6,24 @@ public class Ultimate : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Destroy (this, 0.2f);
+		Destroy(this.gameObject, 0.5f);
+        gameObject.GetComponent<Rigidbody>().velocity += new Vector3(1, 0, 1);
 	}
 	
 	void OnTriggerEnter (Collider col)
 	{
-		var island = col.gameObject.GetComponent<IslandPiece>();
+        var island = col.gameObject.GetComponent<IslandPiece>();
 
-		if (island) 
-		{
-			var grid = FindObjectOfType<Grid> ();
-			var cell = island.transform.parent;
-			GridCon.DropCell (grid, cell);
-		}
+        if (island)
+        {
+            var islandGO = island.gameObject;
+
+            var grid = LevelManager.Instance.grid;
+
+            if (islandGO != null)
+            {
+                GridCon.DropCell(grid, islandGO.transform.parent.GetComponent<Cell>());
+            }
+        }
 	}
 }
