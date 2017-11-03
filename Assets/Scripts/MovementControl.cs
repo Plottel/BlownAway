@@ -67,17 +67,17 @@ public class MovementControl : MonoBehaviour {
 
         if (atk_down && jump_down)
         {
+			var chargePE = Instantiate (m_Character.ChargeParticleEffect, m_Character.transform);
+			Destroy (chargePE, 0.5f);
             m_attack_direct = false;
             jump = false;
 
             GetComponent<Player>().MaxSpeed = 0.1f;
 
 
-            UltiCharge += 50 * Time.deltaTime;
-            Debug.Log("Ult REQUESTED: Charge = " + UltiCharge);
+            UltiCharge += 200 * Time.deltaTime;
             if (UltiCharge >= 100)
             {
-                Debug.Log("We have enough ulti charge");
                 m_attack_direct = false;
                 jump = false;
 

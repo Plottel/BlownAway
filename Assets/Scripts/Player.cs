@@ -34,6 +34,8 @@ public class Player : MonoBehaviour {
     public float Health;
 	public float UltimateCharge = 100;
 
+	public GameObject ChargeParticleEffect;
+
 
 
     public void HitMe(float force, Vector3 position, float addThisMuchDamage, bool isFan=false)
@@ -56,7 +58,13 @@ public class Player : MonoBehaviour {
 
 	public void AddUltiCharge(int charge)
 	{
-		UltimateCharge += charge;
+		if (UltimateCharge < 100) 
+		{
+			UltimateCharge += charge;
+
+			if (UltimateCharge > 100)
+				UltimateCharge = 100;
+		}
 	}
 
 	/// <summary>

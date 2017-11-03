@@ -30,17 +30,6 @@ public class DirectAttack : MonoBehaviour {
 		}
 	}
 
-	public void Hit(Player target)
-	{
-		
-		float Multiplier = target.Health;
-		Multiplier = (Multiplier / 100f) + 1;
-		target.Health += Damage;
-		gameObject.transform.parent.GetComponent<Player> ().AddUltiCharge (Charge);
-		target.GetComponent<Rigidbody>().AddExplosionForce (ExplosionForce * Multiplier, this.gameObject.transform.position, ExplosionRadius);
-
-	}
-
     void OnTriggerEnter(Collider col)
 	{
 		Player P = col.GetComponent<Player> ();
@@ -50,7 +39,7 @@ public class DirectAttack : MonoBehaviour {
 
         if (!playerHit[MultiplayerController.PNameToNumber(P.name)])
         {
-            transform.parent.GetComponent<Player>().AddUltiCharge(50);
+            transform.parent.GetComponent<Player>().AddUltiCharge(20);
             playerHit[MultiplayerController.PNameToNumber(P.name)] = true;
             P.HitMe(Force, transform.position, Damage);
         }           
