@@ -62,21 +62,29 @@ public class MovementControl : MonoBehaviour {
 
         if (atk_down && jump_down)
         {
+            m_attack_direct = false;
+            jump = false;
+
+            GetComponent<Player>().MaxSpeed = 0.1f;
+
+
             UltiCharge += 50 * Time.deltaTime;
             Debug.Log("Ult REQUESTED: Charge = " + UltiCharge);
-			if (UltiCharge >= 100) 
-			{
+            if (UltiCharge >= 100)
+            {
                 Debug.Log("We have enough ulti charge");
                 m_attack_direct = false;
                 jump = false;
 
-				UltiCharge = 0;
-				m_attack_ultimate = true;
-			}
-		}
+                UltiCharge = 0;
+                m_attack_ultimate = true;
+            }
+        }
+        else
+            GetComponent<Player>().MaxSpeed = 2f;
 
         if (m_attack_ultimate)
-        {
+        { 
             Debug.Log("Ultimate attack requested");
             if (m_Character.UltimateCharge >= 100)
             {
@@ -108,12 +116,12 @@ public class MovementControl : MonoBehaviour {
 		float rX = CrossPlatformInputManager.GetAxis(PlayerName + "_RotationX");
 		float rZ = CrossPlatformInputManager.GetAxis(PlayerName + "_RotationZ");
 	
-
 		// calculate move direction to pass to character
 		if (m_Cam != null)
 		{
 			// calculate camera relative direction to move:
 			m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
+
 			m_Move = v*m_CamForward + h*m_Cam.right;
 		}
 		else
@@ -124,9 +132,15 @@ public class MovementControl : MonoBehaviour {
 		#if !MOBILE_INPUT
 		// walk speed multiplier
 		if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
-		#endif
-		// pass all parameters to the character control script
-		m_Character.Move(m_Move, rX, rZ, jump);
+#endif
+
+
+        // Move and rotate character
+        if (rX == 0 && rZ == 0)
+            m_Character.Move(m_Move, h, v, jump);
+        else
+		    m_Character.Move(m_Move, rX, rZ, jump);
+
 		anim.SetBool("isJumping", jump);
 		jump = false;
 

@@ -27,7 +27,7 @@ public class MultiplayerController : MonoBehaviour {
 	private PlayerIcon[] PlayerIcons = new PlayerIcon[4];
 	private int[] DeathCounters = new int[4];
 	public Vector3[] TutorialSpawnPositions = new Vector3[4];
-	public Corner[] Corners = new Corner[4];
+	public PlayerDetailsUIPlate[] Corners = new PlayerDetailsUIPlate[4];
 
 	public Vector3[] PlayerSpawnPos = new Vector3[4];
 	public Text[] TutorialText = new Text[5];
@@ -77,17 +77,19 @@ public class MultiplayerController : MonoBehaviour {
             ActivePlayers [3] = true;
 			ActivePlayers [2] = true;
 		}
-		
 
-		//Disable the tutorial text if not in tutorial mode.
-		if (MainMenu.Area != "Tutorial") {
-			TutorialText[0].enabled = false;
-			TutorialText[1].enabled = false;
-			TutorialText[2].enabled = false;
-			TutorialText[3].enabled = false;
-			TutorialText[4].enabled = false;
+
+        //Disable the tutorial text if not in tutorial mode.
+        if (MainMenu.Area != "Tutorial")
+        {
+            TutorialText[0].enabled = false;
+            TutorialText[1].enabled = false;
+            TutorialText[2].enabled = false;
+            TutorialText[3].enabled = false;
+            TutorialText[4].enabled = false;
+        }
+        else
             StartingLives = -1;
-		}
 
 		/*
 		if (MainMenu.Mode != "Normal") {
@@ -134,7 +136,7 @@ public class MultiplayerController : MonoBehaviour {
 
 		//NEW lives and health system.
 		for (int i = 0; i <= 3; i++) {
-			Corners [i] = GetComponentsInChildren<Corner> () [i];
+			Corners [i] = GetComponentsInChildren<PlayerDetailsUIPlate> () [i];
 			Corners [i].ManualStart();
 			Corners [i].SetColours (i);
 
