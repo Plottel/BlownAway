@@ -12,7 +12,7 @@ public class MultiplayerController : MonoBehaviour {
 	public GameObject PlayerIconPrefab;
 	private bool[] ActivePlayers = new bool[4];
 	public int StartingLives = 4;
-	private int MaxLives = 4;
+	private int MaxLives = 10;
 	private int[] Lives = new int[4];
 	private int Paused = -1;
 	public GameObject SpawnPointer;
@@ -62,6 +62,9 @@ public class MultiplayerController : MonoBehaviour {
 		//Get the settings chosen in the main menu.
 		ActivePlayers = MainMenu.ActivePlayers;
 		StartingLives = MainMenu.Lives;
+
+        if (StartingLives == 0)
+            StartingLives = -1;
 
 		bool n = true;
 		for( int i = 0; i < 4; i++) {

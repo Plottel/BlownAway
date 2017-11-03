@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour {
 	public int PlayerHoldingMenu = 0;
 	public static int Lives = 2;
 
-	public int MaxLives = 4;
+	public int MaxLives = 10;
 
 	public GameObject B_Area;
 	public GameObject B_Lives;
@@ -146,16 +146,19 @@ public class MainMenu : MonoBehaviour {
 
 		//if (Mode == "Normal") {
 			
-			if (Lives == MaxLives) {
-				Lives = 0;
-			} else  {
-				Lives += 1;
-			}
+		if (Lives == MaxLives) {
+			Lives = 0;
+		} else  {
+			Lives += 1;
+		}
 
-			B_Lives.GetComponentInChildren<Text> ().text = "" + Lives;
+        if (Lives == 0)
+            B_Lives.GetComponentInChildren<Text>().text = "Infinite";
+        else
+            B_Lives.GetComponentInChildren<Text>().text = "" + Lives;
 
-		//}
-	}
+        //}
+    }
 
 	public void StartGame() {
 		//Go to the scene from here.

@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
 	private bool usedJump;
     private int numJumps = 1;
 
+    bool isInAir = false;
+
     public float MaxSpeed = 0.8f;
     public int IncreaseAirMovementByFactorOf = 5;
 	public float JumpHeight;
@@ -154,20 +156,29 @@ public class Player : MonoBehaviour {
         //bool notInAir = Physics.Raycast (transform.position, Vector3.down, out airborne, groundCheckDistance);
         
         Debug.DrawRay (transform.position, Vector3.down, Color.red, groundCheckDistance);
-		//Check if airborne
-		if (numJumps > 0)
-		{
-			HandleGroundMovement (direction, dodge);
-		} 
-		else 
-		{	
-			Debug.Log ("Airborne");
-			HandleAirborneMovement (direction);
-		}
+
+        bool jumpRequested = GetComponent<MovementControl>().Jump;
+
+        if (jumpRequested && numJumps > 0)
+        {
+            --numJumps;
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * JumpHeight * 200);
+        }
+
+        if (isInAir)
+            gameObject.GetComponent<Rigidbody>().AddForce(direction * 7);
+        else
+            gameObject.GetComponent<Rigidbody>().AddForce(direction * 15);
+
+        //if (isInAir)
+        //    HandleAirborneMovement(direction);
+        //else
+        //    HandleGroundMovement(direction, dodge);
 	}
 
     void HandleAirborneMovement(Vector3 direction)
     {
+        Debug.Log("Airborne");
         //var proposedVel = gameObject.GetComponent<Rigidbody>().velocity + (IncreaseAirMovementByFactorOf * direction);
         //var vertV = proposedVel.y;
         //proposedVel.y = 0;
@@ -184,6 +195,9 @@ public class Player : MonoBehaviour {
         direction = direction.normalized;
         direction *= JumpDist;
 
+        if (GetComponent<MovementControl>().Jump)
+            direction += Vector3.up * JumpHeight * 2;
+
         if (gameObject.GetComponent<Rigidbody>().velocity.magnitude > MaxSpeed)
             return;
 
@@ -192,8 +206,11 @@ public class Player : MonoBehaviour {
 
 	void HandleGroundMovement(Vector3 direction, bool dodge)
 	{
+        Debug.Log("Ground");
+
 		if (dodge && !dodging) {
-            --numJumps;
+            //--numJumps;
+            isInAir = true;
 			direction = direction.normalized; 
 			direction *= JumpDist;
 
@@ -237,10 +254,17 @@ public class Player : MonoBehaviour {
                 GetComponent<Rigidbody>().AddExplosionForce(6000f, transform.position, 100f);
             }
         }
-        if (!col.GetComponent<Player>())
+        if (col.GetComponent<IslandPiece>() || col.GetComponent<IslandTerrain>())
         {
+            isInAir = false;
             int magicNum = 2;
             numJumps = magicNum;
         }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.GetComponent<IslandPiece>() || col.GetComponent<IslandTerrain>())
+            isInAir = true;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SpikyBush : IslandTerrain 
 {
-    public static float Force = 440f;
+    public static float Force = 500f;
     public static float Damage = 10f;
 
 
