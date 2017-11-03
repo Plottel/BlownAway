@@ -31,6 +31,7 @@ public static class Prefabs
     public static GameObject TempAttack = (GameObject)Resources.Load("TempAttack", typeof(GameObject));
     public static GameObject OnFirePE = (GameObject)Resources.Load("OnFirePE", typeof(GameObject));
     public static Ultimate Ultimate = (Ultimate)Resources.Load("Ultimate", typeof(Ultimate));
+    public static SpawnPointer SpawnPointer = (SpawnPointer)Resources.Load("SpawnPointer", typeof(SpawnPointer));
 
 
     // Winter assets
