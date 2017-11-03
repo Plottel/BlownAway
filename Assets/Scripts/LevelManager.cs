@@ -26,7 +26,6 @@ public class LevelManager : MonoBehaviour
     public static System.Random RNG = new System.Random();
 
     private Vector3 gridSpawnPoint = new Vector3(-6.2f, 0.16f, -21.6f);
-    public Text timeToNextGridMove;
 
 	public Text ContextualText;
 

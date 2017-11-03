@@ -45,7 +45,7 @@ public class PlayerDetailsUIPlate : MonoBehaviour {
 		} else if (Value > 0) {
 			Lives.text = "x" + Value;
 		} else {
-			Lives.text = "INF : " + Value;
+			Lives.text = "Deaths: " + (Value * -1 - 1);
 		}
 	}
 

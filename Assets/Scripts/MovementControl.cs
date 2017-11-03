@@ -16,6 +16,11 @@ public class MovementControl : MonoBehaviour {
 	private bool jump;                    // the world-relative desired move direction, calculated from the camForward and user input.
     private int jumpCount;
 
+    public bool Jump
+    {
+        get { return jump; }
+    }
+
 	private bool m_attack_ultimate;
     private bool m_attack_direct;
     public int TicksPerAttack = 30;
@@ -93,10 +98,6 @@ public class MovementControl : MonoBehaviour {
                 Debug.Log("Ultimate successfully attacked");
 				var attack = GameObject.Instantiate(Ultimate, gameObject.transform.position + new Vector3(0,10,0), gameObject.transform.localRotation);
                 attack.GetComponent<Rigidbody>().velocity += transform.forward * 3;
-
-                var PE = Instantiate(Prefabs.cannonBlast, attack.transform.position, attack.transform.rotation);
-
-                Destroy(PE, 0.2f);
             }
         }
     }
@@ -159,7 +160,7 @@ public class MovementControl : MonoBehaviour {
                 main.startColor = Player.ChooseColor(GetComponent<MovementControl>().PlayerName);
 
 
-                Destroy(PE, 0.2f);
+                Destroy(PE, 0.4f);
             }
 		}
 	}
