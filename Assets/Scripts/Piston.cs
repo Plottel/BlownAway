@@ -23,10 +23,17 @@ public class Piston : IslandTerrain
     public static float Force = 600f;
     public static float Damage = 40f;
 
+	//Audio
+	public AudioClip boing;
+	public AudioSource sound;
 
 
     void Start () 
 	{
+		//Audio 
+		sound = gameObject.GetComponent<AudioSource>();
+
+		//init
         _ticksSinceLastPush = Random.Range(0, PushFrequency);
 		_extensionCounter = _extentionTime;
 		if (_pushPlate == null)
@@ -112,7 +119,9 @@ public class Piston : IslandTerrain
 		if (P && P.ticksSinceLastPistonHit > P.ticksPerPistonHit)
 		{
             P.ticksSinceLastPistonHit = 0;
-            P.HitMe(Force, transform.position, Damage);
+			P.HitMe(Force, transform.position, Damage);
+			Debug.Log ("BOING");
+			sound.PlayOneShot (boing, 1.0f);
 		}
 	}
 }

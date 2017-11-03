@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EggShell : MonoBehaviour {
+public class EggShell : HasSoundFX {
 
 	// Use this for initialization
 	void Start () {
