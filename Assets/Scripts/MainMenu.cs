@@ -43,11 +43,15 @@ public class MainMenu : MonoBehaviour {
 		B_Lives.GetComponentInChildren<Text> ().text = "" + Lives;
 		ES = FindObjectOfType<EventSystem> ();
 		ES.firstSelectedGameObject = B_Area;
-		ToggleArea ();
-		ToggleLives ();
+        B_Area.GetComponentInChildren<Text>().text = Area;
+        ToggleLives();
+        ToggleLives();
+        ToggleLives();
+        ToggleLives();
+        
 
-		//Get the eggs which show if a player has joined.
-		for (int i = 0; i < 4; ++i) {
+        //Get the eggs which show if a player has joined.
+        for (int i = 0; i < 4; ++i) {
 			PlayerJoinedIcons[i] = GetComponentsInChildren<Image> () [i];
 		}
 
