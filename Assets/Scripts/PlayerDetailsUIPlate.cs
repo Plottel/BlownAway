@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Corner : MonoBehaviour {
+public class PlayerDetailsUIPlate : MonoBehaviour {
 
 	public Text Lives;
 	public Text Health;
@@ -29,7 +29,7 @@ public class Corner : MonoBehaviour {
 	void Update () {
 		if (TargetPlayer != null) {
 			SetHealth (TargetPlayer.Health);
-			//SetUltiCharge(TargetPlayer.UltimateCharge);
+			SetUltiCharge(TargetPlayer.UltimateCharge);
 		}
 	}
 
@@ -45,7 +45,7 @@ public class Corner : MonoBehaviour {
 		} else if (Value > 0) {
 			Lives.text = "x" + Value;
 		} else {
-			Lives.text = "" + Value;
+			Lives.text = "INF : " + Value;
 		}
 	}
 
