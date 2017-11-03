@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallistaBolt : MonoBehaviour
+public class BallistaBolt : HasSoundFX
 {
     public static float Force = 560f;
     public static float Damage = 50f;
