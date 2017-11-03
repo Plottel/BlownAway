@@ -48,5 +48,23 @@ public class Ultimate : MonoBehaviour {
                 GridCon.DropCell(grid, islandGO.transform.parent.GetComponent<Cell>());
             }
         }
-	}
+
+        var terrain = col.gameObject.GetComponent<Terrain>();
+
+        if (terrain)
+        {
+            var terrainsIsland = terrain.gameObject.GetComponentInParent<IslandPiece>();
+
+            if (terrainsIsland)
+            {
+                var islandGO = terrainsIsland.gameObject;
+                var grid = LevelManager.Instance.grid;
+
+                if (islandGO != null)
+                {
+                    GridCon.DropCell(grid, islandGO.transform.parent.GetComponent<Cell>());
+                }
+            }
+        }
+    }
 }

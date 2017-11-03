@@ -53,10 +53,10 @@ public class MultiplayerController : MonoBehaviour {
 		}
 
         // Setup tutorial spawn positions
-        TutorialSpawnPositions[0] = new Vector3(-5.82f, 5, -23.07f);
-        TutorialSpawnPositions[1] = new Vector3(-5.82f, 5, -6.63f);
-        TutorialSpawnPositions[2] = new Vector3(7.9f, 5, -6.82f);
-        TutorialSpawnPositions[3] = new Vector3(8.33f, 5, -22.88f);
+        TutorialSpawnPositions[0] = new Vector3(-3.15f, 5, -12.19f);
+        TutorialSpawnPositions[1] = new Vector3(4.18f, 5, -12.19f);
+        TutorialSpawnPositions[2] = new Vector3(4.18f, 5, -19.96f);
+        TutorialSpawnPositions[3] = new Vector3(-3.78f, 5, -19.96f);
 
 
 		//Get the settings chosen in the main menu.
@@ -92,7 +92,15 @@ public class MultiplayerController : MonoBehaviour {
             TutorialText[4].enabled = false;
         }
         else
+        {
+            TutorialText[0].enabled = false;
+            TutorialText[1].enabled = false;
+            TutorialText[2].enabled = false;
+            TutorialText[3].enabled = false;
+            TutorialText[4].enabled = true;
             StartingLives = -1;
+        }
+
 
 		/*
 		if (MainMenu.Mode != "Normal") {
