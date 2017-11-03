@@ -92,7 +92,7 @@ public class Ballista : IslandTerrain
                     var spawnPoint = new Vector3();
                     spawnPoint = transform.position;
                     spawnPoint += transform.forward * 0.2f;
-                    spawnPoint.y += 0.3f;
+                    spawnPoint.y += 0.8f;
 
                     var newRotation = transform.rotation * Quaternion.Euler(0, -90, 0);
 
@@ -109,8 +109,7 @@ public class Ballista : IslandTerrain
 
                     // Set bolt velocity
                     bolt.GetComponent<Rigidbody>().velocity = target.normalized;
-                    bolt.GetComponent<Rigidbody>().velocity *= BoltSpeed;
-                    Debug.Log("Bolt Speed: " + BoltSpeed);
+                    bolt.GetComponent<Rigidbody>().velocity *= BoltSpeed + 3f;
                 }                
             }
         }        
