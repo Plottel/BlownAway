@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UnityEngine
 {
@@ -10,6 +11,8 @@ namespace UnityEngine
 public class GridScene
 {
     public static float SPEED_SCALE = 0.2f;
+
+    public Text tutText;
 
     public Grid _grid;
     private Queue<GridMove> _moves;

@@ -240,9 +240,12 @@ public class Player : MonoBehaviour {
         if (col.gameObject.GetComponent<IslandPiece>())
         {
             // Move player to not be stuck inside island piece.
-            if (col.gameObject.GetComponent<BoxCollider>().bounds.Contains(transform.position))
+            
+            if (col.gameObject.GetComponent<BoxCollider>().bounds.Intersects(GetComponent<CapsuleCollider>().bounds))
             {
-                transform.position += new Vector3(0, .2f, 0);
+                transform.position += new Vector3(0, 0.01f, 0);
+                //if (transform.position.y < LevelManager.Instance.grid.transform.position.y + 0.35f)
+                    //transform.position += new Vector3(0, .2f, 0);
             }
         }
     }

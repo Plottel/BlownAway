@@ -9,6 +9,7 @@ public static class Prefabs
     public static Grid Grid_Ballista = (Grid)Resources.Load("Grid_BallistaWorld", typeof(Grid));
     public static Grid Grid_TerrainPark = (Grid)Resources.Load("Grid_TerrainPark", typeof(Grid));
     public static Grid Grid_VolcanoRun = (Grid)Resources.Load("Grid_VolcanoRun", typeof(Grid));
+    public static Grid Grid_WinterFortress = (Grid)Resources.Load("Grid_WinterFortress", typeof(Grid));
     public static Grid Grid = (Grid)Resources.Load("Grid", typeof(Grid));
     public static Cell Cell = (Cell)Resources.Load("Cell", typeof(Cell));
     public static IslandPiece IslandPiece = (IslandPiece)Resources.Load("IslandPiece", typeof(IslandPiece));

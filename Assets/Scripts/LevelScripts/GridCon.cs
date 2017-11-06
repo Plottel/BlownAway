@@ -182,6 +182,7 @@ namespace UnityEngine
 
             //toDrop.islandPiece = null; //MAYBE NEEDED?????????
             _offScreenPiecesToDelete.Add(destroyOnContact);
+            GameObject.Destroy(toDrop.islandPiece.gameObject, 5f);
         }
 
         /// <summary>
@@ -477,10 +478,16 @@ namespace UnityEngine
                 return (Grid)GameObject.Instantiate(Prefabs.Grid_Tutorial, spawnPoint, Prefabs.Grid_Tutorial.transform.rotation);
             else if (name == "Factory")
                 return (Grid)GameObject.Instantiate(Prefabs.Grid_Factory, spawnPoint, Prefabs.Grid_Factory.transform.rotation);
-            else if (name == "Ballista")
+            else if (name == "Cannon Wars")
                 return (Grid)GameObject.Instantiate(Prefabs.Grid_Ballista, spawnPoint, Prefabs.Grid_Ballista.transform.rotation);
             else if (name == "Volcano Run")
                 return (Grid)GameObject.Instantiate(Prefabs.Grid_VolcanoRun, spawnPoint, Prefabs.Grid_VolcanoRun.transform.rotation);
+            else if (name == "Winter Fortress")
+            {
+                var g = (Grid)GameObject.Instantiate(Prefabs.Grid_WinterFortress, spawnPoint, Prefabs.Grid_WinterFortress.transform.rotation);
+                g.isWinterSkin = true;
+                return g;
+            }
             else
                 return (Grid)GameObject.Instantiate(Prefabs.Grid_TerrainPark, spawnPoint, Prefabs.Grid_TerrainPark.transform.rotation);
         }
@@ -491,10 +498,12 @@ namespace UnityEngine
                 return new GridScene_Tutorial(grid);
             else if (name == "Factory")
                 return new GridScene_Factory(grid);
-            else if (name == "Ballista")
+            else if (name == "Cannon Wars")
                 return new GridScene_Ballista_Arena(grid);
             else if (name == "Volcano Run")
                 return new GridScene_VolcanoRun(grid);
+            else if (name == "Winter Fortress")
+                return new GridScene_WinterFortress(grid);
             else if (name == "Terrain Park")
                 return null;
 

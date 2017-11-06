@@ -50,7 +50,6 @@ public class Volcano : IslandTerrain {
 
         open.Add(current);
 
-
         while (open.Count > 0)
         {
             current = open[0];
@@ -84,6 +83,13 @@ public class Volcano : IslandTerrain {
 
     private void FixedUpdate()
     {
+        var cell = transform.parent.parent.GetComponent<Cell>();
+
+        var ip = transform.parent.GetComponent<IslandPiece>();
+
+        if (!ip.HasArrived)
+            return;
+
         ++_currentTick;
 
         if (_currentTick == TicksPerSpread)
