@@ -49,7 +49,7 @@ public class Ultimate : MonoBehaviour {
             }
         }
 
-        var terrain = col.gameObject.GetComponent<Terrain>();
+        var terrain = col.gameObject.GetComponent<IslandTerrain>();
 
         if (terrain)
         {

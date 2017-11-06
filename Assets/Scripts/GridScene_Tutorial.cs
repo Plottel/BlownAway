@@ -13,14 +13,12 @@ public class GridScene_Tutorial : GridScene
 
     public GridScene_Tutorial(Grid grid) : base(grid)
     {
-
         GridCon.ISLAND_SPEED = 6f;
 
-        _invisWalls = GameObject.FindGameObjectsWithTag("WallTutorial");
+        _invisWalls = GameObject.FindGameObjectsWithTag("TutorialWall");
 
         _keyCells = grid.CellsWithLabel("keyCell");
 
-        EnqueueMove(KillWalls, 1, "Barriers are down! FIGHT! (or choose a proper level from the menu)");
         EnqueueMove(Blank, 3, "Left Joystick moves and aims");
         EnqueueMove(Blank, 4, "If you want more control, you can aim with the Right Joystick");
         EnqueueMove(Blank, 5, "Left Bumper jumps! You can jump three times, which will be refreshed when you hit the ground");
@@ -39,7 +37,7 @@ public class GridScene_Tutorial : GridScene
         EnqueueMove(ReplaceKeyCellsWithTerrain, 6, TerrainType.Tree, "Trees are nice and harmless. Use them for cover!");
         EnqueueMove(ReplaceKeyCellsWithTerrain, 6, TerrainType.Wall, "Walls are tall and can be walked on top of!");
         EnqueueMove(ReplaceKeyCellsWithTerrain, 6, TerrainType.Volcano, "Volcanos will spread lava until the whole level is on fire");
-        EnqueueMove(KillWalls, 6, "Barriers are down! FIGHT! (or choose a proper level from the menu)");
+        EnqueueMove(KillWalls, 10, "Barriers are down! FIGHT! (or choose a proper level from the menu)");
         EnqueueMove(Blank, int.MaxValue, "");
     }
 
@@ -54,8 +52,8 @@ public class GridScene_Tutorial : GridScene
         var newTutText = (string)args[0];
         tutText.text = newTutText;
 
-        foreach (var wall in _invisWalls)
-            Object.DestroyImmediate(wall);
+        for (int i = _invisWalls.Length - 1; i >= 0; --i)
+            Object.DestroyImmediate(_invisWalls[i]);
     }
 
     private void ReplaceKeyCellsWithTerrain(Grid grid, params object[] args)

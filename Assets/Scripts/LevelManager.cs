@@ -36,7 +36,6 @@ public class LevelManager : MonoBehaviour
 
         //Time.timeScale = 0.3f;
         grid = GridCon.CreateGrid(MainMenu.Area, gridSpawnPoint);
-        grid.isWinterSkin = false;
 
         CameraController theCamera = FindObjectOfType<CameraController>();
         theCamera.transform.position = (grid.transform.position + new Vector3(7.98f, 7.41f, -4.53f));

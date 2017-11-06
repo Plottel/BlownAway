@@ -38,6 +38,10 @@ public class IslandPiece : MonoBehaviour
                 winterTerrainPrefab = Prefabs.WinterSpikyBush;
             else if (type == TerrainType.PressurePlate)
                 winterTerrainPrefab = Prefabs.WinterPressurePlate;
+            else if (type == TerrainType.LavaPipe)
+                winterTerrainPrefab = Prefabs.WinterLavaPipe;
+            else if (type == TerrainType.Wall)
+                winterTerrainPrefab = Prefabs.WinterWall;
             else
             {
                 // Don't have a winter skin for it, get the non-winter version.
@@ -55,12 +59,8 @@ public class IslandPiece : MonoBehaviour
                     terrainPrefab = Prefabs.PressurePlate;
                 else if (type == TerrainType.Lava)
                     terrainPrefab = Prefabs.Lava;
-                else if (type == TerrainType.LavaPipe)
-                    terrainPrefab = Prefabs.LavaPipe;
                 else if (type == TerrainType.Volcano)
                     terrainPrefab = Prefabs.Volcano;
-                else if (type == TerrainType.Wall)
-                    terrainPrefab = Prefabs.Wall;
 
                 terrain = Instantiate(terrainPrefab, transform.position, Quaternion.identity);
                 //terrain = Instantiate(winterTerrainPrefab, transform.position, Quaternion.identity).GetComponent<IslandTerrain>(); // terrainPrefab.transform.rotation);

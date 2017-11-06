@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour {
 
 	public static bool[] ActivePlayers = new bool[4];
 	public string[] Areas = new string[2];
-	public static string Area = "Ballista";
+	public static string Area = "Tutorial";
 	private int AreaN = 0;
 	public Sprite BirdSprite;
 	public Sprite EggSprite;
@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour {
 	private GameObject MenuOwnerImage;
 	private Vector3 RelativePosition = new Vector3();
 
-	public int PlayerHoldingMenu = 0;
+	public static int PlayerHoldingMenu = 0;
 	public static int Lives = 2;
 
 	public int MaxLives = 10;
