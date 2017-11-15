@@ -7,7 +7,7 @@ public class GridScene_Ballista_Arena : GridScene
 {
     private List<Cell> _swWall, _seWall, _nwWall, _neWall;
 
-    public GridScene_Ballista_Arena(Grid grid) : base(grid)
+    public GridScene_Ballista_Arena(IslandGrid grid) : base(grid)
     {
         _swWall = grid.CellsWithLabel("wallPlatformSW");
         _seWall = grid.CellsWithLabel("wallPlatformSE");
@@ -23,7 +23,7 @@ public class GridScene_Ballista_Arena : GridScene
         EnqueueMove(MoveWallPlatform, 6 * SPEED_SCALE);
     }
 
-    private void MoveWallPlatform(Grid grid, params object[] args)
+    private void MoveWallPlatform(IslandGrid grid, params object[] args)
     {
         // SW -> NW
         for (int i = 0; i < 3; ++i)
@@ -51,7 +51,7 @@ public class GridScene_Ballista_Arena : GridScene
         if (from.islandPiece != null)
         {
             from.islandPiece.SetPath(to.transform.position, GridCon.ISLAND_SPEED, true);
-            GridCon.ShakeCell(from, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+            GridCon.ShakeCell(from, 20, IslandGrid.SHAKE_SPEED, IslandGrid.SHAKE_DISTANCE);
         }
     }
 }

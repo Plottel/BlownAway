@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
     }
 
     [SerializeField]
-    public Grid grid;
+    public IslandGrid grid;
 
     private GridScene _scene;
     public bool gameStarted = false;

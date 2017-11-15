@@ -12,7 +12,7 @@ public class GridScene_VolcanoRun: GridScene
     private List<Cell> _botPlatform2;
     private List<Cell> _allPlatforms;
 
-    public GridScene_VolcanoRun(Grid grid) : base(grid)
+    public GridScene_VolcanoRun(IslandGrid grid) : base(grid)
     {
         _patrolFanCells = grid.CellsWithLabel("patrolFan");
         _rightPlatform1 = grid.CellsWithLabel("rightPlatform1");
@@ -65,7 +65,7 @@ public class GridScene_VolcanoRun: GridScene
         base.Play();
     }
 
-    private void MovePatrolFan(Grid grid, params object[] args)
+    private void MovePatrolFan(IslandGrid grid, params object[] args)
     {
         for (int i = 0; i <= 2; ++i) // Don't loop for last element since it needs to go towards index 0
             MovePieceTo(_patrolFanCells[i], _patrolFanCells[i + 1], false);
@@ -91,13 +91,13 @@ public class GridScene_VolcanoRun: GridScene
             _patrolFanCells[0].islandPiece.transform.SetParent(_patrolFanCells[0].transform);
     }
 
-    private void RotatePatrolFan(Grid grid, params object[] args)
+    private void RotatePatrolFan(IslandGrid grid, params object[] args)
     {
         foreach (Cell c in _patrolFanCells)
             c.transform.eulerAngles = c.transform.eulerAngles + new Vector3(0, 90, 0);
     }
 
-    private void MoveLifts1(Grid grid, params object[] args)
+    private void MoveLifts1(IslandGrid grid, params object[] args)
     {
         for (int i = 0; i < 4; ++i)
         {
@@ -115,7 +115,7 @@ public class GridScene_VolcanoRun: GridScene
         }
     }
 
-    private void MoveLifts2(Grid grid, params object[] args)
+    private void MoveLifts2(IslandGrid grid, params object[] args)
     {
         for (int i = 0; i < 4; ++i)
         {
@@ -140,7 +140,7 @@ public class GridScene_VolcanoRun: GridScene
             from.islandPiece.SetPath(to.transform.position, GridCon.ISLAND_SPEED, true);
 
             if (shake)
-                GridCon.ShakeCell(from, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+                GridCon.ShakeCell(from, 20, IslandGrid.SHAKE_SPEED, IslandGrid.SHAKE_DISTANCE);
         }
     }
 

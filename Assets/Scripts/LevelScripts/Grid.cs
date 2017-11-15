@@ -15,7 +15,7 @@ namespace UnityEngine
 }
 
 [System.Serializable]
-public class Grid : MonoBehaviour
+public class IslandGrid : MonoBehaviour
 {
     public static float SHAKE_DISTANCE = 0.05f;
     public static float SHAKE_SPEED = 0.05f;

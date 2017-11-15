@@ -11,7 +11,7 @@ public class GridScene_Tutorial : GridScene
 
     private GameObject[] _invisWalls;
 
-    public GridScene_Tutorial(Grid grid) : base(grid)
+    public GridScene_Tutorial(IslandGrid grid) : base(grid)
     {
         GridCon.ISLAND_SPEED = 6f;
 
@@ -41,13 +41,13 @@ public class GridScene_Tutorial : GridScene
         EnqueueMove(Blank, int.MaxValue, "");
     }
 
-    private void Blank(Grid grid, params object[] args)
+    private void Blank(IslandGrid grid, params object[] args)
     {
         var newTutText = (string)args[0];
         tutText.text = newTutText;
     }
 
-    private void KillWalls(Grid grid, params object[] args)
+    private void KillWalls(IslandGrid grid, params object[] args)
     {
         var newTutText = (string)args[0];
         tutText.text = newTutText;
@@ -56,7 +56,7 @@ public class GridScene_Tutorial : GridScene
             Object.DestroyImmediate(_invisWalls[i]);
     }
 
-    private void ReplaceKeyCellsWithTerrain(Grid grid, params object[] args)
+    private void ReplaceKeyCellsWithTerrain(IslandGrid grid, params object[] args)
     {
         var terrainType = (TerrainType)args[0];
 

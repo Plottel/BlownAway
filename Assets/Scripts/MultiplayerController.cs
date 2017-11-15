@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class MultiplayerController : MonoBehaviour {
-	public Grid grid;
+	public IslandGrid grid;
 	public GameObject PlayerPrefab;
 	public GameObject EggPrefab;
 	public GameObject PlayerIconPrefab;

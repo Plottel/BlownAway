@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class GridScene_WinterFortress : GridScene 
 {
-    public GridScene_WinterFortress(Grid grid) : base(grid)
+    public GridScene_WinterFortress(IslandGrid grid) : base(grid)
     { }    
 }

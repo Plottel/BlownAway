@@ -4,13 +4,13 @@ using UnityEngine;
 
 public static class Prefabs
 {
-    public static Grid Grid_Tutorial = (Grid)Resources.Load("Grid_Tutorial", typeof(Grid));
-    public static Grid Grid_Factory = (Grid)Resources.Load("Grid_FactoryWorld", typeof(Grid));
-    public static Grid Grid_Ballista = (Grid)Resources.Load("Grid_BallistaWorld", typeof(Grid));
-    public static Grid Grid_TerrainPark = (Grid)Resources.Load("Grid_TerrainPark", typeof(Grid));
-    public static Grid Grid_VolcanoRun = (Grid)Resources.Load("Grid_VolcanoRun", typeof(Grid));
-    public static Grid Grid_WinterFortress = (Grid)Resources.Load("Grid_WinterFortress", typeof(Grid));
-    public static Grid Grid = (Grid)Resources.Load("Grid", typeof(Grid));
+    public static IslandGrid Grid_Tutorial = (IslandGrid)Resources.Load("Grid_Tutorial", typeof(IslandGrid));
+    public static IslandGrid Grid_Factory = (IslandGrid)Resources.Load("Grid_FactoryWorld", typeof(IslandGrid));
+    public static IslandGrid Grid_Ballista = (IslandGrid)Resources.Load("Grid_BallistaWorld", typeof(IslandGrid));
+    public static IslandGrid Grid_TerrainPark = (IslandGrid)Resources.Load("Grid_TerrainPark", typeof(IslandGrid));
+    public static IslandGrid Grid_VolcanoRun = (IslandGrid)Resources.Load("Grid_VolcanoRun", typeof(IslandGrid));
+    public static IslandGrid Grid_WinterFortress = (IslandGrid)Resources.Load("Grid_WinterFortress", typeof(IslandGrid));
+    public static IslandGrid Grid = (IslandGrid)Resources.Load("Grid", typeof(IslandGrid));
     public static Cell Cell = (Cell)Resources.Load("Cell", typeof(Cell));
     public static IslandPiece IslandPiece = (IslandPiece)Resources.Load("IslandPiece", typeof(IslandPiece));
     public static AreaAttack AreaAttack = (AreaAttack)Resources.Load("AreaAttack", typeof(AreaAttack));

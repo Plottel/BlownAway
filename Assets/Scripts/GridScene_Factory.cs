@@ -12,7 +12,7 @@ public class GridScene_Factory : GridScene
     private List<Cell> _seLift;
     private List<Cell> _allLifts;
 
-    public GridScene_Factory(Grid grid) : base(grid)
+    public GridScene_Factory(IslandGrid grid) : base(grid)
     {
         _nwLift = grid.CellsWithLabel("nwlift");
         _swLift = grid.CellsWithLabel("swlift");
@@ -61,7 +61,7 @@ public class GridScene_Factory : GridScene
         base.Play();
     }
 
-    private void MoveLifts1(Grid grid, params object[] args)
+    private void MoveLifts1(IslandGrid grid, params object[] args)
     {
         for (int i = 0; i < 4; ++i)
         {
@@ -79,7 +79,7 @@ public class GridScene_Factory : GridScene
         }
     }
 
-    private void MoveLifts2(Grid grid, params object[] args)
+    private void MoveLifts2(IslandGrid grid, params object[] args)
     {
         for (int i = 0; i < 4; ++i)
         {
@@ -97,7 +97,7 @@ public class GridScene_Factory : GridScene
         }
     }
 
-    private void MovePatrolFan(Grid grid, params object[] args)
+    private void MovePatrolFan(IslandGrid grid, params object[] args)
     {
         for (int i = 0; i <= 2; ++i) // Don't loop for last element since it needs to go towards index 0
             MovePieceTo(_patrolFanCells[i], _patrolFanCells[i + 1], false);
@@ -123,7 +123,7 @@ public class GridScene_Factory : GridScene
             _patrolFanCells[0].islandPiece.transform.SetParent(_patrolFanCells[0].transform);
     }
 
-    private void RotatePatrolFan(Grid grid, params object[] args)
+    private void RotatePatrolFan(IslandGrid grid, params object[] args)
     {
         foreach (Cell c in _patrolFanCells)
             c.transform.eulerAngles = c.transform.eulerAngles + new Vector3(0, 90, 0);
@@ -136,11 +136,11 @@ public class GridScene_Factory : GridScene
             from.islandPiece.SetPath(to.transform.position, GridCon.ISLAND_SPEED, true);
 
             if (shake)
-                GridCon.ShakeCell(from, 20, Grid.SHAKE_SPEED, Grid.SHAKE_DISTANCE);
+                GridCon.ShakeCell(from, 20, IslandGrid.SHAKE_SPEED, IslandGrid.SHAKE_DISTANCE);
         }
     }
 
-    private void SetTerrainRotation(Grid grid, params object[] args)
+    private void SetTerrainRotation(IslandGrid grid, params object[] args)
     {
         if (args.Length != 2)
             Debug.LogError(args.Length + " args passed instead of 2 to SetTerrainRotation");

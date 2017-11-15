@@ -5,7 +5,7 @@ using UnityEditor;
 using System.Linq;
 using System;
 
-[CustomEditor(typeof(Grid))]
+[CustomEditor(typeof(IslandGrid))]
 public class GridEditor : Editor
 {
     [SerializeField]
@@ -22,7 +22,7 @@ public class GridEditor : Editor
         Rows = EditorGUILayout.IntSlider("Rows", Rows, 0, 100);
 
         // Store target object to work with.
-        Grid grid = (Grid)target;
+        IslandGrid grid = (IslandGrid)target;
 
         // IMPORTANT:
         // Ensures editor changes persist in play mode
@@ -168,7 +168,7 @@ public class GridEditor : Editor
 
     }
 
-    public void UpdateGridSize(Grid grid)
+    public void UpdateGridSize(IslandGrid grid)
     {      
         int colsToAdd = Cols - grid.Cols;
 

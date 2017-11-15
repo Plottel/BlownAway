@@ -24,7 +24,7 @@ public class GridScene_Ballistas : GridScene
     private List<Cell> _finalStageHoles = new List<Cell>();
     private List<Cell> _finalStageSpikyBushCells = new List<Cell>();
 
-    public GridScene_Ballistas(Grid grid) : base(grid)
+    public GridScene_Ballistas(IslandGrid grid) : base(grid)
     {
         int midCols = (int)Mathf.Floor(grid.Cols / 2);
         int midRows = (int)Mathf.Floor(grid.Rows / 2);
@@ -153,7 +153,7 @@ public class GridScene_Ballistas : GridScene
         EnqueueMove(GridCon.RestoreEmptyCellMultiple, 1 * SPEED_SCALE, _leftWholeChunk);
     }
 
-    private void FinalStagePopulateRightHalf(Grid grid, params object[] args)
+    private void FinalStagePopulateRightHalf(IslandGrid grid, params object[] args)
     {
         if (args.Length != 0)
             Debug.LogError(args.Length + " args passed instead of 0");
@@ -163,7 +163,7 @@ public class GridScene_Ballistas : GridScene
         GridCon.ChangeCellTerrainMultiple(grid, _finalStageSpikyBushCells, TerrainType.SpikyBush);
     }
 
-    private void FinalStageClearRightHalf(Grid grid, params object[] args)
+    private void FinalStageClearRightHalf(IslandGrid grid, params object[] args)
     {
         GridCon.ChangeCellTerrain(grid, _midOfRightHalf, TerrainType.None);
         GridCon.RestoreEmptyCellMultiple(grid, _finalStageHoles);

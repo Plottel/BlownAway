@@ -9,12 +9,12 @@ public class SpawnPointer : MonoBehaviour {
 	public string PlayerNum = "P3";
 	public float MovementSpeed = 0.5f;
 	public Transform Target = null;
-	public Grid grid;
+	public IslandGrid grid;
     public bool isPartOfUltimate = false;
 
 	void Start()
 	{
-		grid = FindObjectOfType<Grid>();
+		grid = FindObjectOfType<IslandGrid>();
 	}
 
 	public bool ManualUpdate () {
@@ -33,7 +33,7 @@ public class SpawnPointer : MonoBehaviour {
 			}
 
 			if (grid == null)
-				grid = FindObjectOfType<Grid> ();
+				grid = FindObjectOfType<IslandGrid> ();
 
 			//Set my position and rotation to that of the player, with the height of the grid.
 			transform.position = new Vector3 (Target.position.x, grid.transform.position.y, Target.position.z);

@@ -34,7 +34,7 @@
 	Frame               : #2E2E2E   : Border   
 	Window              : #4C4A48   : Main     
 	Details             : #2E2E2E   : Border   
-	Cursor              : #FFE200  
+	Cursor              : #79E200  
 	Selection           : #48629D   : 1.5
 	Curve               : #535353   : Highlight : 1.5
 	CurveBackground     : #1B1B1B   : Border    : 0.5

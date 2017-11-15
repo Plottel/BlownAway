@@ -20,7 +20,7 @@ public class Volcano : IslandTerrain {
 
 	// Use this for initialization
 	void Start () {
-        Grid grid = transform.parent.parent.parent.gameObject.GetComponent<Grid>();
+        IslandGrid grid = transform.parent.parent.parent.gameObject.GetComponent<IslandGrid>();
         Cell cell = transform.parent.parent.gameObject.GetComponent<Cell>();
         _cell = cell;
 

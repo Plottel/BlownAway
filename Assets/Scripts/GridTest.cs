@@ -7,7 +7,7 @@ using System.Linq;
 public class GridTest : MonoBehaviour
 {
     [SerializeField]
-    public Grid grid;
+    public IslandGrid grid;
     private GridScene _scene;
 
     private List<Player> _players;
@@ -25,7 +25,7 @@ public class GridTest : MonoBehaviour
         Debug.Log("PLAYER COUNT" + _players.Count);
 
         Debug.Log("START WAS CALLED");
-        grid = FindObjectOfType<Grid>();
+        grid = FindObjectOfType<IslandGrid>();
 
         _scene = new GridScene_Tutorial(grid);
         //_scene = new GridScene_Ballista_Arena(grid);
@@ -61,7 +61,7 @@ public class GridTest : MonoBehaviour
         return System.Math.Pow(A, 1.0 / N);
     }
 
-    private void ApplyGridHeightMap(Grid grid, List<Cell>[] heightMap, float heightChangePower)
+    private void ApplyGridHeightMap(IslandGrid grid, List<Cell>[] heightMap, float heightChangePower)
     {
         foreach (List<Cell> square in heightMap)
         {
@@ -76,7 +76,7 @@ public class GridTest : MonoBehaviour
         }
     }
 
-    private void GenerateAndApplyGridHeightMap(Grid grid)
+    private void GenerateAndApplyGridHeightMap(IslandGrid grid)
     {
         // We only have 3 partition cycles because our grid is small....
         // Just run the height map a bunch of times to split those levels up into other levels

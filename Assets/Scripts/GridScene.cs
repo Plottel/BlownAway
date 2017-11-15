@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace UnityEngine
 {
-    public delegate void GridMove(Grid grid, params object[] args);
+    public delegate void GridMove(IslandGrid grid, params object[] args);
 }   
 
 public class GridScene
@@ -14,7 +14,7 @@ public class GridScene
 
     public Text tutText;
 
-    public Grid _grid;
+    public IslandGrid _grid;
     private Queue<GridMove> _moves;
     private Queue<float> _moveDelays;
     private Queue<object[]> _args;
@@ -39,7 +39,7 @@ public class GridScene
         }
     }
 
-    public GridScene(Grid grid)
+    public GridScene(IslandGrid grid)
     {
         _grid = grid;
         _moves = new Queue<GridMove>();
