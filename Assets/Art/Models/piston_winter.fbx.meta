@@ -1,0 +1,247 @@
+fileFormatVersion: 2
+guid: 707006c7a37d7a345ab109ccac0c7933
+timeCreated: 1510748147
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Box
+    100002: Box.001
+    100004: Cylinder
+    100006: Cylinder.001
+    100008: Cylinder.002
+    100010: Cylinder.003
+    100012: Cylinder.004
+    100014: Cylinder.005
+    100016: //RootNode
+    100018: PistonInner
+    100020: PistonOuter.001
+    100022: Plate
+    100024: Plate.001
+    100026: Plate.002
+    100028: Plate.003
+    100030: Plate.004
+    100032: Plate.005
+    100034: Plate.006
+    100036: Sphere
+    100038: Sphere.001
+    100040: Sphere.002
+    100042: Sphere.003
+    100044: Sphere.004
+    100046: Spike
+    100048: Spike.001
+    100050: Spike.002
+    100052: Spike.003
+    400000: Box
+    400002: Box.001
+    400004: Cylinder
+    400006: Cylinder.001
+    400008: Cylinder.002
+    400010: Cylinder.003
+    400012: Cylinder.004
+    400014: Cylinder.005
+    400016: //RootNode
+    400018: PistonInner
+    400020: PistonOuter.001
+    400022: Plate
+    400024: Plate.001
+    400026: Plate.002
+    400028: Plate.003
+    400030: Plate.004
+    400032: Plate.005
+    400034: Plate.006
+    400036: Sphere
+    400038: Sphere.001
+    400040: Sphere.002
+    400042: Sphere.003
+    400044: Sphere.004
+    400046: Spike
+    400048: Spike.001
+    400050: Spike.002
+    400052: Spike.003
+    2300000: Box
+    2300002: Box.001
+    2300004: Cylinder
+    2300006: Cylinder.001
+    2300008: Cylinder.002
+    2300010: Cylinder.003
+    2300012: Cylinder.004
+    2300014: Cylinder.005
+    2300016: PistonInner
+    2300018: PistonOuter.001
+    2300020: Plate
+    2300022: Plate.001
+    2300024: Plate.002
+    2300026: Plate.003
+    2300028: Plate.004
+    2300030: Plate.005
+    2300032: Plate.006
+    2300034: Sphere
+    2300036: Sphere.001
+    2300038: Sphere.002
+    2300040: Sphere.003
+    2300042: Sphere.004
+    2300044: Spike
+    2300046: Spike.001
+    2300048: Spike.002
+    2300050: Spike.003
+    3300000: Box
+    3300002: Box.001
+    3300004: Cylinder
+    3300006: Cylinder.001
+    3300008: Cylinder.002
+    3300010: Cylinder.003
+    3300012: Cylinder.004
+    3300014: Cylinder.005
+    3300016: PistonInner
+    3300018: PistonOuter.001
+    3300020: Plate
+    3300022: Plate.001
+    3300024: Plate.002
+    3300026: Plate.003
+    3300028: Plate.004
+    3300030: Plate.005
+    3300032: Plate.006
+    3300034: Sphere
+    3300036: Sphere.001
+    3300038: Sphere.002
+    3300040: Sphere.003
+    3300042: Sphere.004
+    3300044: Spike
+    3300046: Spike.001
+    3300048: Spike.002
+    3300050: Spike.003
+    4300000: Sphere.004
+    4300002: Sphere.003
+    4300004: Sphere.002
+    4300006: Sphere.001
+    4300008: Box.001
+    4300010: Cylinder.005
+    4300012: Cylinder.004
+    4300014: Cylinder.003
+    4300016: Cylinder.002
+    4300018: Sphere
+    4300020: Cylinder.001
+    4300022: Cylinder
+    4300024: Plate.006
+    4300026: Plate.005
+    4300028: Plate.004
+    4300030: Plate.003
+    4300032: Plate.002
+    4300034: Plate.001
+    4300036: Spike.003
+    4300038: Spike.002
+    4300040: Spike.001
+    4300042: Spike
+    4300044: Plate
+    4300046: PistonInner
+    4300048: PistonOuter.001
+    4300050: Box
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Copper
+    second: {fileID: 2100000, guid: 2d3fb96152e144bb5aca822b3fe57198, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 39bc5b9d407954bf1b3eb1520571c8da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RoughPlate
+    second: {fileID: 2100000, guid: 129853c71c76643768af7110d5e93bba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snow
+    second: {fileID: 2100000, guid: 8a6354caaac7943f1bd957ca455e0e77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone
+    second: {fileID: 2100000, guid: 396b7f9551df340c5bf59b426fcb6a90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Timber
+    second: {fileID: 2100000, guid: d0af93ee6414e4213a43109a2e41a586, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

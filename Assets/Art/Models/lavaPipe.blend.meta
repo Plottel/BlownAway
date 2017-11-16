@@ -3,7 +3,7 @@ guid: 828252655398d4e3bb0e03d62f087dc5
 timeCreated: 1506927752
 licenseType: Pro
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Bolt
     100002: Bolt_001
@@ -51,6 +51,28 @@ ModelImporter:
     100086: Plate
     100088: Sphere
     100090: Sphere_001
+    100092: BobendLeft
+    100094: BobendLower
+    100096: BobendRight
+    100098: BobendUpper
+    100100: Dirt
+    100102: Dirt10
+    100104: Dirt2
+    100106: Dirt3
+    100108: Dirt4
+    100110: Dirt5
+    100112: Dirt6
+    100114: Dirt7
+    100116: Dirt8
+    100118: Dirt9
+    100120: LPourBlack1
+    100122: LPourBlack2
+    100124: LPourBlack3
+    100126: LPourOrange1
+    100128: LPourOrange2
+    100130: LPourRed1
+    100132: LPourRed2
+    100134: LPourRed3
     400000: Bolt
     400002: Bolt_001
     400004: Bolt_002
@@ -97,6 +119,28 @@ ModelImporter:
     400086: Plate
     400088: Sphere
     400090: Sphere_001
+    400092: BobendLeft
+    400094: BobendLower
+    400096: BobendRight
+    400098: BobendUpper
+    400100: Dirt
+    400102: Dirt10
+    400104: Dirt2
+    400106: Dirt3
+    400108: Dirt4
+    400110: Dirt5
+    400112: Dirt6
+    400114: Dirt7
+    400116: Dirt8
+    400118: Dirt9
+    400120: LPourBlack1
+    400122: LPourBlack2
+    400124: LPourBlack3
+    400126: LPourOrange1
+    400128: LPourOrange2
+    400130: LPourRed1
+    400132: LPourRed2
+    400134: LPourRed3
     2300000: Bolt
     2300002: Bolt_001
     2300004: Bolt_002
@@ -142,6 +186,28 @@ ModelImporter:
     2300084: Plate
     2300086: Sphere
     2300088: Sphere_001
+    2300090: BobendLeft
+    2300092: BobendLower
+    2300094: BobendRight
+    2300096: BobendUpper
+    2300098: Dirt
+    2300100: Dirt10
+    2300102: Dirt2
+    2300104: Dirt3
+    2300106: Dirt4
+    2300108: Dirt5
+    2300110: Dirt6
+    2300112: Dirt7
+    2300114: Dirt8
+    2300116: Dirt9
+    2300118: LPourBlack1
+    2300120: LPourBlack2
+    2300122: LPourBlack3
+    2300124: LPourOrange1
+    2300126: LPourOrange2
+    2300128: LPourRed1
+    2300130: LPourRed2
+    2300132: LPourRed3
     3300000: Bolt
     3300002: Bolt_001
     3300004: Bolt_002
@@ -187,6 +253,28 @@ ModelImporter:
     3300084: Plate
     3300086: Sphere
     3300088: Sphere_001
+    3300090: BobendLeft
+    3300092: BobendLower
+    3300094: BobendRight
+    3300096: BobendUpper
+    3300098: Dirt
+    3300100: Dirt10
+    3300102: Dirt2
+    3300104: Dirt3
+    3300106: Dirt4
+    3300108: Dirt5
+    3300110: Dirt6
+    3300112: Dirt7
+    3300114: Dirt8
+    3300116: Dirt9
+    3300118: LPourBlack1
+    3300120: LPourBlack2
+    3300122: LPourBlack3
+    3300124: LPourOrange1
+    3300126: LPourOrange2
+    3300128: LPourRed1
+    3300130: LPourRed2
+    3300132: LPourRed3
     4300000: Icosphere_021
     4300002: Icosphere_020
     4300004: Icosphere_019
@@ -232,28 +320,91 @@ ModelImporter:
     4300084: LavaBlack
     4300086: LavaOrange
     4300088: LavaRed
+    4300090: LPourRed3
+    4300092: LPourRed2
+    4300094: LPourRed1
+    4300096: LPourOrange2
+    4300098: LPourOrange1
+    4300100: LPourBlack3
+    4300102: LPourBlack2
+    4300104: LPourBlack1
+    4300106: BobendRight
+    4300108: BobendLeft
+    4300110: BobendLower
+    4300112: BobendUpper
+    4300114: Dirt10
+    4300116: Dirt9
+    4300118: Dirt8
+    4300120: Dirt7
+    4300122: Dirt6
+    4300124: Dirt5
+    4300126: Dirt4
+    4300128: Dirt3
+    4300130: Dirt2
+    4300132: Dirt
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackLava
+    second: {fileID: 2100000, guid: 5d3a560949da04e3784ee1299d17fb1b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bolt
+    second: {fileID: 2100000, guid: 0230a3cc0dbc0476ead69952e24ea0d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bronze
+    second: {fileID: 2100000, guid: c23c985ec4b894b22a01fdc225ca4c17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dirt
+    second: {fileID: 2100000, guid: 7520f38b73e1341abbab3ad5a9ad1137, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 39bc5b9d407954bf1b3eb1520571c8da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OrangeLava
+    second: {fileID: 2100000, guid: 630142261bf844ab281b2ae8b2f864d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RedLava
+    second: {fileID: 2100000, guid: 372dfed511b724c8eaa571262a532769, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -261,7 +412,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -277,6 +431,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

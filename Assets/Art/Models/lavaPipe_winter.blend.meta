@@ -3,7 +3,7 @@ guid: 9deefeca414ba495ab792e2013cdad8d
 timeCreated: 1507524665
 licenseType: Pro
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Bolt
     100002: Bolt_001
@@ -62,6 +62,36 @@ ModelImporter:
     100108: Plate
     100110: Sphere
     100112: Sphere_001
+    100114: BobendRight
+    100116: BobendRight_001
+    100118: SnowCap1
+    100120: SnowCapTop
+    100122: SnowGround1
+    100124: SnowGround2
+    100126: SnowGround3
+    100128: SnowLeft
+    100130: Bobend1
+    100132: Bobend2
+    100134: Bobend3
+    100136: Bobend4
+    100138: Dirt1
+    100140: Dirt10
+    100142: Dirt2
+    100144: Dirt3
+    100146: Dirt4
+    100148: Dirt5
+    100150: Dirt6
+    100152: Dirt7
+    100154: Dirt8
+    100156: Dirt9
+    100158: LavaFlow1B
+    100160: LavaFlow1O
+    100162: LavaFlow1R
+    100164: LavaFlow2B
+    100166: LavaFlow2O
+    100168: LavaFlow2R
+    100170: LavaFlow3B
+    100172: LavaFlow3R
     400000: Bolt
     400002: Bolt_001
     400004: Bolt_002
@@ -119,6 +149,36 @@ ModelImporter:
     400108: Plate
     400110: Sphere
     400112: Sphere_001
+    400114: BobendRight
+    400116: BobendRight_001
+    400118: SnowCap1
+    400120: SnowCapTop
+    400122: SnowGround1
+    400124: SnowGround2
+    400126: SnowGround3
+    400128: SnowLeft
+    400130: Bobend1
+    400132: Bobend2
+    400134: Bobend3
+    400136: Bobend4
+    400138: Dirt1
+    400140: Dirt10
+    400142: Dirt2
+    400144: Dirt3
+    400146: Dirt4
+    400148: Dirt5
+    400150: Dirt6
+    400152: Dirt7
+    400154: Dirt8
+    400156: Dirt9
+    400158: LavaFlow1B
+    400160: LavaFlow1O
+    400162: LavaFlow1R
+    400164: LavaFlow2B
+    400166: LavaFlow2O
+    400168: LavaFlow2R
+    400170: LavaFlow3B
+    400172: LavaFlow3R
     2300000: Bolt
     2300002: Bolt_001
     2300004: Bolt_002
@@ -175,6 +235,36 @@ ModelImporter:
     2300106: Plate
     2300108: Sphere
     2300110: Sphere_001
+    2300112: BobendRight
+    2300114: BobendRight_001
+    2300116: SnowCap1
+    2300118: SnowCapTop
+    2300120: SnowGround1
+    2300122: SnowGround2
+    2300124: SnowGround3
+    2300126: SnowLeft
+    2300128: Bobend1
+    2300130: Bobend2
+    2300132: Bobend3
+    2300134: Bobend4
+    2300136: Dirt1
+    2300138: Dirt10
+    2300140: Dirt2
+    2300142: Dirt3
+    2300144: Dirt4
+    2300146: Dirt5
+    2300148: Dirt6
+    2300150: Dirt7
+    2300152: Dirt8
+    2300154: Dirt9
+    2300156: LavaFlow1B
+    2300158: LavaFlow1O
+    2300160: LavaFlow1R
+    2300162: LavaFlow2B
+    2300164: LavaFlow2O
+    2300166: LavaFlow2R
+    2300168: LavaFlow3B
+    2300170: LavaFlow3R
     3300000: Bolt
     3300002: Bolt_001
     3300004: Bolt_002
@@ -231,6 +321,36 @@ ModelImporter:
     3300106: Plate
     3300108: Sphere
     3300110: Sphere_001
+    3300112: BobendRight
+    3300114: BobendRight_001
+    3300116: SnowCap1
+    3300118: SnowCapTop
+    3300120: SnowGround1
+    3300122: SnowGround2
+    3300124: SnowGround3
+    3300126: SnowLeft
+    3300128: Bobend1
+    3300130: Bobend2
+    3300132: Bobend3
+    3300134: Bobend4
+    3300136: Dirt1
+    3300138: Dirt10
+    3300140: Dirt2
+    3300142: Dirt3
+    3300144: Dirt4
+    3300146: Dirt5
+    3300148: Dirt6
+    3300150: Dirt7
+    3300152: Dirt8
+    3300154: Dirt9
+    3300156: LavaFlow1B
+    3300158: LavaFlow1O
+    3300160: LavaFlow1R
+    3300162: LavaFlow2B
+    3300164: LavaFlow2O
+    3300166: LavaFlow2R
+    3300168: LavaFlow3B
+    3300170: LavaFlow3R
     4300000: Cone
     4300002: Icosphere_029
     4300004: Cylinder_014
@@ -287,28 +407,109 @@ ModelImporter:
     4300106: LavaBlack
     4300108: LavaOrange
     4300110: LavaRed
+    4300112: SnowGround1
+    4300114: SnowCap1
+    4300116: SnowLeft
+    4300118: BobendRight_001
+    4300120: BobendRight
+    4300122: SnowCapTop
+    4300124: SnowGround2
+    4300126: SnowGround3
+    4300128: LavaFlow3R
+    4300130: LavaFlow2R
+    4300132: LavaFlow1R
+    4300134: LavaFlow2O
+    4300136: LavaFlow1O
+    4300138: LavaFlow3B
+    4300140: LavaFlow2B
+    4300142: LavaFlow1B
+    4300144: Bobend4
+    4300146: Bobend3
+    4300148: Bobend2
+    4300150: Bobend1
+    4300152: Dirt10
+    4300154: Dirt9
+    4300156: Dirt8
+    4300158: Dirt7
+    4300160: Dirt6
+    4300162: Dirt5
+    4300164: Dirt4
+    4300166: Dirt3
+    4300168: Dirt2
+    4300170: Dirt1
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackLava
+    second: {fileID: 2100000, guid: 5d3a560949da04e3784ee1299d17fb1b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bolt
+    second: {fileID: 2100000, guid: 0230a3cc0dbc0476ead69952e24ea0d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bronze
+    second: {fileID: 2100000, guid: c23c985ec4b894b22a01fdc225ca4c17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dirt
+    second: {fileID: 2100000, guid: 7520f38b73e1341abbab3ad5a9ad1137, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 891080ae1221c49789969570da1cb521, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 39bc5b9d407954bf1b3eb1520571c8da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OrangeLava
+    second: {fileID: 2100000, guid: 630142261bf844ab281b2ae8b2f864d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RedLava
+    second: {fileID: 2100000, guid: 372dfed511b724c8eaa571262a532769, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snow
+    second: {fileID: 2100000, guid: 8a6354caaac7943f1bd957ca455e0e77, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -316,7 +517,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -332,6 +536,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: edb88a5589e4b48b7b52c484f026592b
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     100002: Icosphere
@@ -13,6 +13,10 @@ ModelImporter:
     100014: Icosphere_006
     100016: Icosphere_007
     100018: Icosphere_008
+    100020: Cloudb1
+    100022: Cloudb2
+    100024: Cloudb3
+    100026: Cloudb4
     400000: //RootNode
     400002: Icosphere
     400004: Icosphere_001
@@ -23,6 +27,10 @@ ModelImporter:
     400014: Icosphere_006
     400016: Icosphere_007
     400018: Icosphere_008
+    400020: Cloudb1
+    400022: Cloudb2
+    400024: Cloudb3
+    400026: Cloudb4
     2300000: Icosphere
     2300002: Icosphere_001
     2300004: Icosphere_002
@@ -32,6 +40,10 @@ ModelImporter:
     2300012: Icosphere_006
     2300014: Icosphere_007
     2300016: Icosphere_008
+    2300018: Cloudb1
+    2300020: Cloudb2
+    2300022: Cloudb3
+    2300024: Cloudb4
     3300000: Icosphere
     3300002: Icosphere_001
     3300004: Icosphere_002
@@ -41,6 +53,10 @@ ModelImporter:
     3300012: Icosphere_006
     3300014: Icosphere_007
     3300016: Icosphere_008
+    3300018: Cloudb1
+    3300020: Cloudb2
+    3300022: Cloudb3
+    3300024: Cloudb4
     4300000: Icosphere_008
     4300002: Icosphere_007
     4300004: Icosphere_006
@@ -50,12 +66,23 @@ ModelImporter:
     4300012: Icosphere_002
     4300014: Icosphere_001
     4300016: Icosphere
+    4300018: Cloudb4
+    4300020: Cloudb3
+    4300022: Cloudb2
+    4300024: Cloudb1
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CloudWhite
+    second: {fileID: 2100000, guid: a8d678efaf3e548688d41962c359283b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -68,12 +95,14 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -81,7 +110,10 @@ ModelImporter:
     globalScale: 0
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -97,6 +129,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
