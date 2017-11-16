@@ -10,15 +10,15 @@ public class MultiplayerController : MonoBehaviour {
 	public GameObject PlayerPrefab;
 	public GameObject EggPrefab;
 	public GameObject PlayerIconPrefab;
-	private bool[] ActivePlayers = new bool[4];
+	public bool[] ActivePlayers = new bool[4];
 	public int StartingLives = 4;
 	private int MaxLives = 10;
 	private int[] Lives = new int[4];
-	private int Paused = -1;
+	private int Paused = -1;			//Who paused the game.
 	public GameObject SpawnPointer;
-	private Egg[] Eggs = new Egg[4];
+	public Egg[] Eggs = new Egg[4];
 	private SpawnPointer[] SP = new SpawnPointer[4];
-    private bool[] InGame = new bool[4]; //true from when the egg is falling until the player is dead.
+	public bool[] InGame = new bool[4]; //true from when the egg is falling until the player is dead.
 	private int[] SpawnTimer = new int[4];
 	public GameObject PauseMenuPrefab;
 	public GameObject VictoryPrefab;
