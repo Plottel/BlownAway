@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: a1b9ed6b89c3c4af0bf6af299db07d9d
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     100002: Icosphere
@@ -11,6 +11,13 @@ ModelImporter:
     100010: Icosphere_004
     100012: Icosphere_005
     100014: Icosphere_006
+    100016: Clouda1
+    100018: Clouda2
+    100020: Clouda3
+    100022: Clouda4
+    100024: Clouda5
+    100026: Clouda6
+    100028: Clouda7
     400000: //RootNode
     400002: Icosphere
     400004: Icosphere_001
@@ -19,6 +26,13 @@ ModelImporter:
     400010: Icosphere_004
     400012: Icosphere_005
     400014: Icosphere_006
+    400016: Clouda1
+    400018: Clouda2
+    400020: Clouda3
+    400022: Clouda4
+    400024: Clouda5
+    400026: Clouda6
+    400028: Clouda7
     2300000: Icosphere
     2300002: Icosphere_001
     2300004: Icosphere_002
@@ -26,6 +40,13 @@ ModelImporter:
     2300008: Icosphere_004
     2300010: Icosphere_005
     2300012: Icosphere_006
+    2300014: Clouda1
+    2300016: Clouda2
+    2300018: Clouda3
+    2300020: Clouda4
+    2300022: Clouda5
+    2300024: Clouda6
+    2300026: Clouda7
     3300000: Icosphere
     3300002: Icosphere_001
     3300004: Icosphere_002
@@ -33,6 +54,13 @@ ModelImporter:
     3300008: Icosphere_004
     3300010: Icosphere_005
     3300012: Icosphere_006
+    3300014: Clouda1
+    3300016: Clouda2
+    3300018: Clouda3
+    3300020: Clouda4
+    3300022: Clouda5
+    3300024: Clouda6
+    3300026: Clouda7
     4300000: Icosphere_006
     4300002: Icosphere_005
     4300004: Icosphere_004
@@ -40,12 +68,26 @@ ModelImporter:
     4300008: Icosphere_002
     4300010: Icosphere_001
     4300012: Icosphere
+    4300014: Clouda7
+    4300016: Clouda6
+    4300018: Clouda5
+    4300020: Clouda4
+    4300022: Clouda3
+    4300024: Clouda1
+    4300026: Clouda2
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CloudWhite
+    second: {fileID: 2100000, guid: a8d678efaf3e548688d41962c359283b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -58,12 +100,14 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -71,7 +115,10 @@ ModelImporter:
     globalScale: 0
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -87,6 +134,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

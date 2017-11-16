@@ -1,0 +1,182 @@
+fileFormatVersion: 2
+guid: 8d379b9100a1f324d84a0881a4e6b786
+timeCreated: 1510748435
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Leaves
+    100002: Leaves.001
+    100004: Leaves1
+    100006: Leaves1.001
+    100008: leaves2
+    100010: leaves2.001
+    100012: leaves3
+    100014: leaves3.001
+    100016: leaves4
+    100018: leaves4.001
+    100020: leaves5
+    100022: leaves5.001
+    100024: leaves6
+    100026: leaves6.001
+    100028: Tree
+    100030: Tree.001
+    100032: //RootNode
+    400000: Leaves
+    400002: Leaves.001
+    400004: Leaves1
+    400006: Leaves1.001
+    400008: leaves2
+    400010: leaves2.001
+    400012: leaves3
+    400014: leaves3.001
+    400016: leaves4
+    400018: leaves4.001
+    400020: leaves5
+    400022: leaves5.001
+    400024: leaves6
+    400026: leaves6.001
+    400028: Tree
+    400030: Tree.001
+    400032: //RootNode
+    2300000: Leaves
+    2300002: Leaves.001
+    2300004: Leaves1
+    2300006: Leaves1.001
+    2300008: leaves2
+    2300010: leaves2.001
+    2300012: leaves3
+    2300014: leaves3.001
+    2300016: leaves4
+    2300018: leaves4.001
+    2300020: leaves5
+    2300022: leaves5.001
+    2300024: leaves6
+    2300026: leaves6.001
+    2300028: Tree
+    2300030: Tree.001
+    3300000: Leaves
+    3300002: Leaves.001
+    3300004: Leaves1
+    3300006: Leaves1.001
+    3300008: leaves2
+    3300010: leaves2.001
+    3300012: leaves3
+    3300014: leaves3.001
+    3300016: leaves4
+    3300018: leaves4.001
+    3300020: leaves5
+    3300022: leaves5.001
+    3300024: leaves6
+    3300026: leaves6.001
+    3300028: Tree
+    3300030: Tree.001
+    4300000: Tree.001
+    4300002: Leaves1.001
+    4300004: Leaves.001
+    4300006: leaves2.001
+    4300008: leaves3.001
+    4300010: leaves4.001
+    4300012: leaves5.001
+    4300014: leaves6.001
+    4300016: leaves6
+    4300018: leaves5
+    4300020: leaves4
+    4300022: leaves3
+    4300024: leaves2
+    4300026: Leaves1
+    4300028: Leaves
+    4300030: Tree
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bark
+    second: {fileID: 2100000, guid: 8df925597420a4504af5af9bd1b897f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leaf
+    second: {fileID: 2100000, guid: a1dd57f1dbf104a378ffe757e3f6ed72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snow
+    second: {fileID: 2100000, guid: 8a6354caaac7943f1bd957ca455e0e77, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

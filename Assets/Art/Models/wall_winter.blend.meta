@@ -3,7 +3,7 @@ guid: 1df52f1798e8c45e6874ba797f718690
 timeCreated: 1508305997
 licenseType: Pro
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Cone
     100002: Cube
@@ -17,6 +17,17 @@ ModelImporter:
     100018: Icosphere_002
     100020: Icosphere_003
     100022: //RootNode
+    100024: Crenelation
+    100026: LowerFrame
+    100028: MainBlock
+    100030: MidFrame
+    100032: Slant
+    100034: SnowFront
+    100036: SnowLeft
+    100038: SnowRight
+    100040: SnowTop
+    100042: UpperFrame
+    100044: WallIcicle
     400000: Cone
     400002: Cube
     400004: Cube_001
@@ -29,6 +40,17 @@ ModelImporter:
     400018: Icosphere_002
     400020: Icosphere_003
     400022: //RootNode
+    400024: Crenelation
+    400026: LowerFrame
+    400028: MainBlock
+    400030: MidFrame
+    400032: Slant
+    400034: SnowFront
+    400036: SnowLeft
+    400038: SnowRight
+    400040: SnowTop
+    400042: UpperFrame
+    400044: WallIcicle
     2300000: Cone
     2300002: Cube
     2300004: Cube_001
@@ -40,6 +62,17 @@ ModelImporter:
     2300016: Icosphere_001
     2300018: Icosphere_002
     2300020: Icosphere_003
+    2300022: Crenelation
+    2300024: LowerFrame
+    2300026: MainBlock
+    2300028: MidFrame
+    2300030: Slant
+    2300032: SnowFront
+    2300034: SnowLeft
+    2300036: SnowRight
+    2300038: SnowTop
+    2300040: UpperFrame
+    2300042: WallIcicle
     3300000: Cone
     3300002: Cube
     3300004: Cube_001
@@ -51,6 +84,17 @@ ModelImporter:
     3300016: Icosphere_001
     3300018: Icosphere_002
     3300020: Icosphere_003
+    3300022: Crenelation
+    3300024: LowerFrame
+    3300026: MainBlock
+    3300028: MidFrame
+    3300030: Slant
+    3300032: SnowFront
+    3300034: SnowLeft
+    3300036: SnowRight
+    3300038: SnowTop
+    3300040: UpperFrame
+    3300042: WallIcicle
     4300000: Cone
     4300002: Icosphere_003
     4300004: Icosphere_002
@@ -62,28 +106,65 @@ ModelImporter:
     4300016: Cube_002
     4300018: Cube_001
     4300020: Cube
+    4300022: WallIcicle
+    4300024: SnowRight
+    4300026: SnowLeft
+    4300028: SnowFront
+    4300030: SnowTop
+    4300032: LowerFrame
+    4300034: MidFrame
+    4300036: UpperFrame
+    4300038: Slant
+    4300040: Crenelation
+    4300042: MainBlock
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlueIce
+    second: {fileID: 2100000, guid: 5019e1afbef1546aaa573838a1dc6d3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Crenelation
+    second: {fileID: 2100000, guid: d00720148645d4494b92e3c6152bb5eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snow
+    second: {fileID: 2100000, guid: 8a6354caaac7943f1bd957ca455e0e77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone
+    second: {fileID: 2100000, guid: 396b7f9551df340c5bf59b426fcb6a90, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -91,7 +172,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -107,6 +191,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

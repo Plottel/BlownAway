@@ -3,7 +3,7 @@ guid: 68938be88614643269419a57b5138944
 timeCreated: 1507525482
 licenseType: Pro
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Cube
     100002: Cube_001
@@ -46,6 +46,26 @@ ModelImporter:
     100076: Icosphere_019
     100078: Icosphere_020
     100080: //RootNode
+    100082: Berrry7
+    100084: Berry
+    100086: Berry2
+    100088: Berry3
+    100090: Berry4
+    100092: Berry5
+    100094: Berry6
+    100096: Bush
+    100098: Bush1
+    100100: Bush2
+    100102: Bush3
+    100104: Bush4
+    100106: Bush5
+    100108: Bush6
+    100110: Snow1
+    100112: Snow2
+    100114: Snow3
+    100116: Snow4
+    100118: Snow5
+    100120: Snow6
     400000: Cube
     400002: Cube_001
     400004: Cube_002
@@ -87,6 +107,26 @@ ModelImporter:
     400076: Icosphere_019
     400078: Icosphere_020
     400080: //RootNode
+    400082: Berrry7
+    400084: Berry
+    400086: Berry2
+    400088: Berry3
+    400090: Berry4
+    400092: Berry5
+    400094: Berry6
+    400096: Bush
+    400098: Bush1
+    400100: Bush2
+    400102: Bush3
+    400104: Bush4
+    400106: Bush5
+    400108: Bush6
+    400110: Snow1
+    400112: Snow2
+    400114: Snow3
+    400116: Snow4
+    400118: Snow5
+    400120: Snow6
     2300000: Cube
     2300002: Cube_001
     2300004: Cube_002
@@ -127,6 +167,26 @@ ModelImporter:
     2300074: Icosphere_018
     2300076: Icosphere_019
     2300078: Icosphere_020
+    2300080: Berrry7
+    2300082: Berry
+    2300084: Berry2
+    2300086: Berry3
+    2300088: Berry4
+    2300090: Berry5
+    2300092: Berry6
+    2300094: Bush
+    2300096: Bush1
+    2300098: Bush2
+    2300100: Bush3
+    2300102: Bush4
+    2300104: Bush5
+    2300106: Bush6
+    2300108: Snow1
+    2300110: Snow2
+    2300112: Snow3
+    2300114: Snow4
+    2300116: Snow5
+    2300118: Snow6
     3300000: Cube
     3300002: Cube_001
     3300004: Cube_002
@@ -167,6 +227,26 @@ ModelImporter:
     3300074: Icosphere_018
     3300076: Icosphere_019
     3300078: Icosphere_020
+    3300080: Berrry7
+    3300082: Berry
+    3300084: Berry2
+    3300086: Berry3
+    3300088: Berry4
+    3300090: Berry5
+    3300092: Berry6
+    3300094: Bush
+    3300096: Bush1
+    3300098: Bush2
+    3300100: Bush3
+    3300102: Bush4
+    3300104: Bush5
+    3300106: Bush6
+    3300108: Snow1
+    3300110: Snow2
+    3300112: Snow3
+    3300114: Snow4
+    3300116: Snow5
+    3300118: Snow6
     4300000: Icosphere_020
     4300002: Icosphere_019
     4300004: Icosphere_018
@@ -207,28 +287,74 @@ ModelImporter:
     4300074: Icosphere_001
     4300076: Cube
     4300078: Icosphere
+    4300080: Snow6
+    4300082: Snow5
+    4300084: Snow4
+    4300086: Snow3
+    4300088: Snow2
+    4300090: Snow1
+    4300092: Bush6
+    4300094: Bush5
+    4300096: Bush4
+    4300098: Bush3
+    4300100: Bush2
+    4300102: Bush1
+    4300104: Berrry7
+    4300106: Berry6
+    4300108: Berry5
+    4300110: Berry4
+    4300112: Berry3
+    4300114: Berry2
+    4300116: Berry
+    4300118: Bush
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BerryRed
+    second: {fileID: 2100000, guid: ffd21d533ad84d54f90404d30d24ea0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bush
+    second: {fileID: 2100000, guid: 9360e4d1f348e0043bcde1f53a618788, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snow
+    second: {fileID: 2100000, guid: 8a6354caaac7943f1bd957ca455e0e77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VineBrown
+    second: {fileID: 2100000, guid: dcabb8e43c9e14cbd839a7f78a6caee6, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -236,7 +362,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -252,6 +381,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

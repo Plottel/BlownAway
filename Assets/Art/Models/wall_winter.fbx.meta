@@ -1,0 +1,162 @@
+fileFormatVersion: 2
+guid: 9f0cc65e935ee2b4491714a8051b9155
+timeCreated: 1510748435
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Crenelation
+    100002: LowerFrame
+    100004: MainBlock
+    100006: MidFrame
+    100008: Slant
+    100010: SnowFront
+    100012: SnowLeft
+    100014: SnowRight
+    100016: SnowTop
+    100018: UpperFrame
+    100020: //RootNode
+    100022: WallIcicle
+    400000: Crenelation
+    400002: LowerFrame
+    400004: MainBlock
+    400006: MidFrame
+    400008: Slant
+    400010: SnowFront
+    400012: SnowLeft
+    400014: SnowRight
+    400016: SnowTop
+    400018: UpperFrame
+    400020: //RootNode
+    400022: WallIcicle
+    2300000: Crenelation
+    2300002: LowerFrame
+    2300004: MainBlock
+    2300006: MidFrame
+    2300008: Slant
+    2300010: SnowFront
+    2300012: SnowLeft
+    2300014: SnowRight
+    2300016: SnowTop
+    2300018: UpperFrame
+    2300020: WallIcicle
+    3300000: Crenelation
+    3300002: LowerFrame
+    3300004: MainBlock
+    3300006: MidFrame
+    3300008: Slant
+    3300010: SnowFront
+    3300012: SnowLeft
+    3300014: SnowRight
+    3300016: SnowTop
+    3300018: UpperFrame
+    3300020: WallIcicle
+    4300000: WallIcicle
+    4300002: SnowRight
+    4300004: SnowLeft
+    4300006: SnowFront
+    4300008: SnowTop
+    4300010: LowerFrame
+    4300012: MidFrame
+    4300014: UpperFrame
+    4300016: Slant
+    4300018: Crenelation
+    4300020: MainBlock
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlueIce
+    second: {fileID: 2100000, guid: 5019e1afbef1546aaa573838a1dc6d3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Crenelation
+    second: {fileID: 2100000, guid: d00720148645d4494b92e3c6152bb5eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snow
+    second: {fileID: 2100000, guid: 8a6354caaac7943f1bd957ca455e0e77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone
+    second: {fileID: 2100000, guid: 396b7f9551df340c5bf59b426fcb6a90, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

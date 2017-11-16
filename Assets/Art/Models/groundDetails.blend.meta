@@ -3,7 +3,7 @@ guid: bf5920c99fbfd45f3b0dde88d1c6ca33
 timeCreated: 1507087699
 licenseType: Pro
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     100002: Icosphere
@@ -16,6 +16,16 @@ ModelImporter:
     100016: Icosphere_007
     100018: Icosphere_008
     100020: Icosphere_009
+    100022: Grassblade1
+    100024: Grassblade2
+    100026: Grassblade3
+    100028: Grassblade4
+    100030: Grassblade5
+    100032: Grassblade6
+    100034: Pebble1
+    100036: Pebble2
+    100038: Pebble3
+    100040: Pebble4
     400000: //RootNode
     400002: Icosphere
     400004: Icosphere_001
@@ -27,6 +37,16 @@ ModelImporter:
     400016: Icosphere_007
     400018: Icosphere_008
     400020: Icosphere_009
+    400022: Grassblade1
+    400024: Grassblade2
+    400026: Grassblade3
+    400028: Grassblade4
+    400030: Grassblade5
+    400032: Grassblade6
+    400034: Pebble1
+    400036: Pebble2
+    400038: Pebble3
+    400040: Pebble4
     2300000: Icosphere
     2300002: Icosphere_001
     2300004: Icosphere_002
@@ -37,6 +57,16 @@ ModelImporter:
     2300014: Icosphere_007
     2300016: Icosphere_008
     2300018: Icosphere_009
+    2300020: Grassblade1
+    2300022: Grassblade2
+    2300024: Grassblade3
+    2300026: Grassblade4
+    2300028: Grassblade5
+    2300030: Grassblade6
+    2300032: Pebble1
+    2300034: Pebble2
+    2300036: Pebble3
+    2300038: Pebble4
     3300000: Icosphere
     3300002: Icosphere_001
     3300004: Icosphere_002
@@ -47,6 +77,16 @@ ModelImporter:
     3300014: Icosphere_007
     3300016: Icosphere_008
     3300018: Icosphere_009
+    3300020: Grassblade1
+    3300022: Grassblade2
+    3300024: Grassblade3
+    3300026: Grassblade4
+    3300028: Grassblade5
+    3300030: Grassblade6
+    3300032: Pebble1
+    3300034: Pebble2
+    3300036: Pebble3
+    3300038: Pebble4
     4300000: Icosphere_009
     4300002: Icosphere_008
     4300004: Icosphere_007
@@ -57,28 +97,54 @@ ModelImporter:
     4300014: Icosphere_002
     4300016: Icosphere_001
     4300018: Icosphere
+    4300020: Pebble4
+    4300022: Grassblade6
+    4300024: Grassblade5
+    4300026: Grassblade4
+    4300028: Grassblade3
+    4300030: Grassblade2
+    4300032: Grassblade1
+    4300034: Pebble3
+    4300036: Pebble2
+    4300038: Pebble1
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrassBlade
+    second: {fileID: 2100000, guid: d24f224cbefa24c86a01416a635ebf5a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PebbleDark
+    second: {fileID: 2100000, guid: e21142f7e00dc4e78803d58b5bee2831, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -86,7 +152,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -102,6 +171,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
