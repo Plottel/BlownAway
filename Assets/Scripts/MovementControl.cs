@@ -30,6 +30,8 @@ public class MovementControl : MonoBehaviour {
 	public Ultimate Ultimate;
 	public float UltiCharge = 0.0f;
 
+	public bool InMenu = false;
+
 
     bool m_ulti_requested = false;
 
@@ -147,7 +149,7 @@ public class MovementControl : MonoBehaviour {
 
 		if (m_attack_direct) 
 		{
-            if (TicksSinceAttack > TicksPerAttack)
+			if (TicksSinceAttack > TicksPerAttack && InMenu == false)
             {
             	anim.SetBool ("isAttacking", true);
 
