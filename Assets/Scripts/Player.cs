@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
 	private Vector3 lastDir;
 	private bool usedJump;
     private int numJumps = 1;
+    private GameObject PE;
 
     bool isInAir = false;
 
@@ -33,8 +34,9 @@ public class Player : MonoBehaviour {
     private float _forceTweaker = 0.18f;
     public float Health;
 	public float UltimateCharge = 100;
+    public bool UltimateEffectOn;
 
-	public GameObject ChargeParticleEffect;
+    public GameObject ChargeParticleEffect;
 
 
 
@@ -50,8 +52,6 @@ public class Player : MonoBehaviour {
             forceToApply = 10 + force * exponent;
         else
             forceToApply = 100 + force * exponent;
-        //var forceToApply = (force * ((Health / 100) + 1));
-        //forceToApply = (forceToApply * forceToApply) * _forceTweaker;
 
         GetComponent<Rigidbody>().AddExplosionForce(forceToApply, position, 100f);
     }
@@ -65,7 +65,32 @@ public class Player : MonoBehaviour {
 			if (UltimateCharge > 100)
 				UltimateCharge = 100;
 		}
+        
+        if(UltimateCharge == 100)
+        {
+            if (!UltimateEffectOn)
+            {
+                UltimateOn();
+            }
+        }
 	}
+
+    // UltimateON and UltimateOff Are used to turn the Particle Effect
+    // for the Player's 'Ultimate Ready' state on/off
+    private void UltimateOn()
+    {
+        PE = Instantiate(Prefabs.GlowPE, transform);
+        UltimateEffectOn = true;
+    }
+
+
+    public void UltimateOff()
+    {
+        UltimateEffectOn = false;
+        UltimateCharge = 0;
+        if(PE)
+            Destroy(PE);
+    }
 
 	/// <summary>
 	/// Player Damage
@@ -86,9 +111,6 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-        
-//		gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePositionX;
-//		gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePositionZ;
 		if (dodging) 
 		{
 			dodgeStart = Time.time;
@@ -161,7 +183,6 @@ public class Player : MonoBehaviour {
 		transform.rotation = Quaternion.LookRotation( dirVector );
 
 		RaycastHit airborne;
-        //bool notInAir = Physics.Raycast (transform.position, Vector3.down, out airborne, groundCheckDistance);
         
         Debug.DrawRay (transform.position, Vector3.down, Color.red, groundCheckDistance);
 
@@ -177,29 +198,10 @@ public class Player : MonoBehaviour {
             gameObject.GetComponent<Rigidbody>().AddForce(direction * 7);
         else
             gameObject.GetComponent<Rigidbody>().AddForce(direction * 15);
-
-        //if (isInAir)
-        //    HandleAirborneMovement(direction);
-        //else
-        //    HandleGroundMovement(direction, dodge);
 	}
 
     void HandleAirborneMovement(Vector3 direction)
     {
-        Debug.Log("Airborne");
-        //var proposedVel = gameObject.GetComponent<Rigidbody>().velocity + (IncreaseAirMovementByFactorOf * direction);
-        //var vertV = proposedVel.y;
-        //proposedVel.y = 0;
-
-        //if (proposedVel.magnitude > MaxSpeed)
-        //{
-        //    proposedVel = proposedVel.normalized * MaxSpeed;
-        //}
-
-        //proposedVel.y = vertV;
-
-        //gameObject.GetComponent<Rigidbody>().velocity = proposedVel;
-
         direction = direction.normalized;
         direction *= JumpDist;
 
@@ -217,7 +219,6 @@ public class Player : MonoBehaviour {
         Debug.Log("Ground");
 
 		if (dodge && !dodging) {
-            //--numJumps;
             isInAir = true;
 			direction = direction.normalized; 
 			direction *= JumpDist;
@@ -244,8 +245,6 @@ public class Player : MonoBehaviour {
             if (col.gameObject.GetComponent<BoxCollider>().bounds.Intersects(GetComponent<CapsuleCollider>().bounds))
             {
                 transform.position += new Vector3(0, 0.01f, 0);
-                //if (transform.position.y < LevelManager.Instance.grid.transform.position.y + 0.35f)
-                    //transform.position += new Vector3(0, .2f, 0);
             }
         }
     }
@@ -259,7 +258,6 @@ public class Player : MonoBehaviour {
             if (ticksSinceLastLavaHit > ticksPerLavaHit)
             {
                 ticksSinceLastLavaHit = 0;
-                //Debug.Log("Lava poked me");
                 var PE = Instantiate(Prefabs.OnFirePE, transform);
                 Destroy(PE, 2f);
                 GetComponent<Rigidbody>().AddExplosionForce(6000f, transform.position, 100f);

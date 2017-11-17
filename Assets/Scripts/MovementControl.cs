@@ -94,7 +94,7 @@ public class MovementControl : MonoBehaviour {
             if (m_Character.UltimateCharge >= 100)
             {
 				m_attack_ultimate = false;
-                m_Character.UltimateCharge = 0;
+                m_Character.UltimateOff();
                 Debug.Log("Ultimate successfully attacked");
 				var attack = GameObject.Instantiate(Ultimate, gameObject.transform.position + new Vector3(0,10,0), gameObject.transform.localRotation);
                 attack.GetComponent<Rigidbody>().velocity += transform.forward * 3;
