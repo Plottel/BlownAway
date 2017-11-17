@@ -65,7 +65,7 @@ public class MovementControl : MonoBehaviour {
         m_attack_ultimate = false;
 
 
-        if (atk_down && jump_down)
+        if (atk_down && jump_down && m_Character.UltimateCharge >= 100)
         {
 			var chargePE = Instantiate (m_Character.ChargeParticleEffect, m_Character.transform);
 			Destroy (chargePE, 0.5f);
