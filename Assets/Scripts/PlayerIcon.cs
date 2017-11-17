@@ -40,12 +40,12 @@ public class PlayerIcon : MonoBehaviour {
 		if (transform.position.x > Screen.width) {
 			Debug.Log ("OutsideScreen Right");
 			//transform.position = new Vector3 (Screen.width - 100, transform.position.y, transform.position.z);
-			ChevronInstance.transform.position = new Vector3 (Screen.width - 100, ChevronInstance.transform.position.y, ChevronInstance.transform.position.z);
+			ChevronInstance.transform.position = new Vector3 (Screen.width - 100, transform.position.y, ChevronInstance.transform.position.z);
 			DesiredAngle = 270;
 			OffScreen = true;
 		} else if (transform.position.x < 0) {
 			Debug.Log ("OutsideScreen Left");
-			ChevronInstance.transform.position = new Vector3 (0 + 100, ChevronInstance.transform.position.y, ChevronInstance.transform.position.z);
+			ChevronInstance.transform.position = new Vector3 (0 + 100, transform.position.y, ChevronInstance.transform.position.z);
 			DesiredAngle = 90;
 			OffScreen = true;
 		}

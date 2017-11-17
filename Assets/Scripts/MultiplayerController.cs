@@ -21,11 +21,11 @@ public class MultiplayerController : MonoBehaviour {
 	public int StartingLives = 4;//OBSOlETE.
 	private int MaxLives = 10;//OBSOlETE.
 	private int[] Lives = new int[4];						//Lives for each player.
-	private int Paused = -1;			//Who paused the game.
+	private int Paused = -1;								//Who paused the game.
 	public GameObject SpawnPointer;
 	public Egg[] Eggs = new Egg[4];
 	private SpawnPointer[] SP = new SpawnPointer[4];
-	public bool[] InGame = new bool[4]; //true from when the egg is falling until the player is dead.
+	public bool[] InGame = new bool[4]; 					//true from when the egg is falling until the player is dead.
 	private int[] SpawnTimer = new int[4];
 	public GameObject PauseMenuPrefab;
 	public GameObject VictoryPrefab;
@@ -35,6 +35,8 @@ public class MultiplayerController : MonoBehaviour {
 	private int[] DeathCounters = new int[4];
 	public Vector3[] TutorialSpawnPositions = new Vector3[4];
 	public PlayerDetailsUIPlate[] Corners = new PlayerDetailsUIPlate[4];
+	public Text[] HeartNumbers = new Text[4];
+	public GameObject BrokenHeart;
 
 	public Vector3[] PlayerSpawnPos = new Vector3[4];
 	public Text[] TutorialText = new Text[5];
@@ -153,6 +155,7 @@ public class MultiplayerController : MonoBehaviour {
 		}
 
 		//NEW lives and health system.
+		/*
 		for (int i = 0; i <= 3; i++) {
 			Corners [i] = GetComponentsInChildren<PlayerDetailsUIPlate> () [i];
 			Corners [i].ManualStart();
@@ -160,6 +163,20 @@ public class MultiplayerController : MonoBehaviour {
 
 			if (!ActivePlayers [i]) {
 				Corners [i].GetComponent<Image> ().enabled = false;
+			}
+		}
+		*/
+
+		//NEW GOOD lives system.
+		Image Heart;
+		for (int i = 0; i <= 3; i++) {
+			Heart = GetComponentsInChildren<Image> () [i];
+			Heart.color = Player.ChooseColor (i);
+			HeartNumbers [i] = Heart.GetComponentInChildren<Text> ();
+			HeartNumbers [i].text = "" + StartingLives;
+
+			if (!ActivePlayers [i]) {
+				Heart.enabled = false;
 			}
 		}
 
@@ -218,7 +235,7 @@ public class MultiplayerController : MonoBehaviour {
 
 		for (int p = 0; p <= 3; p++) {
 			if (ActivePlayers[p])
-				Corners[p].SetLives(Lives[p]);
+				HeartNumbers[p].text = "" +Lives[p];
 		}
 		/*
 			if (ActivePlayers[p]) {
@@ -267,8 +284,8 @@ public class MultiplayerController : MonoBehaviour {
 		PlayerIcons [PlayerNum].Target = P.transform;
 
 		//Give the corner panel the player so it can get its health and ulticharge.
-		Corners [PlayerNum].TargetPlayer = P.GetComponent<Player>();
-		Corners [PlayerNum].SetColours (PlayerNum);
+		//Corners [PlayerNum].TargetPlayer = P.GetComponent<Player>();
+		//Corners [PlayerNum].SetColours (PlayerNum);
 
         //Destroy (SP [PlayerNum].gameObject);
         SP[PlayerNum].Target = P.transform;
@@ -364,10 +381,14 @@ public class MultiplayerController : MonoBehaviour {
 	public void KillPlayerByInt (int PNumber) {
 		Lives [PNumber] -= 1;
 		if (Lives [PNumber] != 0) {
+			Instantiate (BrokenHeart, HeartNumbers [PNumber].transform.parent).GetComponent<Image>().color = Player.ChooseColor(PNumber);
 			StartSpawn (PNumber);
 			//Debug.Log ("Created in Int");
 		} else
         {
+			ActivePlayers [PNumber] = false;
+			HeartNumbers [PNumber].GetComponentInParent<Image> ().sprite = BrokenHeart.GetComponent<Image> ().sprite;
+			HeartNumbers [PNumber].text = "";
 			CheckAndEndGame ();
             Destroy(SP[PNumber].gameObject, 1f);
             SP[PNumber] = null;
