@@ -17,8 +17,11 @@ public class MainMenu : MonoBehaviour {
 	public GameObject LevelHolder;
 	public float GridSpacing = 35;
 	private Vector3 DesiredPos;
+	private Vector3 ZeroPos;
+	public Vector3 StagePos = new Vector3(0, 2, 1.2f);
+	private GameObject[] Players = new GameObject[4];
 
-	private int[] KillsByPlayer = new int[4];
+	private int[] KillsByPlayer = new int[4]; //Used for stats, deathmatch etc later (not currently).
 
 	private Image[] PlayerJoinedIcons = new Image[4];
 
@@ -37,6 +40,8 @@ public class MainMenu : MonoBehaviour {
 
 	public EventSystem ES;
 
+	public GameObject PlayerPrefab;
+
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +54,8 @@ public class MainMenu : MonoBehaviour {
         ToggleLives();
         ToggleLives();
         
+		DesiredPos = LevelHolder.transform.position;
+		ZeroPos = LevelHolder.transform.position;
 
         //Get the eggs which show if a player has joined.
         for (int i = 0; i < 4; ++i) {
@@ -78,29 +85,29 @@ public class MainMenu : MonoBehaviour {
 		for (int p = 0; p <= 3; p++) {
 			if (!ActivePlayers [p]) {
 				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Start")) {
-
 					Debug.Log ("Added " + p + " in Update");
-
 					PlayerJoinedIcons[p].sprite = BirdSprite;
-
 					ActivePlayers [p] = true;
-
-					Messages.GetComponent<Text> ().enabled = false;
-
+					Messages.GetComponent<Text> ().enabled = false; // Not enough players error.
 					ChooseController (p);
+
+					//Spawn players on the stage.
+					Players[p] = Instantiate (PlayerPrefab, StagePos, new Quaternion());
+					Players [p].GetComponent<MovementControl> ().PlayerName = "P" + (p + 1);
+					Players [p].GetComponent<MovementControl> ().InMenu = true;
 				}
 			}
 			if (ActivePlayers [p]) {
 				if (CrossPlatformInputManager.GetButtonDown ("P" + (p + 1) + "_Back")) {
 					Debug.Log ("Removed " + p + " in Update");
-
 					PlayerJoinedIcons[p].sprite = EggSprite;
-
 					ActivePlayers [p] = false;
-
 					if (PlayerHoldingMenu == p) {
 						ChooseController (p);
 					}
+
+					//Destroy players on the stage.
+					Destroy(Players[p]);
 				}
 			}
 		}
@@ -132,8 +139,8 @@ public class MainMenu : MonoBehaviour {
 		
 		if (AreaN >= Areas.Length - 1) {
 			AreaN = 0;
-			DesiredPos = new Vector3(0, 0, 0);
-            LevelHolder.transform.position = new Vector3(0, 0, 0);
+			DesiredPos = ZeroPos;
+			LevelHolder.transform.position = ZeroPos;
         } else {
 			AreaN += 1;
 			DesiredPos += new Vector3(GridSpacing, 0, 0);
@@ -202,13 +209,13 @@ public class MainMenu : MonoBehaviour {
 				}
 			}
 		}
-			
+		ChangeTextColour ();
 		MoveStar ();
 	}
 
 	private void PassControl(int p) {
 		StandaloneInputModule SIM = ES.GetComponent<StandaloneInputModule> ();
-		SIM.submitButton = ("P" + (p + 1) + "_Jump");
+		SIM.submitButton = ("P" + (p + 1) + "_AttackDirect");
 		SIM.horizontalAxis = ("P" + (p + 1) + "_Horizontal");
 		SIM.verticalAxis = ("P" + (p + 1) + "_Vertical");
 		PlayerHoldingMenu = p;
@@ -217,5 +224,13 @@ public class MainMenu : MonoBehaviour {
 	private void MoveStar() {
 		MenuOwnerImage.transform.SetParent (PlayerJoinedIcons [PlayerHoldingMenu].transform);
 		MenuOwnerImage.transform.localPosition = RelativePosition;
+	}
+
+	private void ChangeTextColour() {
+		foreach (Text T in GetComponentsInChildren<Text>()) {
+			T.color = Player.ChooseColor (PlayerHoldingMenu);
+		}
+		//MenuOwnerImage.transform.SetParent (PlayerJoinedIcons [PlayerHoldingMenu].transform);
+		//MenuOwnerImage.transform.localPosition = RelativePosition;
 	}
 }

@@ -6,14 +6,21 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class MultiplayerController : MonoBehaviour {
+
+	/*
+	 * #### Most of the player data is done using arrays: each player has a fixed slot in each array,
+	 * 		and so the data can be accessed simply by knowing the players number, or vice-versa.
+	 */
+
+
 	public IslandGrid grid;
 	public GameObject PlayerPrefab;
 	public GameObject EggPrefab;
 	public GameObject PlayerIconPrefab;
-	public bool[] ActivePlayers = new bool[4];
-	public int StartingLives = 4;
-	private int MaxLives = 10;
-	private int[] Lives = new int[4];
+	public bool[] ActivePlayers = new bool[4];				//if a player joined in the menu (and has lives etc).
+	public int StartingLives = 4;//OBSOlETE.
+	private int MaxLives = 10;//OBSOlETE.
+	private int[] Lives = new int[4];						//Lives for each player.
 	private int Paused = -1;			//Who paused the game.
 	public GameObject SpawnPointer;
 	public Egg[] Eggs = new Egg[4];
@@ -251,7 +258,7 @@ public class MultiplayerController : MonoBehaviour {
 		P.GetComponent<MovementControl> ().PlayerName = "P" + (PlayerNum + 1);
 		P.GetComponent<Transform> ().position = SP [PlayerNum].transform.position + new Vector3(0, 0, 0);
 
-		PlayerIcons [PlayerNum] = Instantiate (PlayerIconPrefab, transform).GetComponent<PlayerIcon> ();
+		PlayerIcons [PlayerNum] = Instantiate (PlayerIconPrefab, transform).GetComponent<PlayerIcon> (); //Needs to be in the canvas.
 		PlayerIcons [PlayerNum].PlayerNumber = PlayerNum + 1;
 		PlayerIcons [PlayerNum].SetHealth = 0;
 		PlayerIcons [PlayerNum].UseName = false;
@@ -281,7 +288,7 @@ public class MultiplayerController : MonoBehaviour {
         }
 
 		//Create a floating egg as well (to replace the 'spawnpointer').
-		GameObject EP = Instantiate(EggPrefab, grid.MidCell.transform.position + new Vector3(0, 4, 0), Quaternion.Euler(new Vector3(90, 0, 0)));
+		GameObject EP = Instantiate(EggPrefab, grid.MidCell.transform.position + new Vector3(0, 4, 0), Quaternion.Euler(new Vector3(270, 0, 0)));
 		Eggs[PlayerNum] = EP.GetComponent<Egg> ();
 		Eggs[PlayerNum].FallingMode = false;
 		Eggs[PlayerNum].PlayerNum = "P" + (PlayerNum + 1);

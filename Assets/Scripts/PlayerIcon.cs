@@ -40,19 +40,19 @@ public class PlayerIcon : MonoBehaviour {
 		if (transform.position.x > Screen.width) {
 			Debug.Log ("OutsideScreen Right");
 			//transform.position = new Vector3 (Screen.width - 100, transform.position.y, transform.position.z);
-			ChevronInstance.transform.position = new Vector3 (Screen.width - 100, transform.position.y, transform.position.z);
+			ChevronInstance.transform.position = new Vector3 (Screen.width - 100, ChevronInstance.transform.position.y, ChevronInstance.transform.position.z);
 			DesiredAngle = 270;
 			OffScreen = true;
 		} else if (transform.position.x < 0) {
 			Debug.Log ("OutsideScreen Left");
-			ChevronInstance.transform.position = new Vector3 (0 + 100, transform.position.y, transform.position.z);
+			ChevronInstance.transform.position = new Vector3 (0 + 100, ChevronInstance.transform.position.y, ChevronInstance.transform.position.z);
 			DesiredAngle = 90;
 			OffScreen = true;
 		}
 
 		if (transform.position.y > Screen.height) {
 			Debug.Log ("OutsideScreen Top ?");
-			ChevronInstance.transform.position = new Vector3 (transform.position.x, Screen.width - 70, transform.position.z);
+			ChevronInstance.transform.position = new Vector3 (ChevronInstance.transform.position.x, Screen.width - 70, ChevronInstance.transform.position.z);
 			if (DesiredAngle == -1)
 				DesiredAngle = 0;
 			else
@@ -60,7 +60,7 @@ public class PlayerIcon : MonoBehaviour {
 			OffScreen = true;
 		} else if (transform.position.y < 0) {
 			Debug.Log ("OutsideScreen Bottom");
-			ChevronInstance.transform.position = new Vector3 (transform.position.x, 0 + 70, transform.position.z);
+			ChevronInstance.transform.position = new Vector3 (ChevronInstance.transform.position.x, 0 + 70, ChevronInstance.transform.position.z);
 			if (DesiredAngle == -1)
 				DesiredAngle = 180;
 			else
