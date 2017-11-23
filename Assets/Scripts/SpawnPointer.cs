@@ -44,8 +44,10 @@ public class SpawnPointer : MonoBehaviour {
 			Vector3 RayStart = Target.position;
 
 			if (Physics.Raycast (RayStart, Vector3.down * 35, out Hit, 35)) {
-				if (Hit.collider.GetComponent<KillBox> ())
+				if (Hit.collider.GetComponent<KillBox> () && !isPartOfUltimate) {
+					GetComponent<SpriteRenderer> ().color = new Color (0.8f, 0.8f, 0.8f, 1);
 					return false;
+				}
                 if (!isPartOfUltimate)
 				    GetComponent<SpriteRenderer> ().color = Player.ChooseColor (PlayerNum);
 				//Debug.DrawRay (RayStart, Vector3.down * 6, Color.red);

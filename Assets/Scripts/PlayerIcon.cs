@@ -36,10 +36,12 @@ public class PlayerIcon : MonoBehaviour {
 
 		bool OffScreen = false;
 		float DesiredAngle = -1;
+		//Vector3 DesiredLocation = new Vector3 (0, 0, 0);
+		//DesiredLocation = new Vector3(Screen.width - 100, DesiredLocation.y, 0);
+		//DesiredLocation = new Vector3(0 + 100, DesiredLocation.y, 0);
 
 		if (transform.position.x > Screen.width) {
 			Debug.Log ("OutsideScreen Right");
-			//transform.position = new Vector3 (Screen.width - 100, transform.position.y, transform.position.z);
 			ChevronInstance.transform.position = new Vector3 (Screen.width - 100, transform.position.y, ChevronInstance.transform.position.z);
 			DesiredAngle = 270;
 			OffScreen = true;
