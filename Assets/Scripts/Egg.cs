@@ -41,9 +41,12 @@ public class Egg : MonoBehaviour
         RaycastHit Hit;
 
 		Vector3 RayStart = new Vector3(transform.position.x, transform.position.y + 30, transform.position.z);
-		/*
+
 		if (Physics.Raycast(RayStart, Vector3.down * 35, out Hit, 35, 12))
 		{
+			Debug.Log ("Raycast hit something.");
+			Debug.Log (Hit.transform.gameObject.name);
+			/*
 			if (Hit.collider.GetComponent<KillBox>())
 				return false;
 			GetComponent<MeshRenderer>().material.color = Player.ChooseColor(PlayerNum);
@@ -51,8 +54,10 @@ public class Egg : MonoBehaviour
 			Debug.Log(Hit.point);
 			transform.position = Hit.point;
 			return true;
+			*/
+			return false;
 		}
-		*/
+
 		return false;
 	}
 
