@@ -36,6 +36,8 @@ public class Player : MonoBehaviour {
 	public float UltimateCharge = 100;
     public bool UltimateEffectOn;
 
+    public int Score;
+
     public GameObject ChargeParticleEffect;
 
 

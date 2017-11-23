@@ -8,8 +8,8 @@ public class PlayerIcon : MonoBehaviour {
 	public Transform Target;
 	public bool ChangeText = true;
 	public bool RoundUp = true;
-	public bool StopAt100 = true;
-	public bool UseName = false;
+	public bool StopAt100;
+	public bool UseName;
 	public string Name;
 	public int PlayerNumber;
 

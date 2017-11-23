@@ -5,6 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using Utility;
 
 public class MainMenu : MonoBehaviour {
 
@@ -30,6 +31,10 @@ public class MainMenu : MonoBehaviour {
 
 	public static int PlayerHoldingMenu = 0;
 	public static int Lives = 2;
+    public static GameType Mode;
+    public static ScoreMode SM;
+    public static float Time;
+    public static float Score;
 
 	public int MaxLives = 10;
 
